@@ -1,4 +1,4 @@
-package org.mpei.nti.substationStructure;
+package org.mpei.nti.substation.substationStructures;
 
 import lombok.Getter;
 import lombok.Setter;

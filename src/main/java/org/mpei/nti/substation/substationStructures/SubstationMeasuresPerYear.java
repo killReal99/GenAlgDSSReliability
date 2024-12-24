@@ -1,4 +1,4 @@
-package org.mpei.nti.substationStructure;
+package org.mpei.nti.substation.substationStructures;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SubstationMeasures {
+public class SubstationMeasuresPerYear {
     private float totalPrice;
     private float opexPrice;
     private float capexPrice;

@@ -1,30 +1,28 @@
 package org.mpei.nti.genetic;
 
-import org.mpei.nti.substationGeneration.EmbeddedMeasuresGeneration;
-import org.mpei.nti.substationGeneration.ImprosedMeasuresGeneration;
-import org.mpei.nti.substationGeneration.OrganizationalMeasuresGeneration;
-import org.mpei.nti.substationStructure.EmbeddedMeasures;
-import org.mpei.nti.substationStructure.ImprosedMeasures;
-import org.mpei.nti.substationStructure.OrganizationalMeasures;
-import org.mpei.nti.substationStructure.SubstationMeasures;
+import org.mpei.nti.substation.substationStructures.*;
+import org.mpei.nti.substation.substationGeneration.EmbeddedMeasuresGeneration;
+import org.mpei.nti.substation.substationGeneration.ImprosedMeasuresGeneration;
+import org.mpei.nti.substation.substationGeneration.OrganizationalMeasuresGeneration;
+import org.mpei.nti.substation.substationGeneration.SubstationMeasuresGenearation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PopulationGeneration {
 
-    public static List<SubstationMeasures> generatePopulation(int minArch, int protectionsCount) {
-        List<SubstationMeasures> substationMeasuresList = new ArrayList<>();
+    public static SubstationMeasures generatePopulation(int minArch, int protectionsCount) {
+        List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int year = 1; year <= 25; year++) {
-            SubstationMeasures substationMeasures = new SubstationMeasures();
-            substationMeasures.setArchitectureType((int) (Math.random() * (3 - minArch) + minArch + 0.001));
-            substationMeasures.setYearNumber(year);
-            substationMeasures.setOrganizationalMeasures(organizationalMeasuresGenerator());
-            substationMeasures.setImprosedMeasures(improsedMeasuresGenerator());
-            substationMeasures.setEmbeddedMeasuresList(embeddedMeasuresGenerator(protectionsCount));
-            substationMeasuresList.add(substationMeasures);
+            SubstationMeasuresPerYear substationMeasuresPerYear = new SubstationMeasuresPerYear();
+            substationMeasuresPerYear.setArchitectureType((int) (Math.random() * (3 - minArch) + minArch + 0.001));
+            substationMeasuresPerYear.setYearNumber(year);
+            substationMeasuresPerYear.setOrganizationalMeasures(organizationalMeasuresGenerator());
+            substationMeasuresPerYear.setImprosedMeasures(improsedMeasuresGenerator());
+            substationMeasuresPerYear.setEmbeddedMeasuresList(embeddedMeasuresGenerator(protectionsCount));
+            substationMeasuresPerYearList.add(substationMeasuresPerYear);
         }
-        return substationMeasuresList;
+        return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList);
     }
 
     public static OrganizationalMeasures organizationalMeasuresGenerator() {

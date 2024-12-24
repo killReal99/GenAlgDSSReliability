@@ -1,6 +1,6 @@
-package org.mpei.nti.substationGeneration;
+package org.mpei.nti.substation.substationGeneration;
 
-import org.mpei.nti.substationStructure.EmbeddedMeasures;
+import org.mpei.nti.substation.substationStructures.EmbeddedMeasures;
 
 public class EmbeddedMeasuresGeneration {
 

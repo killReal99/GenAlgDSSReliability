@@ -1,4 +1,4 @@
-package org.mpei.nti.calculation;
+package org.mpei.nti.modelCalculation;
 
 public class otk {
 

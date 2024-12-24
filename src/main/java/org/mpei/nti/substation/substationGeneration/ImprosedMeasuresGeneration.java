@@ -1,7 +1,7 @@
-package org.mpei.nti.substationGeneration;
+package org.mpei.nti.substation.substationGeneration;
 
 
-import org.mpei.nti.substationStructure.ImprosedMeasures;
+import org.mpei.nti.substation.substationStructures.ImprosedMeasures;
 
 public class ImprosedMeasuresGeneration {
 

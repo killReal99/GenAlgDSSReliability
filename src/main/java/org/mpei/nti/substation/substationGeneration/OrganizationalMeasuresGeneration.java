@@ -1,6 +1,6 @@
-package org.mpei.nti.substationGeneration;
+package org.mpei.nti.substation.substationGeneration;
 
-import org.mpei.nti.substationStructure.OrganizationalMeasures;
+import org.mpei.nti.substation.substationStructures.OrganizationalMeasures;
 
 public class OrganizationalMeasuresGeneration {
 
