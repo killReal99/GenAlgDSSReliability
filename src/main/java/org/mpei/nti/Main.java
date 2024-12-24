@@ -1,6 +1,7 @@
 package org.mpei.nti;
 
 import org.mpei.nti.calculation.ReliabilityCalculation;
+import org.mpei.nti.genetic.PopulationGeneration;
 import org.mpei.nti.substationGeneration.EmbeddedMeasuresGeneration;
 import org.mpei.nti.substationGeneration.ImprosedMeasuresGeneration;
 import org.mpei.nti.substationGeneration.OrganizationalMeasuresGeneration;
@@ -21,10 +22,7 @@ public class Main {
 
         List<List<SubstationMeasures>> substationMeasuresList = new ArrayList<>();
 
-        for (int year = 1; year <= 25; year++){
-
-        }
-
+        List<List<SubstationMeasures>> substationMeasuresListTest = PopulationGeneration.generatePopulation();
 
 
 
