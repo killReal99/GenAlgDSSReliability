@@ -1,15 +1,19 @@
 package org.mpei.nti.substationStructure;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class SubstationMeasures {
-    float totalPrice;
-    int architectureType;
-    int yearNumber;
-    OrganizationalMeasures organizationalMeasures;
-    ImprosedMeasures improsedMeasures;
-    List<EmbeddedMeasures> embeddedMeasuresList;
+    private float totalPrice;
+    private float opexPrice;
+    private float capexPrice;
+    private int architectureType;
+    private int yearNumber;
+    private OrganizationalMeasures organizationalMeasures;
+    private ImprosedMeasures improsedMeasures;
+    private List<EmbeddedMeasures> embeddedMeasuresList;
 }

@@ -19,12 +19,14 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         final long startTime = System.currentTimeMillis();
-
         List<List<SubstationMeasures>> substationMeasuresList = new ArrayList<>();
+        int minArch = 1;
+        int protectionsCount = 3;
+        int populationSize = 5000;
 
-        List<List<SubstationMeasures>> substationMeasuresListTest = PopulationGeneration.generatePopulation();
-
-
+        for (int i = 0; i < populationSize; i++) {
+            substationMeasuresList.add(PopulationGeneration.generatePopulation(minArch, protectionsCount));
+        }
 
 
         Debuging debuging = new Debuging();
@@ -34,8 +36,8 @@ public class Main {
         }
 
         List<List<Double>> population = new ArrayList<>();
-        int populationSize = 5000;
-        double minArch = 1.0;
+
+
         for (int j = 0; j < populationSize; j++) {
             List<Double> d = new ArrayList<>();
             int arch = (int) (Math.random() * (3.0 - minArch) + minArch + 0.1);

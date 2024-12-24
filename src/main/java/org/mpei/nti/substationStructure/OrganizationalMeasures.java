@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrganizationalMeasures {
-    private float Price;
     /*Организационные меры безопасности предотвратят подключение нарушителя к шине процесса.*/
     private int D1;
     /*Организационные меры безопасности предотвратят подключение нарушителя к инженерному АРМ, используемому для

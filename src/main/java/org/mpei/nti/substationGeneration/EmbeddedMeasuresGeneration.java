@@ -7,7 +7,6 @@ public class EmbeddedMeasuresGeneration {
     public static EmbeddedMeasures embeddedMeasuresGeneration(int D2, int D4, int D5, int D8, int D9, int D13, int D14,
                                                               int D15, int D17, int D18, int D23) {
         EmbeddedMeasures embeddedMeasures = new EmbeddedMeasures();
-        embeddedMeasures.setPrice(0.0f);
         embeddedMeasures.setD2(D2);
         embeddedMeasures.setD4(D4);
         embeddedMeasures.setD5(D5);

@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ImprosedMeasures {
-    private float Price;
     /*Адаптивная антенная решетка предотвратила атаку на систему GPS/GLONASS.*/
     private int D3;
     /*Парольная защита инженерного АРМ, используемого при локальном доступе, предотвратила доступ и дальнейшую подмену

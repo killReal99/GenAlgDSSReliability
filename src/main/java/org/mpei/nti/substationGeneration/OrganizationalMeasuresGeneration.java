@@ -6,7 +6,6 @@ public class OrganizationalMeasuresGeneration {
 
     public static OrganizationalMeasures organizationalMeasuresGeneration(int D1, int D6, int D10, int D12, int D16, int D22) {
         OrganizationalMeasures organizationalMeasures = new OrganizationalMeasures();
-        organizationalMeasures.setPrice(0.0f);
         organizationalMeasures.setD1(D1);
         organizationalMeasures.setD6(D6);
         organizationalMeasures.setD10(D10);

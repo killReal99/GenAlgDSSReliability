@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmbeddedMeasures {
-    private float Price;
     private String nameOfProtection;
     /*Криптографическая защита пакетов SV с использованием имитовставки, предотвратит обработку SV потока,
     сгенерированного нарушителем.*/
