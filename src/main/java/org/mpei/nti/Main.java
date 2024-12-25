@@ -28,12 +28,6 @@ public class Main {
         //Raschet summarnogo economicheskogo usherba
         ReliabilityCalculation.economicDamageCalculation(substationMeasuresList);
 
-
-//        Debuging debuging = new Debuging();
-//        for (int arch = 1; arch <= 3; arch++) {
-//            organizationalMeasuresGenerator(arch, substationMeasuresList, debuging);
-//        }
-
         List<List<Double>> population = new ArrayList<>();
         for (int j = 0; j < populationSize; j++) {
             List<Double> d = new ArrayList<>();
