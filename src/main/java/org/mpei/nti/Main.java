@@ -1,6 +1,7 @@
 package org.mpei.nti;
 
 import org.mpei.nti.genetic.Crossing;
+import org.mpei.nti.genetic.Deleting;
 import org.mpei.nti.genetic.Sorting;
 import org.mpei.nti.modelCalculation.ReliabilityCalculation;
 import org.mpei.nti.genetic.PopulationGeneration;
@@ -29,16 +30,9 @@ public class Main {
         for (int i = 0; i < numberOfIterations; i++) {
             Crossing.individsCrossing(substationMeasuresList);
             ReliabilityCalculation.economicDamageCalculation(substationMeasuresList);
-            System.out.println();
             Sorting.bubbleSort(substationMeasuresList);
-            System.out.println();
+            Deleting.deletePartOfPopulation(substationMeasuresList);
         }
-
-
-//        int countDeleting = theNextGenerationPopulation - populationSize;
-//        for (int j = 0; j < countDeleting; j++) {
-//            population.remove(population.size() - 1);
-//        }
 
         List<List<Double>> population = new ArrayList<>();
         for (int j = 0; j < populationSize; j++) {
