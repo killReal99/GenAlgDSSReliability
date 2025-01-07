@@ -1,32 +1,35 @@
 package org.mpei.nti;
 
+import org.mpei.nti.genetic.Crossing;
 import org.mpei.nti.modelCalculation.ReliabilityCalculation;
 import org.mpei.nti.genetic.PopulationGeneration;
 import org.mpei.nti.substation.substationStructures.*;
-import org.mpei.nti.substation.substationGeneration.EmbeddedMeasuresGeneration;
-import org.mpei.nti.substation.substationGeneration.ImprosedMeasuresGeneration;
-import org.mpei.nti.substation.substationGeneration.OrganizationalMeasuresGeneration;
-import org.mpei.nti.substation.substationGeneration.SubstationMeasuresPerYearGeneration;
-import org.mpei.nti.utils.Debuging;
 import org.mpei.nti.utils.MappingSzi;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+
+    public static int minArch = 1;
+    public static int protectionsCount = 3;
+    public static int populationSize = 10;
+    public static int numberOfIterations = 1000;
+
     public static void main(String[] args) {
         final long startTime = System.currentTimeMillis();
         List<SubstationMeasures> substationMeasuresList = new ArrayList<>();
-        int minArch = 1;
-        int protectionsCount = 3;
-        int populationSize = 5000;
 
+        // Generate population
         for (int i = 0; i < populationSize; i++) {
             substationMeasuresList.add(PopulationGeneration.generatePopulation(minArch, protectionsCount));
         }
 
-        //Raschet summarnogo economicheskogo usherba
-        ReliabilityCalculation.economicDamageCalculation(substationMeasuresList);
+        for (int i = 0; i < numberOfIterations; i++) {
+            Crossing.individsCrossing(substationMeasuresList);
+            ReliabilityCalculation.economicDamageCalculation(substationMeasuresList);
+        }
+
 
         List<List<Double>> population = new ArrayList<>();
         for (int j = 0; j < populationSize; j++) {
@@ -49,8 +52,6 @@ public class Main {
                     ReliabilityCalculation.capexCalculation(population.get(j)),
                     ReliabilityCalculation.opexCalculation(population.get(j))));
         }
-
-        int numberOfIterations = 1000;
 
         int withoutChanges = 0;
         double theLastValue = 0;
