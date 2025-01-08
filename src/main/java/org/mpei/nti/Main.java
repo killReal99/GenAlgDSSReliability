@@ -5,9 +5,7 @@ import org.mpei.nti.modelCalculation.ReliabilityCalculation;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.utils.ResultsMapping;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class Main {
 
     public static int minArch = 1;
     public static int protectionsCount = 3;
-    public static int populationSize = 100;
+    public static int populationSize = 10000;
     public static int numberOfIterations = 1000;
 
     public static void main(String[] args) throws IOException {
@@ -38,21 +36,17 @@ public class Main {
                 Sorting.bubbleSort(population);
                 Deleting.deletePartOfPopulation(population);
 
-                System.out.println("Iteration N = " + i);
+                System.out.println("Iteration number " + i);
                 System.out.println("The best individual " + population.get(0).hashCode() + " with total price " +
                     String.format("%f", population.get(0).getTotalPrice()) + " rubles");
-                System.out.println("With CAPEX price " +String.format("%f", population.get(0).getCapexPrice()));
-                System.out.println("With OPEX price " +String.format("%f", population.get(0).getOpexPrice()));
-            } else {
-                break;
-            }
 
-            if (Math.round(previousValueOfTotalPrice) == Math.round(population.get(0).getCapexPrice())){
+            } else break;
+
+            if (Math.round(previousValueOfTotalPrice) == Math.round(population.get(0).getTotalPrice())) {
                 priceIterator++;
-            } else {
-                priceIterator = 0;
-            }
-            previousValueOfTotalPrice = population.get(0).getCapexPrice();
+            } else priceIterator = 0;
+
+            previousValueOfTotalPrice = population.get(0).getTotalPrice();
         }
 
         ResultsMapping.resultsMapping(population);
