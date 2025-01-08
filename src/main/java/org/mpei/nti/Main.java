@@ -53,6 +53,8 @@ public class Main {
                     ReliabilityCalculation.opexCalculation(population.get(j))));
         }
 
+        int test = 0;
+
         int withoutChanges = 0;
         double theLastValue = 0;
 
