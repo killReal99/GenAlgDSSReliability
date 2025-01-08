@@ -1,10 +1,7 @@
 package org.mpei.nti;
 
-import org.mpei.nti.genetic.Crossing;
-import org.mpei.nti.genetic.Deleting;
-import org.mpei.nti.genetic.Sorting;
+import org.mpei.nti.genetic.*;
 import org.mpei.nti.modelCalculation.ReliabilityCalculation;
-import org.mpei.nti.genetic.PopulationGeneration;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.utils.MappingSzi;
 
@@ -22,13 +19,13 @@ public class Main {
         final long startTime = System.currentTimeMillis();
         List<SubstationMeasures> substationMeasuresList = new ArrayList<>();
 
-        // Generate population
         for (int i = 0; i < populationSize; i++) {
             substationMeasuresList.add(PopulationGeneration.generatePopulation(minArch, protectionsCount));
         }
 
         for (int i = 0; i < numberOfIterations; i++) {
             Crossing.individsCrossing(substationMeasuresList);
+            Mutating.mutatePopulation(substationMeasuresList);
             ReliabilityCalculation.economicDamageCalculation(substationMeasuresList);
             Sorting.bubbleSort(substationMeasuresList);
             Deleting.deletePartOfPopulation(substationMeasuresList);
