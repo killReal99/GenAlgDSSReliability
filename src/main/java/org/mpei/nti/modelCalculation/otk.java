@@ -1,84 +1,32 @@
 package org.mpei.nti.modelCalculation;
 
+import static org.mpei.nti.modelCalculation.GeneralCoefficients.*;
+
 public class otk {
 
     static double A1 = (double) 1 / 19;
-    static double A2 = 0.559193;
     static double A3 = (double) 1 / 19;
-    static double A4 = 0.614269;
     static double A5 = (double) 1 / 19;
-    static double A6 = 0.338363;
     static double A7 = (double) 1 / 19;
-    static double A8 = 0.157916;
     static double A9 = (double) 1 / 19;
-    static double A10 = 0.8437735;
     static double A11 = (double) 1 / 19;
-    static double A12 = 0.5725;
     static double A13 = (double) 1 / 19;
-    static double A14 = 0.453563;
     static double A15 = (double) 1 / 19;
-    static double A16 = 0.513088;
     static double A17 = (double) 1 / 19;
-    static double A18 = 0.332159;
     static double A19 = (double) 1 / 19;
-    static double A20 = 0.332159;
     static double A21 = (double) 1 / 19;
-    static double A22 = 0.276517;
     static double A23 = (double) 1 / 19;
-    static double A24 = 0.845164;
     static double A25 = (double) 1 / 19;
-    static double A26 = 0.868427;
     static double A27 = (double) 1 / 19;
-    static double A28 = 0.274449;
     static double A29 = (double) 1 / 19;
-    static double A30 = 0.561855;
     static double A31 = (double) 1 / 19;
-    static double A32 = 0.282778;
     static double A33 = (double) 1 / 19;
-    static double A34 = 0.306169;
     static double A35 = (double) 1 / 19;
-    static double A36 = 0.633685;
     static double A37 = (double) 1 / 19;
-    static double A38 = 0.254005;
     static double A39 = (double) 1 / 19;
-    static double A40 = 0.18054;
     static double A41 = (double) 1 / 19;
-    static double A42 = 0.316932;
     static double A43 = (double) 1 / 19;
-    static double A44 = 0.219363;
     static double A45 = (double) 1 / 19;
-    static double A46 = 0.309672;
-
-    static double D1 = 0.753601f;
-    static double D2 = 0.917973f;
-    static double D3 = 0.697452f;
-    static double D4 = 0.579821;
-    static double D5 = 0.684628;
-    static double D6 = 0.567494;
-    static double D7 = 0.54136;
-    static double D8 = 0.921765;
-    static double D9 = 0.829793;
-    static double D10 = 0.490983;
-    static double D11 = 0.533953;
-    static double D12 = 0.794845;
-    static double D13 = 0.943504;
-    static double D14 = 0.959038;
-    static double D15 = 0.924996;
-    static double D16 = 0.452486;
-    static double D17 = 0.926209;
-    static double D18 = 0.724345;
-    static double D19 = 0.666222;
-    static double D20 = 0.697506;
-    static double D21 = 0.735775;
-    static double D22 = 0.396853;
-    static double D23 = 0.612193;
-    static double D24 = 0.701892;
-
-    static double Pne = 0.099;
-    static double Pkz = 0.93279;
-    static double PkzKa = 0.0003082;
-    static double Pper = 30;
-    static double Tvosst = 9.4;
 
     public static double mathNedoutp(double arch, double d1, double d2, double d3, double d4, double d5, double d6, double d7,
                                      double d8, double d9, double d10, double d11, double d12, double d13, double d14,
