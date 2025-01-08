@@ -1,8 +1,22 @@
 package org.mpei.nti.utils;
 
+import org.mpei.nti.substation.substationStructures.SubstationMeasures;
+
+import java.io.*;
 import java.util.List;
 
-public class MappingSzi {
+public class ResultsMapping {
+
+
+    public static void resultsMapping(List<SubstationMeasures> population) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
+            "resources" + File.separator + "results.txt", "UTF-8");
+        writer.println("Total price of the best individual " + population.get(0).getTotalPrice());
+        writer.println("CAPEX price of the best individual " + population.get(0).getCapexPrice());
+        writer.println("OPEX price of the best individual " + population.get(0).getOpexPrice());
+
+        writer.close();
+    }
 
     public static void mapSzi(List<List<Double>> population) {
         switch (population.get(0).get(0).intValue()) {

@@ -3,8 +3,10 @@ package org.mpei.nti;
 import org.mpei.nti.genetic.*;
 import org.mpei.nti.modelCalculation.ReliabilityCalculation;
 import org.mpei.nti.substation.substationStructures.*;
-import org.mpei.nti.utils.MappingSzi;
+import org.mpei.nti.utils.ResultsMapping;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class Main {
     public static int populationSize = 10;
     public static int numberOfIterations = 1000;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         final long startTime = System.currentTimeMillis();
         List<SubstationMeasures> substationMeasuresList = new ArrayList<>();
 
@@ -29,7 +31,11 @@ public class Main {
             ReliabilityCalculation.economicDamageCalculation(substationMeasuresList);
             Sorting.bubbleSort(substationMeasuresList);
             Deleting.deletePartOfPopulation(substationMeasuresList);
+
+            System.out.println("Total price " + substationMeasuresList.get(0).getTotalPrice());
         }
+
+        ResultsMapping.resultsMapping(substationMeasuresList);
 
         List<List<Double>> population = new ArrayList<>();
         for (int j = 0; j < populationSize; j++) {
@@ -49,11 +55,9 @@ public class Main {
 
         for (int j = 0; j < populationSize; j++) {
             population.set(j, ReliabilityCalculation.electricalEnergyUndersupply(population.get(j),
-                    ReliabilityCalculation.capexCalculation(population.get(j)),
-                    ReliabilityCalculation.opexCalculation(population.get(j))));
+                ReliabilityCalculation.capexCalculation(population.get(j)),
+                ReliabilityCalculation.opexCalculation(population.get(j))));
         }
-
-        int test = 0;
 
         int withoutChanges = 0;
         double theLastValue = 0;
@@ -127,7 +131,7 @@ public class Main {
             }
 
         }
-        MappingSzi.mapSzi(population);
+        ResultsMapping.mapSzi(population);
         final long endTime = System.currentTimeMillis();
         System.out.println("Total execution time: " + (endTime - startTime));
     }
