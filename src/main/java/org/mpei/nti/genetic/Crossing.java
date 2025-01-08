@@ -10,20 +10,20 @@ public class Crossing {
 
     public static float crossingProbability = 0.5f;
 
-    public static void individsCrossing(List<SubstationMeasures> substationMeasuresList) {
+    public static List<SubstationMeasures> populationCrossing(List<SubstationMeasures> population) {
         List<SubstationMeasures> newSubstationMeasuresList = new ArrayList<>();
-        for (SubstationMeasures substationMeasures : substationMeasuresList) {
+        for (SubstationMeasures substationMeasures : population) {
             if (Math.random() >= crossingProbability) {
                 if (Math.random() >= 0.5) {
                     yearSwap(newSubstationMeasuresList, substationMeasures,
-                            substationMeasuresList.get((int) (Math.random() * (substationMeasuresList.size() - 1))));
+                            population.get((int) (Math.random() * (population.size() - 1))));
                 } else {
                     insideYearSwap(newSubstationMeasuresList, substationMeasures,
-                            substationMeasuresList.get((int) (Math.random() * (substationMeasuresList.size() - 1))));
+                            population.get((int) (Math.random() * (population.size() - 1))));
                 }
             }
         }
-        substationMeasuresList.addAll(newSubstationMeasuresList);
+        return newSubstationMeasuresList;
     }
 
     public static void yearSwap(List<SubstationMeasures> substationMeasuresList, SubstationMeasures firstSubstationMeasures,

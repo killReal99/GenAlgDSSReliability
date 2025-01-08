@@ -3,17 +3,18 @@ package org.mpei.nti.utils;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ResultsMapping {
 
 
-    public static void resultsMapping(List<SubstationMeasures> population) throws FileNotFoundException, UnsupportedEncodingException {
+    public static void resultsMapping(List<SubstationMeasures> population) throws IOException {
         PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
-            "resources" + File.separator + "results.txt", "UTF-8");
-        writer.println("Total price of the best individual " + population.get(0).getTotalPrice());
-        writer.println("CAPEX price of the best individual " + population.get(0).getCapexPrice());
-        writer.println("OPEX price of the best individual " + population.get(0).getOpexPrice());
+            "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
+        writer.println("Total price of the best individual " + String.format("%f", population.get(0).getTotalPrice()));
+        writer.println("CAPEX price of the best individual " + String.format("%f", population.get(0).getCapexPrice()));
+        writer.println("OPEX price of the best individual " + String.format("%f", population.get(0).getOpexPrice()));
 
         writer.close();
     }

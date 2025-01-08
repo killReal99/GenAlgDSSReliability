@@ -29,21 +29,15 @@ public class ReliabilityCalculation {
 
     public static void economicDamageCalculation(List<SubstationMeasures> substationMeasuresList) {
         for (SubstationMeasures substationMeasure : substationMeasuresList) {
+            substationMeasure.setTotalPrice(0.0f);
+            substationMeasure.setCapexPrice(0.0f);
+            substationMeasure.setOpexPrice(0.0f);
             for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasure.getSubstationMeasuresPerYear()) {
                 substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() + substationMeasuresPerYear.getTotalPrice());
                 substationMeasure.setCapexPrice(substationMeasure.getCapexPrice() + substationMeasuresPerYear.getCapexPrice());
                 substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
             }
         }
-    }
-
-    public static Double capexCalculation(List<Double> individ) {
-        return individ.get(3) * 1083.33 + individ.get(4) * 20000 + individ.get(5) * 1083.33 +
-                individ.get(6) * 1083.33 + individ.get(8) * 1083.33 + individ.get(9) * 1083.33 +
-                individ.get(10) * 1083.33 + individ.get(14) * 1083.33 + individ.get(15) * 1083.33 +
-                individ.get(16) * 1083.33 + individ.get(18) * 1083.33 + individ.get(19) * 1083.33 +
-                individ.get(20) * 1500000 + individ.get(21) * 750000 + individ.get(22) * 3250000 +
-                individ.get(24) * 1083.33 + individ.get(25) * 150000;
     }
 
     public static Float capexMeasuresCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
@@ -63,16 +57,6 @@ public class ReliabilityCalculation {
                 substationMeasuresPerYear.getImprosedMeasures().getD21() * 3250000.0f +
                 substationMeasuresPerYear.getImprosedMeasures().getD24() * 150000.0f;
         return embeddedMeasuresPrice + improsedMeasuresPrice;
-    }
-
-    public static Double opexCalculation(List<Double> individ) {
-        return individ.get(2) * 75000 + individ.get(3) * 15000 + individ.get(4) * 1500 +
-                individ.get(5) * 15000 + individ.get(6) * 15000 + individ.get(7) * 75000 + individ.get(7) * 15000 +
-                individ.get(9) * 15000 + individ.get(10) * 15000 + individ.get(11) * 75000 + individ.get(12) * 75000 +
-                individ.get(13) * 75000 + individ.get(14) * 15000 + individ.get(15) * 15000 + individ.get(16) * 15000 +
-                individ.get(17) * 75000 + individ.get(18) * 15000 + individ.get(19) * 10000 + individ.get(20) * 1500 +
-                individ.get(21) * 150000 + individ.get(22) * 300000 + individ.get(23) * 75000 +
-                individ.get(24) * 15000 + individ.get(25) * 1500;
     }
 
     public static Float opexMeasuresCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
