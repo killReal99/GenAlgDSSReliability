@@ -33,6 +33,7 @@ public class ReliabilityCalculation {
                 for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasure.getSubstationMeasuresPerYear()) {
                     substationMeasure.setCapexPrice(substationMeasure.getCapexPrice() + substationMeasuresPerYear.getCapexPrice());
                     substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
+//                    float Mizl = OverTriggering.overTriggeringCalculation(substationMeasure.getSubstationMeasuresPerYear());
                 }
                 substationMeasure.setTotalPrice(substationMeasure.getCapexPrice() + substationMeasure.getOpexPrice());
             }
