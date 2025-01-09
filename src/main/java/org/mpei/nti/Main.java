@@ -13,8 +13,8 @@ public class Main {
 
     public static int minArch = 1;
     public static int protectionsCount = 3;
-    public static int populationSize = 10000;
-    public static int numberOfIterations = 1000;
+    public static int populationSize = 5000;
+    public static int numberOfIterations = 100;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();

@@ -1,6 +1,7 @@
 package org.mpei.nti.utils;
 
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
+import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -8,84 +9,93 @@ import java.util.List;
 
 public class ResultsMapping {
 
-
     public static void resultsMapping(List<SubstationMeasures> population) throws IOException {
         PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
-            "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
-        writer.println("Total price of the best individual " + String.format("%f", population.get(0).getTotalPrice()));
-        writer.println("CAPEX price of the best individual " + String.format("%f", population.get(0).getCapexPrice()));
-        writer.println("OPEX price of the best individual " + String.format("%f", population.get(0).getOpexPrice()));
+                "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
+        writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
+        writer.println("CAPEX затраты за 25 лет " + String.format("%f", population.get(0).getCapexPrice()));
+        writer.println("OPEX затраты за 25 лет " + String.format("%f", population.get(0).getOpexPrice()));
+        writer.println(" ");
+        for (SubstationMeasuresPerYear substationMeasuresPerYear : population.get(0).getSubstationMeasuresPerYear()) {
+            writer.println("Год №" + String.format("%d", substationMeasuresPerYear.getYearNumber()));
+            writer.println("Архитектура " + String.format("%d", substationMeasuresPerYear.getArchitectureType()));
+            //ORG
+            if (substationMeasuresPerYear.getOrganizationalMeasures().getD1() == 1) {
+                writer.println("Организационные меры безопасности, ограничивающие доступ нарушителя к шине процесса");
+            }
+            if (substationMeasuresPerYear.getOrganizationalMeasures().getD6() == 1) {
+                writer.println("Организационные меры безопасности, ограничивающие подключение нарушителя к инженерному " +
+                        "АРМ, используемому для локального доступа");
+            }
+            if (substationMeasuresPerYear.getOrganizationalMeasures().getD10() == 1) {
+                writer.println("Организационные меры безопасности, ограничивающие подключение нарушителя к АРМ инженера РЗА");
+            }
+            if (substationMeasuresPerYear.getOrganizationalMeasures().getD12() == 1) {
+                writer.println("Организационные меры безопасности, ограничивающие доступ к сервисному порту для " +
+                        "конфигурирования ИЭУ РЗА");
+            }
+            if (substationMeasuresPerYear.getOrganizationalMeasures().getD16() == 1) {
+                writer.println("Организационные меры безопасности, ограничивающие доступ нарушителя к шине станции");
+            }
+            if (substationMeasuresPerYear.getOrganizationalMeasures().getD22() == 1) {
+                writer.println("Процесс и меры реагирования на систему обнаружения вторжений");
+            }
 
-        writer.close();
-    }
+            if (substationMeasuresPerYear.getImprosedMeasures().getD3() == 1) {
+                writer.println("Адаптивная антенная решетка для систем GPS/GLONASS");
+            }
+            if (substationMeasuresPerYear.getImprosedMeasures().getD7() == 1) {
+                writer.println("Парольная защита инженерного АРМ, используемого при локальном доступе");
+            }
+            if (substationMeasuresPerYear.getImprosedMeasures().getD11() == 1) {
+                writer.println("Механизмы безопасности, реализующие парольную защиту в ПО АРМ инженера РЗА");
+            }
+            if (substationMeasuresPerYear.getImprosedMeasures().getD19() == 1) {
+                writer.println("Наложенные СЗИ на АРМ инженера РЗА (антивирус и/или система защиты конечных точек)");
+            }
+            if (substationMeasuresPerYear.getImprosedMeasures().getD19() == 1) {
+                writer.println("Межсетевой экран");
+            }
+            if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
+                writer.println("Система обнаружения вторжений");
+            }
+            if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
+                writer.println("Встроенный в коммутатор механизм защиты от DoS");
+            }
 
-    public static void mapSzi(List<List<Double>> population) {
-        switch (population.get(0).get(0).intValue()) {
-            case 1:
-                System.out.println("ЦПС первой архитектуры");
-                break;
-            case 2:
-                System.out.println("ЦПС второй архитектуры");
-                break;
-            case 3:
-                System.out.println("ЦПС третьей архитектуры");
-                break;
+//            //Emb
+//            private String nameOfProtection;
+//    /*Криптографическая защита пакетов SV с использованием имитовставки, предотвратит обработку SV потока,
+//    сгенерированного нарушителем.*/
+//            private int D2;
+//    /*Парольная защита, соответствующая корпоративным правилам к парольной защите, ИЭУ предотвратила доступ и дальнейшую
+//    подмену конфигурации и/или уставок.*/
+//            private int D4;
+//            /*Разграничение доступа, реализованное в необходимом объеме, предотвратило подмену конфигурации и/или уставок ИЭУ.*/
+//            private int D5;
+//    /*Криптографическая защита протокола MMS с использованием TLS предотвратила передачу информации по MMS,
+//    сгенерированной нарушителем.*/
+//            private int D8;
+//            /*Механизм удаленной аутентификации к ИЭУ предотвратит несанкционированное удаленное подключение.*/
+//            private int D9;
+//            /*Механизм доверенного обновления предотвратил установку измененной прошивки ИЭУ РЗА.*/
+//            private int D13;
+//            /*Контроль целостности предотвратил подмену ПО на ИЭУ РЗА.*/
+//            private int D14;
+//            /*Доверенная загрузка предотвратил подмену системного ПО на ИЭУ РЗА.*/
+//            private int D15;
+//    /*Криптографическая защита пакетов GOOSE с использованием имитовставки, предотвратит обработку GOOSE потока,
+//    сгенерированного нарушителем.*/
+//            private int D17;
+//            /*Межсетевой экран в ИЭУ предотвратил передачу некорректного трафика.*/
+//            private int D18;
+//            /*Встроенный в ИЭУ механизм защиты от DoS предотвратил атаку типа отказ в обслуживании.*/
+//            private int D23;
+
+            writer.println(" ");
         }
 
-        if (population.get(0).get(2) == 1) System.out.println("Организационные меры безопасности предотвратят " +
-                "подключение нарушителя к шине процесса");
-        if (population.get(0).get(3) == 1) System.out.println("Криптографическая защита пакетов SV с использованием " +
-                "имитовставки, предотвратит обработку SV потока, сгенерированного нарушителем.");
-        if (population.get(0).get(4) == 1) System.out.println("Адаптивная антенная решетка предотвратила атаку на " +
-                "систему GPS/GLONASS");
-        if (population.get(0).get(5) == 1)
-            System.out.println("Парольная защита, соответствующая корпоративным правилам " +
-                    "к парольной защите, ИЭУ предотвратила доступ и дальнейшую подмену конфигурации и/или уставок.");
-        if (population.get(0).get(6) == 1) System.out.println("Разграничение доступа, реализованное в необходимом " +
-                "объеме, предотвратило подмену конфигурации и/или уставок ИЭУ");
-        if (population.get(0).get(7) == 1) System.out.println("Организационные меры безопасности предотвратят " +
-                "подключение нарушителя к инженерному АРМ, используемому для локального доступа.");
-        if (population.get(0).get(8) == 1) System.out.println("Парольная защита инженерного АРМ, используемого при " +
-                "локальном доступе, предотвратила доступ и дальнейшую подмену конфигурации и/или уставок ИЭУ");
-        if (population.get(0).get(9) == 1)
-            System.out.println("Криптографическая защита протокола MMS с использованием " +
-                    "TLS предотвратила передачу информации по MMS, сгенерированной нарушителем");
-        if (population.get(0).get(10) == 1) System.out.println("Механизм удаленной аутентификации к ИЭУ предотвратит " +
-                "несанкционированное удаленное подключение.");
-        if (population.get(0).get(11) == 1) System.out.println("Организационные меры безопасности предотвратят " +
-                "подключение нарушителя к АРМ инженера РЗА");
-        if (population.get(0).get(12) == 1)
-            System.out.println("Механизмы безопасности, реализующие парольную защиту в " +
-                    "ПО АРМ инженера РЗА, предотвратили доступ и дальнейшую подмену уставок ИЭУ");
-        if (population.get(0).get(13) == 1)
-            System.out.println("Организационные меры безопасности по защите сервисного " +
-                    "порта предотвратила физический доступ нарушителя к конфигурированию ИЭУ РЗА");
-        if (population.get(0).get(14) == 1)
-            System.out.println("Механизм доверенного обновления предотвратил установку " +
-                    "измененной прошивки ИЭУ РЗА");
-        if (population.get(0).get(15) == 1)
-            System.out.println("Контроль целостности предотвратил подмену ПО на ИЭУ РЗА");
-        if (population.get(0).get(16) == 1)
-            System.out.println("Доверенная загрузка предотвратил подмену системного ПО " +
-                    "на ИЭУ РЗА");
-        if (population.get(0).get(17) == 1)
-            System.out.println("Организационные меры безопасности предотвратят сетевое " +
-                    "подключение нарушителя к шине станции");
-        if (population.get(0).get(18) == 1)
-            System.out.println("Криптографическая защита пакетов GOOSE с использованием " +
-                    "имитовставки, предотвратит обработку GOOSE потока, сгенерированного нарушителем.");
-        if (population.get(0).get(19) == 1) System.out.println("Межсетевой экран в ИЭУ предотвратил передачу " +
-                "некорректного трафика");
-        if (population.get(0).get(20) == 1) System.out.println("Наложенные СЗИ на АРМ инженера РЗА (антивирус и/или " +
-                "система защиты конечных точек) предотвратят работу стороннего ПО на АРМ инженера РЗА");
-        if (population.get(0).get(21) == 1)
-            System.out.println("Межсетевой экран на ЦПС");
-        if (population.get(0).get(22) == 1)
-            System.out.println("Система обнаружения вторжений");
-        if (population.get(0).get(23) == 1) System.out.println("Работники ЦПС отреагировали на сигнал системы " +
-                "обнаружения вторжения и предотвратили передачу трафика с некорректной информацией");
-        if (population.get(0).get(24) == 1) System.out.println("Встроенный в ИЭУ механизм защиты от DoS");
-        if (population.get(0).get(25) == 1) System.out.println("Встроенный в коммутатор механизм защиты от DoS");
+        writer.close();
     }
 
 }
