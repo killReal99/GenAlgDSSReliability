@@ -8,34 +8,18 @@ import java.util.List;
 
 public class ReliabilityCalculation {
 
-    public static List<Double> electricalEnergyUndersupply(List<Double> individ, Double capex, Double opex) {
-        double Mizl = OverTriggering.mathNedoutp(individ.get(0), individ.get(2), individ.get(3), individ.get(4),
-            individ.get(5), individ.get(6), individ.get(7), individ.get(8), individ.get(9), individ.get(10),
-            individ.get(11), individ.get(12), individ.get(13), individ.get(14), individ.get(15), individ.get(16));
-        double Mlozh = lozh.mathNedoutp(individ.get(0), individ.get(2), individ.get(3), individ.get(4), individ.get(5),
-            individ.get(6), individ.get(7), individ.get(8), individ.get(9), individ.get(10), individ.get(11),
-            individ.get(12), individ.get(13), individ.get(14), individ.get(15), individ.get(16), individ.get(17),
-            individ.get(18), individ.get(19), individ.get(20), individ.get(21), individ.get(22), individ.get(23));
-        double Motk = otk.mathNedoutp(individ.get(0), individ.get(2), individ.get(3), individ.get(4), individ.get(5),
-            individ.get(6), individ.get(7), individ.get(8), individ.get(9), individ.get(10), individ.get(11),
-            individ.get(12), individ.get(13), individ.get(14), individ.get(15), individ.get(16), individ.get(17),
-            individ.get(18), individ.get(19), individ.get(20), individ.get(21), individ.get(22), individ.get(23),
-            individ.get(24), individ.get(25));
-
-        double M = (Mizl + Mlozh + Motk) * 99 * 1000 + capex + opex;
-        individ.set(1, M);
-        return individ;
-    }
-
     public static void economicDamageCalculation(List<SubstationMeasures> substationMeasuresList) {
         for (SubstationMeasures substationMeasure : substationMeasuresList) {
             if (substationMeasure.getTotalPrice() == 0.0f) {
                 for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasure.getSubstationMeasuresPerYear()) {
                     substationMeasure.setCapexPrice(substationMeasure.getCapexPrice() + substationMeasuresPerYear.getCapexPrice());
                     substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
-//                    float Mizl = OverTriggering.overTriggeringCalculation(substationMeasure.getSubstationMeasuresPerYear());
+                    float Mizl = OverTriggering.overTriggeringCalculation(substationMeasuresPerYear);
+                    float Mlozh = FalsePositive.falsePositiveCalculation(substationMeasuresPerYear);
+                    float Motk = FailureTriggering.failureTriggeringCalculation(substationMeasuresPerYear);
+                    substationMeasure.setTotalPrice((Mizl + Mlozh + Motk) * 99 * 1000 +
+                        substationMeasure.getCapexPrice() + substationMeasure.getOpexPrice());
                 }
-                substationMeasure.setTotalPrice(substationMeasure.getCapexPrice() + substationMeasure.getOpexPrice());
             }
         }
     }
