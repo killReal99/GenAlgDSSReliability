@@ -1,5 +1,6 @@
 package org.mpei.nti.utils;
 
+import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
@@ -61,6 +62,11 @@ public class ResultsMapping {
             }
             if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
                 writer.println("Встроенный в коммутатор механизм защиты от DoS");
+            }
+
+            for (IED ied : substationMeasuresPerYear.getIedList()){
+                writer.println("IED - " + ied.getNameOfIED() + " со встроенными механизмами:");
+
             }
 
 //            //Emb

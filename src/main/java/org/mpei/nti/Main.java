@@ -15,8 +15,8 @@ public class Main {
     public static int maxArch = 3;
     public static int IEDCount = 2;
     public static int protectionsCount = 3;
-    public static int populationSize = 5000;
-    public static int numberOfIterations = 10000;
+    public static int populationSize = 1000;
+    public static int numberOfIterations = 100;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
@@ -41,7 +41,6 @@ public class Main {
                 Deletion.deletePartOfPopulation(population);
 
                 System.out.println("Iteration number " + i);
-                System.out.println("Population size " + population.size());
                 System.out.println("The best individual " + population.get(0).hashCode() + " with total price " +
                     String.format("%f", population.get(0).getTotalPrice()) + " rubles");
 

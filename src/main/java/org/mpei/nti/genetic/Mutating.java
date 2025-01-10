@@ -6,6 +6,7 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 
 import java.util.List;
 
+import static org.mpei.nti.Main.maxArch;
 import static org.mpei.nti.Main.minArch;
 
 public class Mutating {
@@ -17,7 +18,7 @@ public class Mutating {
             double randomChromosome = Math.random();
             if (randomChromosome <= 1.0 / countOfChromosomes) {
                 substationMeasures.getSubstationMeasuresPerYear().get(randomYear).
-                        setArchitectureType((int) (Math.random() * (3.0 - minArch) + minArch + 0.1));
+                        setArchitectureType((int) (Math.random() * (maxArch - minArch) + minArch + 0.1));
             } else if (randomChromosome > 1.0 / countOfChromosomes && randomChromosome <= 2.0 / countOfChromosomes) {
                 substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                         setD3(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD3()));
