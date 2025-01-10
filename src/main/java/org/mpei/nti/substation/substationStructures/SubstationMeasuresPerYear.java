@@ -1,12 +1,16 @@
 package org.mpei.nti.substation.substationStructures;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SubstationMeasuresPerYear {
     private float totalPrice;
     private float opexPrice;
@@ -15,5 +19,5 @@ public class SubstationMeasuresPerYear {
     private int yearNumber;
     private OrganizationalMeasures organizationalMeasures;
     private ImprosedMeasures improsedMeasures;
-    private List<EmbeddedMeasures> embeddedMeasuresList;
+    private List<IED> iedList;
 }

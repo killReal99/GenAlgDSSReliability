@@ -1,11 +1,12 @@
 package org.mpei.nti.genetic;
 
 import org.mpei.nti.substation.substationGeneration.SubstationMeasuresPerYearGeneration;
-import org.mpei.nti.substation.substationStructures.EmbeddedMeasures;
+import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 
 import java.util.List;
 
+import static org.mpei.nti.Main.maxArch;
 import static org.mpei.nti.Main.minArch;
 
 public class Mutating {
@@ -13,11 +14,11 @@ public class Mutating {
     public static void mutatePopulation(List<SubstationMeasures> population) {
         for (SubstationMeasures substationMeasures : population){
             int randomYear = (int) (Math.random() * 24);
-            int countOfChromosomes = 14 + 11 * substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getEmbeddedMeasuresList().size();
+            int countOfChromosomes = 14 + 11 * substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().size();
             double randomChromosome = Math.random();
             if (randomChromosome <= 1.0 / countOfChromosomes) {
                 substationMeasures.getSubstationMeasuresPerYear().get(randomYear).
-                        setArchitectureType((int) (Math.random() * (3.0 - minArch) + minArch + 0.1));
+                        setArchitectureType((int) (Math.random() * (maxArch - minArch) + minArch + 0.1));
             } else if (randomChromosome > 1.0 / countOfChromosomes && randomChromosome <= 2.0 / countOfChromosomes) {
                 substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                         setD3(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD3()));
@@ -59,39 +60,39 @@ public class Mutating {
                         setD22(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD22()));
             } else {
                 int numberOfEmbeddedMeauseresSet = 0;
-                for (EmbeddedMeasures embeddedMeasures : substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getEmbeddedMeasuresList()){
+                for (IED ied : substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList()){
                     if (randomChromosome <= (14.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD2(mutate(embeddedMeasures.getD2()));
+                        ied.setD2(mutate(ied.getD2()));
                     } else if (randomChromosome > (14.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (15.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD4(mutate(embeddedMeasures.getD4()));
+                        ied.setD4(mutate(ied.getD4()));
                     } else if (randomChromosome > (15.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (16.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD5(mutate(embeddedMeasures.getD5()));
+                        ied.setD5(mutate(ied.getD5()));
                     } else if (randomChromosome > (16.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (17.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD8(mutate(embeddedMeasures.getD8()));
+                        ied.setD8(mutate(ied.getD8()));
                     } else if (randomChromosome > (17.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (18.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD9(mutate(embeddedMeasures.getD9()));
+                        ied.setD9(mutate(ied.getD9()));
                     } else if (randomChromosome > (18.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (19.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD13(mutate(embeddedMeasures.getD13()));
+                        ied.setD13(mutate(ied.getD13()));
                     } else if (randomChromosome > (19.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (20.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD14(mutate(embeddedMeasures.getD14()));
+                        ied.setD14(mutate(ied.getD14()));
                     } else if (randomChromosome > (20.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (21.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD15(mutate(embeddedMeasures.getD15()));
+                        ied.setD15(mutate(ied.getD15()));
                     } else if (randomChromosome > (21.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (22.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD17(mutate(embeddedMeasures.getD17()));
+                        ied.setD17(mutate(ied.getD17()));
                     } else if (randomChromosome > (22.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (23.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD18(mutate(embeddedMeasures.getD18()));
+                        ied.setD18(mutate(ied.getD18()));
                     } else if (randomChromosome > (23.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes &&
                             randomChromosome <= (24.0 + 11.0 * numberOfEmbeddedMeauseresSet) / countOfChromosomes) {
-                        embeddedMeasures.setD23(mutate(embeddedMeasures.getD23()));
+                        ied.setD23(mutate(ied.getD23()));
                     }
                     numberOfEmbeddedMeauseresSet++;
                 }
@@ -99,7 +100,7 @@ public class Mutating {
                         substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType(), randomYear,
                         substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures(),
                         substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures(),
-                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getEmbeddedMeasuresList());
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList());
             }
         }
     }
