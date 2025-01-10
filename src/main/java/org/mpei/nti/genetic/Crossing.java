@@ -38,13 +38,13 @@ public class Crossing {
                         firstSubstationMeasures.getSubstationMeasuresPerYear().get(i).getArchitectureType(),
                         (i + 1), firstSubstationMeasures.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures(),
                         firstSubstationMeasures.getSubstationMeasuresPerYear().get(i).getImprosedMeasures(),
-                        firstSubstationMeasures.getSubstationMeasuresPerYear().get(i).getEmbeddedMeasuresList()));
+                        firstSubstationMeasures.getSubstationMeasuresPerYear().get(i).getIedList()));
             } else {
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
                         secondSubstationMeasures.getSubstationMeasuresPerYear().get(i).getArchitectureType(),
                         (i + 1), secondSubstationMeasures.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures(),
                         secondSubstationMeasures.getSubstationMeasuresPerYear().get(i).getImprosedMeasures(),
-                        secondSubstationMeasures.getSubstationMeasuresPerYear().get(i).getEmbeddedMeasuresList()));
+                        secondSubstationMeasures.getSubstationMeasuresPerYear().get(i).getIedList()));
             }
         }
         substationMeasures.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
@@ -71,15 +71,15 @@ public class Crossing {
             swapedSubstationMeasuresPerYear.setImprosedMeasures(secondSubstationMeasures.getSubstationMeasuresPerYear().
                     get(swapYearNumber - 1).getImprosedMeasures());
         } else {
-            swapedSubstationMeasuresPerYear.setEmbeddedMeasuresList(secondSubstationMeasures.getSubstationMeasuresPerYear().
-                    get(swapYearNumber - 1).getEmbeddedMeasuresList());
+            swapedSubstationMeasuresPerYear.setIedList(secondSubstationMeasures.getSubstationMeasuresPerYear().
+                    get(swapYearNumber - 1).getIedList());
         }
 
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = firstSubstationMeasures.getSubstationMeasuresPerYear();
         substationMeasuresPerYearList.set((swapYearNumber - 1), SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
                 swapedSubstationMeasuresPerYear.getArchitectureType(), swapYearNumber,
                 swapedSubstationMeasuresPerYear.getOrganizationalMeasures(), swapedSubstationMeasuresPerYear.getImprosedMeasures(),
-                swapedSubstationMeasuresPerYear.getEmbeddedMeasuresList()));
+                swapedSubstationMeasuresPerYear.getIedList()));
         substationMeasures.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
         substationMeasuresList.add(substationMeasures);
     }

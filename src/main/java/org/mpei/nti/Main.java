@@ -12,16 +12,18 @@ import java.util.List;
 public class Main {
 
     public static int minArch = 1;
+    public static int maxArch = 3;
+    public static int IEDCount = 2;
     public static int protectionsCount = 3;
     public static int populationSize = 5000;
-    public static int numberOfIterations = 100;
+    public static int numberOfIterations = 10000;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
         List<SubstationMeasures> population = new ArrayList<>();
 
         for (int i = 0; i < populationSize; i++) {
-            population.add(PopulationGeneration.generatePopulation(minArch, protectionsCount));
+            population.add(PopulationGeneration.generatePopulation(minArch, maxArch,IEDCount, protectionsCount));
         }
 
         float previousValueOfTotalPrice = 0.0f;
@@ -52,18 +54,6 @@ public class Main {
         }
 
         ResultsMapping.resultsMapping(population);
-
-//            for (int j = 0; j < theNextGenerationPopulation; j++) {
-//                double capex = ReliabilityCalculation.capexCalculation(population.get(j));
-//                double opex = ReliabilityCalculation.opexCalculation(population.get(j));
-//                if (capex >= 7000000.0) {
-//                    population.set(j, ReliabilityCalculation.electricalEnergyUndersupply(population.get(j), 100000000.0, opex));
-//                } else if (opex >= 1500000.0) {
-//                    population.set(j, ReliabilityCalculation.electricalEnergyUndersupply(population.get(j), capex, 100000000.0));
-//                } else {
-//                    population.set(j, ReliabilityCalculation.electricalEnergyUndersupply(population.get(j), capex, opex));
-//                }
-//            }
 
         final long endTime = System.currentTimeMillis();
         System.out.println("Total execution time: " + (endTime - startTime));

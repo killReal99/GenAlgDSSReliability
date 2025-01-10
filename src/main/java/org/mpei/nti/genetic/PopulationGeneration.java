@@ -8,13 +8,13 @@ import java.util.List;
 
 public class PopulationGeneration {
 
-    public static SubstationMeasures generatePopulation(int minArch, int protectionsCount) {
+    public static SubstationMeasures generatePopulation(int minArch, int maxArch, int IEDCount, int protectionsCount) {
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int year = 1; year <= 25; year++) {
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                    ((int) (Math.random() * (3 - minArch) + minArch + 0.001)), year,
+                    ((int) (Math.random() * (maxArch - minArch) + minArch + 0.001)), year,
                     organizationalMeasuresGenerator(), improsedMeasuresGenerator(),
-                    embeddedMeasuresGenerator(protectionsCount)));
+                    IEDGenerator(IEDCount, protectionsCount)));
         }
         return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList);
     }
@@ -31,17 +31,26 @@ public class PopulationGeneration {
                 (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
     }
 
-    public static List<EmbeddedMeasures> embeddedMeasuresGenerator(int protectionCount) {
-        List<EmbeddedMeasures> embeddedMeasuresList = new ArrayList<>();
-        for (int i = 0; i < protectionCount; i++) {
-            EmbeddedMeasures embeddedMeasures = EmbeddedMeasuresGeneration.embeddedMeasuresGeneration(
+    public static List<IED> IEDGenerator(int IEDCount, int protectionCount) {
+        List<IED> iedList = new ArrayList<>();
+        for (int i = 0; i < IEDCount; i++) {
+            IED ied = IEDGeneration.iedGeneration((int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()));
-            embeddedMeasuresList.add(embeddedMeasures);
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
+            ied.setProtectionsList(protectionsGenerator(protectionCount));
+            iedList.add(ied);
         }
-        return embeddedMeasuresList;
+        return iedList;
+    }
+
+    public static List<Protections> protectionsGenerator(int protectionCount) {
+        List<Protections> protectionsList = new ArrayList<>();
+        for (int i = 0; i < protectionCount; i++) {
+            Protections protections = new Protections();
+            protectionsList.add(protections);
+        }
+        return protectionsList;
     }
 
 }

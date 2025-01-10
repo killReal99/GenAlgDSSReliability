@@ -15,5 +15,5 @@ public class SubstationMeasuresPerYear {
     private int yearNumber;
     private OrganizationalMeasures organizationalMeasures;
     private ImprosedMeasures improsedMeasures;
-    private List<EmbeddedMeasures> embeddedMeasuresList;
+    private List<IED> iedList;
 }

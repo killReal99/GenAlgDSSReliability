@@ -9,23 +9,23 @@ public class FalsePositive {
 
     public static float falsePositiveCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
         float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
-        float DD2 = (1 - D2 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD2());
+        float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(0).getD2());
         float DD3 = (1 - D3 * substationMeasuresPerYear.getImprosedMeasures().getD3());
-        float DD4 = (1 - D4 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD4());
-        float DD5 = (1 - D5 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD5());
+        float DD4 = (1 - D4 * substationMeasuresPerYear.getIedList().get(0).getD4());
+        float DD5 = (1 - D5 * substationMeasuresPerYear.getIedList().get(0).getD5());
         float DD6 = (1 - D6 * substationMeasuresPerYear.getOrganizationalMeasures().getD6());
         float DD7 = (1 - D7 * substationMeasuresPerYear.getImprosedMeasures().getD7());
-        float DD8 = (1 - D8 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD8());
-        float DD9 = (1 - D9 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD9());
+        float DD8 = (1 - D8 * substationMeasuresPerYear.getIedList().get(0).getD8());
+        float DD9 = (1 - D9 * substationMeasuresPerYear.getIedList().get(0).getD9());
         float DD10 = (1 - D10 * substationMeasuresPerYear.getOrganizationalMeasures().getD10());
         float DD11 = (1 - D11 * substationMeasuresPerYear.getImprosedMeasures().getD11());
         float DD12 = (1 - D12 * substationMeasuresPerYear.getOrganizationalMeasures().getD12());
-        float DD13 = (1 - D13 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD13());
-        float DD14 = (1 - D14 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD14());
-        float DD15 = (1 - D15 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD15());
+        float DD13 = (1 - D13 * substationMeasuresPerYear.getIedList().get(0).getD13());
+        float DD14 = (1 - D14 * substationMeasuresPerYear.getIedList().get(0).getD14());
+        float DD15 = (1 - D15 * substationMeasuresPerYear.getIedList().get(0).getD15());
         float DD16 = (1 - D16 * substationMeasuresPerYear.getOrganizationalMeasures().getD16());
-        float DD17 = (1 - D17 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD17());
-        float DD18 = (1 - D18 * substationMeasuresPerYear.getEmbeddedMeasuresList().get(0).getD18());
+        float DD17 = (1 - D17 * substationMeasuresPerYear.getIedList().get(0).getD17());
+        float DD18 = (1 - D18 * substationMeasuresPerYear.getIedList().get(0).getD18());
         float DD19 = (1 - D19 * substationMeasuresPerYear.getImprosedMeasures().getD19());
         float DD20 = (1 - D20 * substationMeasuresPerYear.getImprosedMeasures().getD20());
         float DD21 = (1 - D21 * substationMeasuresPerYear.getImprosedMeasures().getD21());

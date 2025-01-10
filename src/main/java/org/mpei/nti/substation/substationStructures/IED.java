@@ -3,12 +3,15 @@ package org.mpei.nti.substation.substationStructures;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class EmbeddedMeasures {
-    private String nameOfProtection;
+public class IED {
+    private String nameOfIED;
+    private List<Protections> protectionsList;
     /*Криптографическая защита пакетов SV с использованием имитовставки, предотвратит обработку SV потока,
-    сгенерированного нарушителем.*/
+сгенерированного нарушителем.*/
     private int D2;
     /*Парольная защита, соответствующая корпоративным правилам к парольной защите, ИЭУ предотвратила доступ и дальнейшую
     подмену конфигурации и/или уставок.*/
