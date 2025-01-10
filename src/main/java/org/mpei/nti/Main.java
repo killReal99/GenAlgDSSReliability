@@ -29,14 +29,16 @@ public class Main {
 
         for (int i = 0; i < numberOfIterations; i++) {
             if (priceIterator != numberOfIterations / 2) {
+                Selection.selectionOfSuitableIndividuals(population);
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
                 Mutating.mutatePopulation(newPopulation);
                 population.addAll(newPopulation);
                 ReliabilityCalculation.economicDamageCalculation(population);
                 Sorting.bubbleSort(population);
-                Deleting.deletePartOfPopulation(population);
+                Deletion.deletePartOfPopulation(population);
 
                 System.out.println("Iteration number " + i);
+                System.out.println("Population size " + population.size());
                 System.out.println("The best individual " + population.get(0).hashCode() + " with total price " +
                     String.format("%f", population.get(0).getTotalPrice()) + " rubles");
 

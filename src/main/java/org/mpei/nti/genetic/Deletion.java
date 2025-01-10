@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.mpei.nti.Main.populationSize;
 
-public class Deleting {
+public class Deletion {
 
     public static void deletePartOfPopulation (List<SubstationMeasures> population){
         int countDeleting = population.size() - populationSize;
