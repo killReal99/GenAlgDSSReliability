@@ -25,6 +25,7 @@ public class Main {
         for (int i = 0; i < populationSize; i++) {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch,IEDCount, protectionsCount));
         }
+        ReliabilityCalculation.economicDamageCalculation(population);
 
         float previousValueOfTotalPrice = 0.0f;
         int priceIterator = 0;

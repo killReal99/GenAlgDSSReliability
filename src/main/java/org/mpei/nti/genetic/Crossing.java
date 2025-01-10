@@ -2,25 +2,24 @@ package org.mpei.nti.genetic;
 
 import org.mpei.nti.substation.substationGeneration.SubstationMeasuresPerYearGeneration;
 import org.mpei.nti.substation.substationStructures.*;
+import org.mpei.nti.utils.RoulettePart;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Crossing {
 
-    public static float crossingProbability = 0.5f;
-
     public static List<SubstationMeasures> populationCrossing(List<SubstationMeasures> population) {
         List<SubstationMeasures> newSubstationMeasuresList = new ArrayList<>();
-        for (SubstationMeasures substationMeasures : population) {
-            if (Math.random() >= crossingProbability) {
-                if (Math.random() >= 0.5) {
-                    yearSwap(newSubstationMeasuresList, substationMeasures,
-                            population.get((int) (Math.random() * (population.size() - 1))));
-                } else {
-                    insideYearSwap(newSubstationMeasuresList, substationMeasures,
-                            population.get((int) (Math.random() * (population.size() - 1))));
-                }
+        List<RoulettePart> rouletteWeights = rouletteWeightCalculation(population);
+
+        for (int i = 0; i < population.size(); i++){
+            SubstationMeasures firstParent = population.get(rouletteIndexChecker(rouletteWeights, Math.random()));
+            SubstationMeasures secondParent = population.get(rouletteIndexChecker(rouletteWeights, Math.random()));
+            if (Math.random() >= 0.5) {
+                yearSwap(newSubstationMeasuresList, firstParent, secondParent);
+            } else {
+                insideYearSwap(newSubstationMeasuresList, firstParent, secondParent);
             }
         }
         return newSubstationMeasuresList;
@@ -83,5 +82,37 @@ public class Crossing {
         substationMeasures.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
         substationMeasuresList.add(substationMeasures);
     }
+
+
+
+    public static Integer rouletteIndexChecker(List<RoulettePart> rouletteWeights, double pointer){
+        int index = 0;
+        for (RoulettePart roulettePart : rouletteWeights){
+                if (pointer >= roulettePart.getLeftPart() && pointer < roulettePart.getRightPart()){
+                    index = roulettePart.getIndex();
+                }
+            }
+        return index;
+    }
+
+        public static List<RoulettePart> rouletteWeightCalculation(List<SubstationMeasures> population){
+            List<RoulettePart> rouletteWeightList = new ArrayList<>();
+            float fullPopulationWeight = 0.0f;
+            float partOfPopulationWeight = 0.0f;
+            for (SubstationMeasures individual : population){
+                fullPopulationWeight += individual.getTotalPrice();
+            }
+            int individualIndex = 0;
+            for (SubstationMeasures individual : population){
+                RoulettePart roulettePart = new RoulettePart();
+                roulettePart.setLeftPart(partOfPopulationWeight);
+                partOfPopulationWeight += individual.getTotalPrice() / fullPopulationWeight;
+                roulettePart.setRightPart(partOfPopulationWeight);
+                roulettePart.setIndex(individualIndex);
+                rouletteWeightList.add(roulettePart);
+                individualIndex++;
+            }
+            return rouletteWeightList;
+        }
 
 }
