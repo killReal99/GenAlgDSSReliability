@@ -86,7 +86,7 @@ public class Crossing {
                     get(swapYearNumber - 1).getIedList());
         }
 
-        substationMeasuresPerYear.setCapexPrice(ReliabilityCalculation.capexMeasuresCalculation(substationMeasuresPerYear));
+        substationMeasuresPerYear.setCapexPrice(ReliabilityCalculation.capexBuildingCosts(substationMeasuresPerYear));
         substationMeasuresPerYear.setOpexPrice(ReliabilityCalculation.opexMeasuresCalculation(substationMeasuresPerYear));
         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getCapexPrice() +
                 substationMeasuresPerYear.getOpexPrice());

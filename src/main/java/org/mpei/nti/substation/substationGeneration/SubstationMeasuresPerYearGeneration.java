@@ -18,7 +18,7 @@ public class SubstationMeasuresPerYearGeneration {
         substationMeasuresPerYear.setImprosedMeasures(improsedMeasures);
         substationMeasuresPerYear.setIedList(iedList);
         substationMeasuresPerYear.setOpexPrice(ReliabilityCalculation.opexMeasuresCalculation(substationMeasuresPerYear));
-        substationMeasuresPerYear.setCapexPrice(ReliabilityCalculation.capexMeasuresCalculation(substationMeasuresPerYear));
+        substationMeasuresPerYear.setCapexPrice(ReliabilityCalculation.capexBuildingCosts(substationMeasuresPerYear));
         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
         return substationMeasuresPerYear;
     }
