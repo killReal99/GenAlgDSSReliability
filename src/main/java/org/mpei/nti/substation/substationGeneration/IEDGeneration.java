@@ -1,12 +1,14 @@
 package org.mpei.nti.substation.substationGeneration;
 
 import org.mpei.nti.substation.substationStructures.IED;
+import org.mpei.nti.utils.Equipment;
 
 public class IEDGeneration {
 
     public static IED iedGeneration(int D2, int D4, int D5, int D8, int D9, int D13, int D14, int D15, int D17,
                                     int D18, int D23) {
         IED ied = new IED();
+        ied.setEquipmentName(Equipment.LINE);
         ied.setD2(D2);
         ied.setD4(D4);
         ied.setD5(D5);
