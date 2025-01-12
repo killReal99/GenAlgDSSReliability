@@ -1,5 +1,6 @@
 package org.mpei.nti.modelCalculation;
 
+import org.mpei.nti.economic.BuildingCAPEX;
 import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
@@ -24,20 +25,23 @@ public class ReliabilityCalculation {
                     } else {
                         firewallCheck = 0;
                     }
-
                     if (firewallCheck == 10) {
                         substationMeasure.setCapexPrice(substationMeasure.getCapexPrice() + 3250000.0f);
                         firewallCheck = 0;
                     }
 
-                    float Mizl = OverTriggering.overTriggeringCalculation(substationMeasuresPerYear);
-                    float Mlozh = FalsePositive.falsePositiveCalculation(substationMeasuresPerYear);
-                    float Motk = FailureTriggering.failureTriggeringCalculation(substationMeasuresPerYear);
-                    substationMeasure.setTotalPrice((Mizl + Mlozh + Motk) * 99 * 1000 +
+                    substationMeasure.setTotalPrice(underSupplyCalculation(substationMeasuresPerYear) +
                         substationMeasure.getCapexPrice() + substationMeasure.getOpexPrice());
                 }
             }
         }
+    }
+
+    public static Float underSupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        float Mizl = OverTriggering.overTriggeringCalculation(substationMeasuresPerYear);
+        float Mlozh = FalsePositive.falsePositiveCalculation(substationMeasuresPerYear);
+        float Motk = FailureTriggering.failureTriggeringCalculation(substationMeasuresPerYear);
+        return (Mizl + Mlozh + Motk) * 99 * 1000;
     }
 
     public static Float capexBuildingCosts(SubstationMeasuresPerYear substationMeasuresPerYear) {
@@ -54,7 +58,15 @@ public class ReliabilityCalculation {
             substationMeasuresPerYear.getImprosedMeasures().getD20() * 750000.0f +
             substationMeasuresPerYear.getImprosedMeasures().getD21() * 3250000.0f +
             substationMeasuresPerYear.getImprosedMeasures().getD24() * 150000.0f;
-        return embeddedMeasuresPrice + improsedMeasuresPrice;
+        float buildingCAPEX = 0.0f;
+        if (substationMeasuresPerYear.getArchitectureType() == 1){
+            buildingCAPEX = BuildingCAPEX.withoutISFirstArch;
+        } else if (substationMeasuresPerYear.getArchitectureType() == 2) {
+            buildingCAPEX = BuildingCAPEX.withoutISSecondArch;
+        } else {
+            buildingCAPEX = BuildingCAPEX.withoutISThirdArch;
+        }
+        return buildingCAPEX + embeddedMeasuresPrice + improsedMeasuresPrice;
     }
 
     public static Float opexMeasuresCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {

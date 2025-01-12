@@ -1,37 +1,31 @@
 package org.mpei.nti.economic;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class BuildingCAPEX {
-    private float allDSSFirstArch = 160000000f;
-    private float allDSSSecondArch = 165000000f;
-    private float allDSSThirdArch = 175000000f;
-
-    private float D1;
-    private float D2;
-    private float D3;
-    private float D4;
-    private float D5;
-    private float D6;
-    private float D7;
-    private float D8;
-    private float D9;
-    private float D10;
-    private float D11;
-    private float D12;
-    private float D13;
-    private float D14;
-    private float D15;
-    private float D16;
-    private float D17;
-    private float D18;
-    private float D19;
-    private float D20;
-    private float D21;
-    private float D22;
-    private float D23;
-    private float D24;
+    public static float withoutISFirstArch = 160000000f;
+    public static float withoutISSecondArch = 165000000f;
+    public static float withoutISThirdArch = 175000000f;
+    public static float D1;
+    public static float D2 = 1083.33f;
+    public static float D3;
+    public static float D4;
+    public static float D5;
+    public static float D6;
+    public static float D7;
+    public static float D8;
+    public static float D9;
+    public static float D10;
+    public static float D11;
+    public static float D12;
+    public static float D13;
+    public static float D14;
+    public static float D15;
+    public static float D16;
+    public static float D17;
+    public static float D18;
+    public static float D19;
+    public static float D20;
+    public static float D21;
+    public static float D22;
+    public static float D23;
+    public static float D24;
 }
