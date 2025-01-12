@@ -6,6 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BuildingCAPEX {
+    private float allDSSFirstArch = 160000000f;
+    private float allDSSSecondArch = 165000000f;
+    private float allDSSThirdArch = 175000000f;
+
     private float D1;
     private float D2;
     private float D3;
