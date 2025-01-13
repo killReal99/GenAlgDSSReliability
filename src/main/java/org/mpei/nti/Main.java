@@ -25,7 +25,7 @@ public class Main {
         for (int i = 0; i < populationSize; i++) {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch,IEDCount, protectionsCount));
         }
-        ReliabilityCalculation.economicDamageCalculation(population);
+        ReliabilityCalculation.goalFunctionCalculation(population);
 
         float previousValueOfTotalPrice = 0.0f;
         int priceIterator = 0;
@@ -36,7 +36,7 @@ public class Main {
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
                 Mutating.mutatePopulation(newPopulation);
                 population.addAll(newPopulation);
-                ReliabilityCalculation.economicDamageCalculation(population);
+                ReliabilityCalculation.goalFunctionCalculation(population);
                 Sorting.bubbleSort(population);
                 Deletion.deletePartOfPopulation(population);
 

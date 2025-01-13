@@ -1,6 +1,6 @@
 package org.mpei.nti.genetic;
 
-import org.mpei.nti.modelCalculation.ReliabilityCalculation;
+import org.mpei.nti.modelCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationGeneration.SubstationMeasuresPerYearGeneration;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.utils.RoulettePart;
@@ -62,7 +62,7 @@ public class Crossing {
                 firstParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList());
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
-            if (i == (swapYearNumber - 1)){
+            if (i == (swapYearNumber - 1)) {
                 substationMeasuresPerYearList.add(substationMeasuresPerYear);
             } else {
                 substationMeasuresPerYearList.add(firstParent.getSubstationMeasuresPerYear().get(i));
@@ -86,8 +86,13 @@ public class Crossing {
                     get(swapYearNumber - 1).getIedList());
         }
 
-        substationMeasuresPerYear.setCapexPrice(ReliabilityCalculation.capexBuildingCosts(substationMeasuresPerYear));
-        substationMeasuresPerYear.setOpexPrice(ReliabilityCalculation.opexMeasuresCalculation(substationMeasuresPerYear));
+        if (substationMeasuresPerYear.getYearNumber() == 1) {
+            substationMeasuresPerYear.setCapexPrice(CostsCalculation.buildingCAPEX(substationMeasuresPerYear));
+            substationMeasuresPerYear.setOpexPrice(CostsCalculation.buildingOPEX(substationMeasuresPerYear));
+        } else {
+            substationMeasuresPerYear.setCapexPrice(CostsCalculation.exploitationCAPEX(substationMeasuresPerYear));
+            substationMeasuresPerYear.setOpexPrice(CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
+        }
         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getCapexPrice() +
                 substationMeasuresPerYear.getOpexPrice());
 

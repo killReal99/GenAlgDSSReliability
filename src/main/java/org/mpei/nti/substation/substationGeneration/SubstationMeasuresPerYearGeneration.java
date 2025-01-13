@@ -1,6 +1,6 @@
 package org.mpei.nti.substation.substationGeneration;
 
-import org.mpei.nti.modelCalculation.ReliabilityCalculation;
+import org.mpei.nti.modelCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationStructures.*;
 
 import java.util.List;
@@ -17,8 +17,13 @@ public class SubstationMeasuresPerYearGeneration {
         substationMeasuresPerYear.setOrganizationalMeasures(organizationalMeasures);
         substationMeasuresPerYear.setImprosedMeasures(improsedMeasures);
         substationMeasuresPerYear.setIedList(iedList);
-        substationMeasuresPerYear.setOpexPrice(ReliabilityCalculation.opexMeasuresCalculation(substationMeasuresPerYear));
-        substationMeasuresPerYear.setCapexPrice(ReliabilityCalculation.capexBuildingCosts(substationMeasuresPerYear));
+        if (yearNumber == 1) {
+            substationMeasuresPerYear.setCapexPrice(CostsCalculation.buildingCAPEX(substationMeasuresPerYear));
+            substationMeasuresPerYear.setOpexPrice(CostsCalculation.buildingOPEX(substationMeasuresPerYear));
+        } else {
+            substationMeasuresPerYear.setCapexPrice(CostsCalculation.exploitationCAPEX(substationMeasuresPerYear));
+            substationMeasuresPerYear.setOpexPrice(CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
+        }
         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
         return substationMeasuresPerYear;
     }
