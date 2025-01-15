@@ -1,10 +1,14 @@
 package org.mpei.nti.substation.substationStructures;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrganizationalMeasures {
     /*Организационные меры безопасности предотвратят подключение нарушителя к шине процесса.*/
     private int D1;

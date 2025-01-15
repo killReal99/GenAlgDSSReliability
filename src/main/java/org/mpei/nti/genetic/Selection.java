@@ -14,7 +14,7 @@ public class Selection {
             SubstationMeasures substationMeasureForDeleting = new SubstationMeasures();
             boolean deletingChecker = false;
             for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
-                if (substationMeasuresPerYear.getCapexPrice() >= 200000000f || substationMeasuresPerYear.getOpexPrice() >= 15000000f) {
+                if (substationMeasuresPerYear.getCapexPrice() >= 80000000f || substationMeasuresPerYear.getOpexPrice() >= 2000000f) {
                     substationMeasureForDeleting = substationMeasures;
                     deletingChecker = true;
                 }

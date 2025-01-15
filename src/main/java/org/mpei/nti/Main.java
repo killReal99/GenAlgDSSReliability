@@ -15,16 +15,17 @@ public class Main {
     public static int maxArch = 3;
     public static int IEDCount = 2;
     public static int protectionsCount = 3;
-    public static int populationSize = 1500;
-    public static int numberOfIterations = 5000;
+    public static int populationSize = 1000;
+    public static int numberOfIterations = 3000;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
         List<SubstationMeasures> population = new ArrayList<>();
 
         for (int i = 0; i < populationSize; i++) {
-            population.add(PopulationGeneration.generatePopulation(minArch, maxArch,IEDCount, protectionsCount));
+            population.add(PopulationGeneration.generatePopulation(minArch, maxArch, IEDCount, protectionsCount));
         }
+        OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population);
 
         float previousValueOfTotalPrice = 0.0f;
@@ -42,7 +43,7 @@ public class Main {
 
                 System.out.println("Iteration number " + i);
                 System.out.println("The best individual " + population.get(0).hashCode() + " with total price " +
-                    String.format("%f", population.get(0).getTotalPrice()) + " rubles");
+                        String.format("%f", population.get(0).getTotalPrice()) + " rubles");
 
             } else break;
 
