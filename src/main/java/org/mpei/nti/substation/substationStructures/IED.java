@@ -2,6 +2,7 @@ package org.mpei.nti.substation.substationStructures;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.mpei.nti.utils.Equipment;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Setter
 public class IED {
     private String nameOfIED;
+    private Equipment equipmentName;
     private List<Protections> protectionsList;
     /*Криптографическая защита пакетов SV с использованием имитовставки, предотвратит обработку SV потока,
 сгенерированного нарушителем.*/
