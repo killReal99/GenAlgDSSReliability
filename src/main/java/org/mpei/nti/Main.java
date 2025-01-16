@@ -16,7 +16,7 @@ public class Main {
     public static int IEDCount = 2;
     public static int protectionsCount = 3;
     public static int populationSize = 1000;
-    public static int numberOfIterations = 3000;
+    public static int numberOfIterations = 5000;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class Main {
                 Mutating.mutatePopulation(newPopulation);
                 population.addAll(newPopulation);
                 ReliabilityCalculation.goalFunctionCalculation(population);
-                Sorting.bubbleSort(population);
+                Sorting.quickSort(population, 0, population.size() - 1);
                 Deletion.deletePartOfPopulation(population);
 
                 System.out.println("Iteration number " + i);
@@ -57,6 +57,6 @@ public class Main {
         ResultsMapping.resultsMapping(population);
 
         final long endTime = System.currentTimeMillis();
-        System.out.println("Total execution time: " + (endTime - startTime));
+        System.out.println("Total execution time: " + (endTime - startTime) / 1000 + " sec");
     }
 }
