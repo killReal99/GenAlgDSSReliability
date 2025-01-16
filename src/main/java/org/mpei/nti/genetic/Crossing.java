@@ -39,7 +39,7 @@ public class Crossing {
         for (int i = 0; i <= 24; i++) {
             if (i <= swapYearNumber) {
                 int architectureType = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-                OrganizationalMeasures childdOrganizationalMeasures = OrganizationalMeasuresGeneration.organizationalMeasuresGeneration(
+                OrganizationalMeasures childdOrganizationalMeasures = new OrganizationalMeasures(
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
@@ -75,7 +75,7 @@ public class Crossing {
                         architectureType, (i + 1), childdOrganizationalMeasures, childImprosedMeasures, childIedList));
             } else {
                 int architectureType = secondParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-                OrganizationalMeasures childdOrganizationalMeasures = OrganizationalMeasuresGeneration.organizationalMeasuresGeneration(
+                OrganizationalMeasures childdOrganizationalMeasures = new OrganizationalMeasures(
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
@@ -89,8 +89,7 @@ public class Crossing {
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD19(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD20(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD21(),
-                        secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24()
-                );
+                        secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24());
                 List<IED> childIedList = new ArrayList<>();
                 for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
                     IED childIED = IEDGeneration.iedGeneration(

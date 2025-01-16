@@ -14,19 +14,15 @@ public class PopulationGeneration {
             ImprosedMeasures improsedMeasures = new ImprosedMeasures((int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
+            OrganizationalMeasures organizationalMeasures = new OrganizationalMeasures((int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()));
 
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                    ((int) (Math.random() * (maxArch - minArch) + minArch + 0.001)), year,
-                    organizationalMeasuresGenerator(), improsedMeasures,
-                    IEDGenerator(IEDCount, protectionsCount)));
+                    ((int) (Math.random() * (maxArch - minArch) + minArch + 0.001)), year, organizationalMeasures,
+                    improsedMeasures, IEDGenerator(IEDCount, protectionsCount)));
         }
         return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList);
-    }
-
-    public static OrganizationalMeasures organizationalMeasuresGenerator() {
-        return OrganizationalMeasuresGeneration.organizationalMeasuresGeneration((int) Math.round(Math.random()),
-                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                (int) Math.round(Math.random()), (int) Math.round(Math.random()));
     }
 
     public static List<IED> IEDGenerator(int IEDCount, int protectionCount) {
