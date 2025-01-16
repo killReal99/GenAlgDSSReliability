@@ -46,7 +46,7 @@ public class Crossing {
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD12(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD16(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD22());
-                ImprosedMeasures childImprosedMeasures = ImprosedMeasuresGeneration.improsedMeasuresGeneration(
+                ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                         firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD3(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD7(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD11(),
@@ -74,7 +74,6 @@ public class Crossing {
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
                         architectureType, (i + 1), childdOrganizationalMeasures, childImprosedMeasures, childIedList));
             } else {
-
                 int architectureType = secondParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
                 OrganizationalMeasures childdOrganizationalMeasures = OrganizationalMeasuresGeneration.organizationalMeasuresGeneration(
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
@@ -83,7 +82,7 @@ public class Crossing {
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD12(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD16(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD22());
-                ImprosedMeasures childImprosedMeasures = ImprosedMeasuresGeneration.improsedMeasuresGeneration(
+                ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD3(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD7(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD11(),
@@ -152,12 +151,13 @@ public class Crossing {
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
-                childIedListTwo.add(childIED);}
+                childIedListTwo.add(childIED);
+            }
 
-                SubstationMeasuresPerYear childSubstationMeasuresPerYearTwo = new SubstationMeasuresPerYear(0.0f, 0.0f, 0.0f,
-                        architectureTypeSecond, i, childOrganizationalMeasuresTwo, childImprosedMeasuresTwo, childIedListTwo);
+            SubstationMeasuresPerYear childSubstationMeasuresPerYearTwo = new SubstationMeasuresPerYear(0.0f, 0.0f, 0.0f,
+                    architectureTypeSecond, i, childOrganizationalMeasuresTwo, childImprosedMeasuresTwo, childIedListTwo);
 
-                substationMeasuresPerYearList.add(childSubstationMeasuresPerYearTwo);
+            substationMeasuresPerYearList.add(childSubstationMeasuresPerYearTwo);
         }
         SubstationMeasures child = new SubstationMeasures(0.0f, 0.0f, 0.0f,
                 substationMeasuresPerYearList);

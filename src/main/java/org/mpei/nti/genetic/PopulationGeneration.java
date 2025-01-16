@@ -11,9 +11,13 @@ public class PopulationGeneration {
     public static SubstationMeasures generatePopulation(int minArch, int maxArch, int IEDCount, int protectionsCount) {
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int year = 1; year <= 25; year++) {
+            ImprosedMeasures improsedMeasures = new ImprosedMeasures((int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
+
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
                     ((int) (Math.random() * (maxArch - minArch) + minArch + 0.001)), year,
-                    organizationalMeasuresGenerator(), improsedMeasuresGenerator(),
+                    organizationalMeasuresGenerator(), improsedMeasures,
                     IEDGenerator(IEDCount, protectionsCount)));
         }
         return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList);
@@ -23,12 +27,6 @@ public class PopulationGeneration {
         return OrganizationalMeasuresGeneration.organizationalMeasuresGeneration((int) Math.round(Math.random()),
                 (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                 (int) Math.round(Math.random()), (int) Math.round(Math.random()));
-    }
-
-    public static ImprosedMeasures improsedMeasuresGenerator() {
-        return ImprosedMeasuresGeneration.improsedMeasuresGeneration((int) Math.round(Math.random()),
-                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
     }
 
     public static List<IED> IEDGenerator(int IEDCount, int protectionCount) {
