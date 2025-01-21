@@ -5,9 +5,25 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 import static org.mpei.nti.modelCalculation.GeneralCoefficients.*;
 
 public class FalsePositive {
-    static float A1, A3, A5, A7, A9, A11, A13, A15, A17, A19, A21, A23, A25, A27, A29 = (float) 1 / 16;
 
     public static float falsePositiveCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+
+        float A1 = (float) 1 / 16;
+        float A3 = (float) 1 / 16;
+        float A5 = (float) 1 / 16;
+        float A7 = (float) 1 / 16;
+        float A9 = (float) 1 / 16;
+        float A11 = (float) 1 / 16;
+        float A13 = (float) 1 / 16;
+        float A15 = (float) 1 / 16;
+        float A17 = (float) 1 / 16;
+        float A19 = (float) 1 / 16;
+        float A21 = (float) 1 / 16;
+        float A23 = (float) 1 / 16;
+        float A25 = (float) 1 / 16;
+        float A27 = (float) 1 / 16;
+        float A29 = (float) 1 / 16;
+
         float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
         float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(0).getD2());
         float DD3 = (1 - D3 * substationMeasuresPerYear.getImprosedMeasures().getD3());

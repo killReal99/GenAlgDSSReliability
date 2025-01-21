@@ -6,9 +6,18 @@ import static org.mpei.nti.modelCalculation.GeneralCoefficients.*;
 
 public class OverTriggering {
 
-    static float A1, A3, A5, A7, A9, A11, A13, A15, A17, A19 = 0.1f;
-
     public static float overTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+
+        float A1 = 0.1f;
+        float A3 = 0.1f;
+        float A5 = 0.1f;
+        float A7 = 0.1f;
+        float A9 = 0.1f;
+        float A11 = 0.1f;
+        float A13 = 0.1f;
+        float A15 = 0.1f;
+        float A17 = 0.1f;
+        float A19 = 0.1f;
 
         float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
         float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(0).getD2());
