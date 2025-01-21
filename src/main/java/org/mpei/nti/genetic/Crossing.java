@@ -118,7 +118,7 @@ public class Crossing {
                                       SubstationMeasures secondParent) {
         int swapYearNumber = (int) (Math.random() * (25 - 1) + 1);
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i <= 24; i++) {
             int architectureTypeSecond = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
             OrganizationalMeasures childOrganizationalMeasuresTwo = new OrganizationalMeasures(
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
@@ -221,7 +221,6 @@ public class Crossing {
         child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
         substationMeasuresList.add(child);
     }
-
 
     public static Integer rouletteIndexChecker(List<RoulettePart> rouletteWeights, double pointer) {
         int index = 0;

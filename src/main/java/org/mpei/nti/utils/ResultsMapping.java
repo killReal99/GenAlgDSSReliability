@@ -18,7 +18,7 @@ public class ResultsMapping {
         writer.println("OPEX затраты за 25 лет " + String.format("%f", population.get(0).getOpexPrice()));
         writer.println(" ");
         for (SubstationMeasuresPerYear substationMeasuresPerYear : population.get(0).getSubstationMeasuresPerYear()) {
-            writer.println("Год №" + String.format("%d", substationMeasuresPerYear.getYearNumber()));
+            writer.println("Год № " + String.format("%d", substationMeasuresPerYear.getYearNumber()));
             writer.println("Архитектура " + String.format("%d", substationMeasuresPerYear.getArchitectureType()));
             //ORG
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD1() == 1) {

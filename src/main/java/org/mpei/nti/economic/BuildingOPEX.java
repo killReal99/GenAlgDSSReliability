@@ -1,10 +1,9 @@
 package org.mpei.nti.economic;
 
 public class BuildingOPEX {
-    public static float withoutISFirstArch;
-    public static float withoutISSecondArch;
-    public static float withoutISThirdArch;
-    public static float D1 = 75000.0f;
+    public static float withoutISFirstArch = 1f;
+    public static float withoutISSecondArch = 1f;
+    public static float withoutISThirdArch = 1f;
     public static float D2 = 15000.0f;
     public static float D3 = 1500.0f;
     public static float D4 = 15000.0f;

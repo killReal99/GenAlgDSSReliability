@@ -13,12 +13,12 @@ public class Mutating {
 
     public static void mutatePopulation(List<SubstationMeasures> population) {
         for (SubstationMeasures substationMeasures : population){
-            int randomYear = (int) (Math.random() * 24);
+            int randomYear = (int) (Math.random() * 24 + 0.05);
             int countOfChromosomes = 14 + 11 * substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().size();
             double randomChromosome = Math.random();
             if (randomChromosome <= 1.0 / countOfChromosomes) {
                 substationMeasures.getSubstationMeasuresPerYear().get(randomYear).
-                        setArchitectureType((int) (Math.random() * (maxArch - minArch) + minArch + 0.001));
+                        setArchitectureType((int) (Math.random() * (maxArch - minArch) + minArch + 0.01));
             } else if (randomChromosome > 1.0 / countOfChromosomes && randomChromosome <= 2.0 / countOfChromosomes) {
                 substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                         setD3(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD3()));

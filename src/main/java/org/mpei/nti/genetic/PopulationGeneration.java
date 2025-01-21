@@ -17,7 +17,6 @@ public class PopulationGeneration {
             OrganizationalMeasures organizationalMeasures = new OrganizationalMeasures((int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()));
-
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
                     ((int) (Math.random() * (maxArch - minArch) + minArch + 0.001)), year, organizationalMeasures,
                     improsedMeasures, IEDGenerator(IEDCount, protectionsCount)));

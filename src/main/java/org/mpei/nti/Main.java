@@ -15,8 +15,8 @@ public class Main {
     public static int maxArch = 3;
     public static int IEDCount = 2;
     public static int protectionsCount = 3;
-    public static int populationSize = 1000;
-    public static int numberOfIterations = 5000;
+    public static int populationSize = 1500;
+    public static int numberOfIterations = 3000;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();

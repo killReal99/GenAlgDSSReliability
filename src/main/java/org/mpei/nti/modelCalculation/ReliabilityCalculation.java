@@ -15,8 +15,9 @@ public class ReliabilityCalculation {
                     substationMeasure.setCapexPrice(substationMeasure.getCapexPrice() + substationMeasuresPerYear.getCapexPrice());
                     substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
 
-                    substationMeasure.setTotalPrice(underSupplyCalculation(substationMeasuresPerYear) +
-                            substationMeasure.getCapexPrice() + substationMeasure.getOpexPrice());
+                    substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() +
+                            underSupplyCalculation(substationMeasuresPerYear) + substationMeasuresPerYear.getCapexPrice() +
+                            substationMeasuresPerYear.getOpexPrice());
                 }
             }
         }
