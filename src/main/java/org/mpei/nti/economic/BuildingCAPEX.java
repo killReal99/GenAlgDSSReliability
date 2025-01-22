@@ -4,6 +4,14 @@ public class BuildingCAPEX {
     public static float withoutISFirstArch = 1f;
     public static float withoutISSecondArch = 1f;
     public static float withoutISThirdArch = 1f;
+
+    public static float fromFirstToSecondRebuild = 10f;
+    public static float fromFirstToThirdRebuild = 10f;
+    public static float fromSecondToFirstRebuild = 10f;
+    public static float fromSecondToThirdRebuild = 10f;
+    public static float fromThirdToFirstRebuild = 10f;
+    public static float fromThirdToSecondRebuild = 10f;
+
     public static float D2 = 1f;
     public static float D3 = 1f;
     public static float D4 = 1f;
