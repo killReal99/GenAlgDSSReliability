@@ -13,6 +13,8 @@ public class ReliabilityCalculation {
         for (SubstationMeasures substationMeasure : substationMeasuresList) {
             if (substationMeasure.getTotalPrice() == 0.0f) {
                 idsCheck(substationMeasure);
+                firewallCheck(substationMeasure);
+                antivirusCheck(substationMeasure);
                 archCheck(substationMeasure);
                 for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasure.getSubstationMeasuresPerYear()) {
                     substationMeasure.setCapexPrice(substationMeasure.getCapexPrice() + substationMeasuresPerYear.getCapexPrice());
@@ -53,6 +55,54 @@ public class ReliabilityCalculation {
                 }
             } else {
                 idsCheck = 0;
+            }
+        }
+    }
+
+    public static void firewallCheck(SubstationMeasures substationMeasures) {
+        int firewallCheck = 0;
+        for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
+            if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
+                firewallCheck++;
+                if (substationMeasuresPerYear.getYearNumber() != 1 && firewallCheck == 1) {
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D20);
+                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D20);
+                    substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
+                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                }
+                if (firewallCheck == 10) {
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D20);
+                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D20);
+                    substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
+                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                    firewallCheck = 1;
+                }
+            } else {
+                firewallCheck = 0;
+            }
+        }
+    }
+
+    public static void antivirusCheck(SubstationMeasures substationMeasures) {
+        int antivirusCheck = 0;
+        for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
+            if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
+                antivirusCheck++;
+                if (substationMeasuresPerYear.getYearNumber() != 1 && antivirusCheck == 1) {
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D19);
+                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D19);
+                    substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
+                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                }
+                if (antivirusCheck == 5) {
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D19);
+                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D19);
+                    substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
+                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                    antivirusCheck = 1;
+                }
+            } else {
+                antivirusCheck = 0;
             }
         }
     }

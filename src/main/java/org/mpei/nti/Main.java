@@ -44,7 +44,6 @@ public class Main {
                 System.out.println("Iteration number " + i);
                 System.out.println("The best individual " + population.get(0).hashCode() + " with total price " +
                         String.format("%f", population.get(0).getTotalPrice()) + " rubles");
-
             } else break;
 
             if (Math.round(previousValueOfTotalPrice) == Math.round(population.get(0).getTotalPrice())) {

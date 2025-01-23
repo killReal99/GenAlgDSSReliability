@@ -54,7 +54,7 @@ public class ResultsMapping {
             if (substationMeasuresPerYear.getImprosedMeasures().getD19() == 1) {
                 writer.println("Наложенные СЗИ на АРМ инженера РЗА (антивирус и/или система защиты конечных точек)");
             }
-            if (substationMeasuresPerYear.getImprosedMeasures().getD19() == 1) {
+            if (substationMeasuresPerYear.getImprosedMeasures().getD20() == 1) {
                 writer.println("Межсетевой экран");
             }
             if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
