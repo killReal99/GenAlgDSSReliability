@@ -22,7 +22,7 @@ public class PopulationGeneration {
 //                    (int) Math.round(Math.random()), (int) Math.round(Math.random()));
 
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                    ((int) (Math.random() * (maxArch - minArch) + minArch + 0.001)), year, organizationalMeasures,
+                    ((int) (Math.random() * (maxArch - minArch) + minArch)), year, organizationalMeasures,
                     improsedMeasures, IEDGenerator(IEDCount, protectionsCount)));
         }
         return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList);

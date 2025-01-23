@@ -4,6 +4,12 @@ public class BuildingOPEX {
     public static float withoutISFirstArch = 1f;
     public static float withoutISSecondArch = 1f;
     public static float withoutISThirdArch = 1f;
+    public static float fromFirstToSecondRebuild = 5f;
+    public static float fromFirstToThirdRebuild = 5f;
+    public static float fromSecondToFirstRebuild = 5f;
+    public static float fromSecondToThirdRebuild = 5f;
+    public static float fromThirdToFirstRebuild = 5f;
+    public static float fromThirdToSecondRebuild = 5f;
     public static float D2 = 1.0f;
     public static float D3 = 1.0f;
     public static float D4 = 1.0f;
