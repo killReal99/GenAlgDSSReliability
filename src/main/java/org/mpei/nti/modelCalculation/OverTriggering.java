@@ -37,15 +37,11 @@ public class OverTriggering {
 
         if (substationMeasuresPerYear.getArchitectureType() == 2) {
             A1 = 0.0f;
-            A2 = 0.0f;
             A3 = 0.0f;
-            A4 = 0.0f;
         }
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
             A1 = 0.0f;
-            A2 = 0.0f;
             A3 = 0.0f;
-            A4 = 0.0f;
         }
 
         float Psv = A1 * A2 * DD1 * DD2 + A3 * A4 * DD3;

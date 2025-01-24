@@ -59,38 +59,31 @@ public class FailureTriggering {
 
         if (substationMeasuresPerYear.getArchitectureType() == 2) {
             A1 = 0.0f;
-            A2 = 0.0f;
             A3 = 0.0f;
-            A4 = 0.0f;
         }
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
             A1 = 0.0f;
-            A2 = 0.0f;
             A3 = 0.0f;
-            A4 = 0.0f;
             A23 = 0.0f;
-            A24 = 0.0f;
             A31 = 0.0f;
-            A32 = 0.0f;
             A41 = 0.0f;
-            A42 = 0.0f;
         }
 
         float Psv = A1 * A2 * DD1 * DD2 + A3 * A4 * DD3;
         float Pust = A5 * A6 * DD4 * DD5 + A7 * A8 * (DD5 * DD6 * DD7 + DD5 * (1 - DD6) * DD7 + DD5 * DD6 * (1 - DD7))
-            + A9 * A10 * DD7 * DD8 * DD9 + A11 * A12 * (DD5 * DD10 * DD11 + (1 - DD5) * DD10 * DD11 + DD5 * DD10 *
-            (1 - DD11));
+                + A9 * A10 * DD7 * DD8 * DD9 + A11 * A12 * (DD5 * DD10 * DD11 + (1 - DD5) * DD10 * DD11 + DD5 * DD10 *
+                (1 - DD11));
         float PotkIED = A31 * A32 * DD16 * DD23 + A33 * A34 * DD16 * DD23 + A35 * A16 * DD10 * DD19 * DD23 + A37 *
-            A38 * DD16 * DD23 + A29 * A30 * (DD10 * DD19 * DD20 * DD18 * DD21 * DD22 + DD10 * DD19 * (1 - DD20) *
-            DD18 * DD21 * DD22 + DD10 * DD19 * DD20 * (1 - DD18) * DD21 * DD22 + DD10 * DD19 * DD20 * DD18 *
-            (1 - DD21 * DD22) + DD10 * DD19 * (1 - DD20) * (1 - DD18) * DD21 * DD22 + DD10 * DD19 * (1 - DD20) *
-            DD18 * (1 - DD21 * DD22) + DD10 * DD19 * DD20 * (1 - DD18) * (1 - DD21 * DD22));
+                A38 * DD16 * DD23 + A29 * A30 * (DD10 * DD19 * DD20 * DD18 * DD21 * DD22 + DD10 * DD19 * (1 - DD20) *
+                DD18 * DD21 * DD22 + DD10 * DD19 * DD20 * (1 - DD18) * DD21 * DD22 + DD10 * DD19 * DD20 * DD18 *
+                (1 - DD21 * DD22) + DD10 * DD19 * (1 - DD20) * (1 - DD18) * DD21 * DD22 + DD10 * DD19 * (1 - DD20) *
+                DD18 * (1 - DD21 * DD22) + DD10 * DD19 * DD20 * (1 - DD18) * (1 - DD21 * DD22));
         float PotkPds = A39 * A40 * DD16;
         float Potkkom = A41 * A42 * DD16 * DD24 + A43 * A44 * DD16 * DD24 + A45 * A46 * (DD10 * DD19 * DD24 * DD21 *
-            DD22 + DD10 * DD19 * (1 - DD24) * DD21 * DD22 + DD10 * DD19 * DD24 * (1 - DD21) * DD22) + A23 * A24 *
-            DD16 * DD17;
+                DD22 + DD10 * DD19 * (1 - DD24) * DD21 * DD22 + DD10 * DD19 * DD24 * (1 - DD21) * DD22) + A23 * A24 *
+                DD16 * DD17;
         float Psoft = A13 * A14 * DD9 * DD12 * DD13 * DD14 + A15 * A16 * DD9 * DD12 * DD13 * DD14 + A17 * A18 * DD9 *
-            DD12 * DD13 * DD15 + A19 * A20 * DD9 * DD12 * DD13 * DD14 * DD15;
+                DD12 * DD13 * DD15 + A19 * A20 * DD9 * DD12 * DD13 * DD14 * DD15;
 
         float Pfull = Psv + PotkIED + PotkPds + Pust + Potkkom + Psoft;
 
