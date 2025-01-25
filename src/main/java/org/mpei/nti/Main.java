@@ -13,8 +13,6 @@ public class Main {
 
     public static int minArch = 1;
     public static int maxArch = 3;
-    public static int IEDCount = 2;
-    public static int protectionsCount = 3;
     public static int populationSize = 10000;
     public static int numberOfIterations = 50;
 
@@ -23,7 +21,7 @@ public class Main {
         List<SubstationMeasures> population = new ArrayList<>();
 
         for (int i = 0; i < populationSize; i++) {
-            population.add(PopulationGeneration.generatePopulation(minArch, maxArch, IEDCount, protectionsCount));
+            population.add(PopulationGeneration.generatePopulation(minArch, maxArch));
         }
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population);

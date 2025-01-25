@@ -1,6 +1,8 @@
 package org.mpei.nti.substation.substationStructures;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.mpei.nti.utils.Equipment;
 
@@ -8,6 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IED {
     private String nameOfIED;
     private Equipment equipmentName;

@@ -2,13 +2,15 @@ package org.mpei.nti.genetic;
 
 import org.mpei.nti.substation.substationGeneration.*;
 import org.mpei.nti.substation.substationStructures.*;
+import org.mpei.nti.utils.Equipment;
+import org.mpei.nti.utils.Protection;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PopulationGeneration {
 
-    public static SubstationMeasures generatePopulation(int minArch, int maxArch, int IEDCount, int protectionsCount) {
+    public static SubstationMeasures generatePopulation(int minArch, int maxArch) {
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int year = 1; year <= 25; year++) {
             ImprosedMeasures improsedMeasures = new ImprosedMeasures(1, 1, 1, 1, 1, 1, 1);
@@ -22,33 +24,24 @@ public class PopulationGeneration {
 //                    (int) Math.round(Math.random()), (int) Math.round(Math.random()));
 
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                    ((int) (Math.random() * (maxArch - minArch) + minArch)), year, organizationalMeasures,
-                    improsedMeasures, IEDGenerator(IEDCount, protectionsCount)));
+                ((int) (Math.random() * (maxArch - minArch) + minArch)), year, organizationalMeasures,
+                improsedMeasures, IEDGenerator()));
         }
         return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList);
     }
 
-    public static List<IED> IEDGenerator(int IEDCount, int protectionCount) {
+    public static List<IED> IEDGenerator() {
         List<IED> iedList = new ArrayList<>();
-        for (int i = 0; i < IEDCount; i++) {
-            IED ied = IEDGeneration.iedGeneration(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-//            IED ied = IEDGeneration.iedGeneration((int) Math.round(Math.random()), (int) Math.round(Math.random()),
-//                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-//                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-//                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
-            ied.setProtectionsList(protectionsGenerator(protectionCount));
+        // LINE
+        for (int i = 0; i < 2; i++) {
+            List<Protections> protectionsList = new ArrayList<>();
+            protectionsList.add(new Protections(Protection.DZL, Equipment.LINE));
+            protectionsList.add(new Protections(Protection.MTZ, Equipment.LINE));
+            protectionsList.add(new Protections(Protection.TZNP, Equipment.LINE));
+            protectionsList.add(new Protections(Protection.DZ, Equipment.LINE));
+            IED ied = new IED("W1_" + i, Equipment.LINE, protectionsList, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             iedList.add(ied);
         }
         return iedList;
     }
-
-    public static List<Protections> protectionsGenerator(int protectionCount) {
-        List<Protections> protectionsList = new ArrayList<>();
-        for (int i = 0; i < protectionCount; i++) {
-            Protections protections = new Protections();
-            protectionsList.add(protections);
-        }
-        return protectionsList;
-    }
-
 }
