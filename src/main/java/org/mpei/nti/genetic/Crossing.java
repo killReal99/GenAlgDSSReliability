@@ -20,10 +20,12 @@ public class Crossing {
         }
         List<RoulettePart> rouletteWeights = rouletteWeightCalculation(population, fullPopulationWeight);
         for (int i = 0; i < population.size(); i++) {
-            SubstationMeasures firstParent = population.get(rouletteIndexChecker(rouletteWeights,
-                Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart()));
-            SubstationMeasures secondParent = population.get(rouletteIndexChecker(rouletteWeights,
-                Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart()));
+            SubstationMeasures firstParent = population.get(rouletteSearch(rouletteWeights,
+                (float) Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart(),
+                rouletteWeights.size() / 2));
+            SubstationMeasures secondParent = population.get(rouletteSearch(rouletteWeights,
+                (float) Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart(),
+                rouletteWeights.size() / 2));
             if (Math.random() >= 0.5) {
                 yearSwap(newSubstationMeasuresList, firstParent, secondParent);
             } else {
@@ -233,14 +235,34 @@ public class Crossing {
         substationMeasuresList.add(child);
     }
 
-    public static Integer rouletteIndexChecker(List<RoulettePart> rouletteWeights, double pointer) {
+    public static int rouletteSearch(List<RoulettePart> rouletteWeights, float pointer, int startPoint) {
         int index = 0;
-
-
-
-        for (RoulettePart roulettePart : rouletteWeights) {
-            if (pointer >= roulettePart.getLeftPart() && pointer <= roulettePart.getRightPart()) {
-                index = roulettePart.getIndex();
+        if (pointer >= rouletteWeights.get(startPoint).getLeftPart() && pointer <= rouletteWeights.get(startPoint).getRightPart()) {
+            index = rouletteWeights.get(startPoint).getIndex();
+        } else {
+            if (pointer <= rouletteWeights.get(startPoint).getLeftPart()) {
+                int newStartPoint = startPoint - (int) (startPoint *
+                    (rouletteWeights.get(startPoint).getLeftPart() - pointer) /
+                    rouletteWeights.get(rouletteWeights.size() - 1).getRightPart());
+                if (newStartPoint < 0) {
+                    newStartPoint = 0;
+                }
+                if (startPoint == newStartPoint) {
+                    newStartPoint = newStartPoint - 1;
+                }
+                rouletteSearch(rouletteWeights, pointer, newStartPoint);
+            }
+            if (pointer >= rouletteWeights.get(startPoint).getRightPart()) {
+                int newStartPoint = startPoint + (int) (startPoint *
+                    (pointer - rouletteWeights.get(startPoint).getLeftPart()) /
+                    rouletteWeights.get(rouletteWeights.size() - 1).getRightPart());
+                if (newStartPoint > (rouletteWeights.size() - 1)) {
+                    newStartPoint = (rouletteWeights.size() - 1);
+                }
+                if (startPoint == newStartPoint) {
+                    newStartPoint = newStartPoint + 1;
+                }
+                rouletteSearch(rouletteWeights, pointer, newStartPoint);
             }
         }
         return index;
