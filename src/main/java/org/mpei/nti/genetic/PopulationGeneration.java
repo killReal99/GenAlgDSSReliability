@@ -2,8 +2,7 @@ package org.mpei.nti.genetic;
 
 import org.mpei.nti.substation.substationGeneration.*;
 import org.mpei.nti.substation.substationStructures.*;
-import org.mpei.nti.utils.Equipment;
-import org.mpei.nti.utils.Protection;
+import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class PopulationGeneration {
         // LINE
         for (int i = 0; i < 2; i++) {
             List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-            IED ied = new IED("W1_" + i, Equipment.LINE, protectionsList, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            IED ied = new IED("W1_" + i, EquipmentType.LINE, protectionsList, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             iedList.add(ied);
         }
         return iedList;

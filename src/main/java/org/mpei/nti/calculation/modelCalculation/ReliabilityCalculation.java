@@ -1,5 +1,6 @@
 package org.mpei.nti.calculation.modelCalculation;
 
+import org.mpei.nti.calculation.modesCalculation.MockUndersupplyCalculation;
 import org.mpei.nti.economic.BuildingCAPEX;
 import org.mpei.nti.economic.BuildingOPEX;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
@@ -28,11 +29,11 @@ public class ReliabilityCalculation {
         }
     }
 
-    public static Float underSupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float Mizl = OverTriggering.overTriggeringCalculation(substationMeasuresPerYear);
-        float Mlozh = FalsePositive.falsePositiveCalculation(substationMeasuresPerYear);
+    public static float underSupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        float Mizl_Mlozh = MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear);
+
         float Motk = FailureTriggering.failureTriggeringCalculation(substationMeasuresPerYear);
-        return (Mizl + Mlozh + Motk) * 99 * 1000;
+        return (Mizl_Mlozh + Motk) * 99 * 1000;
     }
 
     public static void idsCheck(SubstationMeasures substationMeasures) {

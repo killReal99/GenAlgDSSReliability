@@ -3,8 +3,7 @@ package org.mpei.nti.genetic;
 import org.mpei.nti.calculation.modelCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationGeneration.*;
 import org.mpei.nti.substation.substationStructures.*;
-import org.mpei.nti.utils.Equipment;
-import org.mpei.nti.utils.Protection;
+import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.RoulettePart;
 
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class Crossing {
                 for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
                     // LINE
                     List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                    IED ied = new IED("W1_" + j, Equipment.LINE, protectionsList,
+                    IED ied = new IED("W1_" + j, EquipmentType.LINE, protectionsList,
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -100,7 +99,7 @@ public class Crossing {
                 for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
                     // LINE
                     List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                    IED ied = new IED("W1_" + j, Equipment.LINE, protectionsList,
+                    IED ied = new IED("W1_" + j, EquipmentType.LINE, protectionsList,
                         secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -148,7 +147,7 @@ public class Crossing {
             for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
                 // LINE
                 List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                IED ied = new IED("W1_" + j, Equipment.LINE, protectionsList,
+                IED ied = new IED("W1_" + j, EquipmentType.LINE, protectionsList,
                     firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -200,7 +199,7 @@ public class Crossing {
             List<IED> childIedList = new ArrayList<>();
             for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().size(); j++) {
                 List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                IED ied = new IED("W1_" + j, Equipment.LINE, protectionsList,
+                IED ied = new IED("W1_" + j, EquipmentType.LINE, protectionsList,
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD2(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD4(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD5(),

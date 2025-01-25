@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.mpei.nti.utils.Equipment;
-import org.mpei.nti.utils.Protection;
+import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
+import org.mpei.nti.substation.substationStructures.Enums.ProtectionType;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Protections {
-    private Protection nameOfProtection;
-    private Equipment equipmentType;
+    private ProtectionType protectionType;
+    private EquipmentType equipmentType;
 }

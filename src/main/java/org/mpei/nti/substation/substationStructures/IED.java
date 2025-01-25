@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.mpei.nti.utils.Equipment;
+import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class IED {
     private String nameOfIED;
-    private Equipment equipmentName;
+    private EquipmentType equipmentTypeName;
     private List<Protections> protectionsList;
     /*Криптографическая защита пакетов SV с использованием имитовставки, предотвратит обработку SV потока,
 сгенерированного нарушителем.*/
