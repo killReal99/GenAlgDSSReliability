@@ -235,6 +235,9 @@ public class Crossing {
 
     public static Integer rouletteIndexChecker(List<RoulettePart> rouletteWeights, double pointer) {
         int index = 0;
+
+
+
         for (RoulettePart roulettePart : rouletteWeights) {
             if (pointer >= roulettePart.getLeftPart() && pointer <= roulettePart.getRightPart()) {
                 index = roulettePart.getIndex();
