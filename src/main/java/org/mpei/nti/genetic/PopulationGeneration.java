@@ -34,11 +34,7 @@ public class PopulationGeneration {
         List<IED> iedList = new ArrayList<>();
         // LINE
         for (int i = 0; i < 2; i++) {
-            List<Protections> protectionsList = new ArrayList<>();
-            protectionsList.add(new Protections(Protection.DZL, Equipment.LINE));
-            protectionsList.add(new Protections(Protection.MTZ, Equipment.LINE));
-            protectionsList.add(new Protections(Protection.TZNP, Equipment.LINE));
-            protectionsList.add(new Protections(Protection.DZ, Equipment.LINE));
+            List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
             IED ied = new IED("W1_" + i, Equipment.LINE, protectionsList, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             iedList.add(ied);
         }

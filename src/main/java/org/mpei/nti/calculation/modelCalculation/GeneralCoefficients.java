@@ -1,4 +1,4 @@
-package org.mpei.nti.modelCalculation;
+package org.mpei.nti.calculation.modelCalculation;
 
 public class GeneralCoefficients {
 

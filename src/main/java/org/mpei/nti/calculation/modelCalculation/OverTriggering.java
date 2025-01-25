@@ -1,8 +1,8 @@
-package org.mpei.nti.modelCalculation;
+package org.mpei.nti.calculation.modelCalculation;
 
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
-import static org.mpei.nti.modelCalculation.GeneralCoefficients.*;
+import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
 public class OverTriggering {
 

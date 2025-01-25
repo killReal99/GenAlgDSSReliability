@@ -1,7 +1,7 @@
 package org.mpei.nti;
 
 import org.mpei.nti.genetic.*;
-import org.mpei.nti.modelCalculation.ReliabilityCalculation;
+import org.mpei.nti.calculation.modelCalculation.ReliabilityCalculation;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.utils.ResultsMapping;
 
