@@ -1,7 +1,7 @@
 package org.mpei.nti;
 
 import org.mpei.nti.genetic.*;
-import org.mpei.nti.calculation.modelCalculation.ReliabilityCalculation;
+import org.mpei.nti.calculation.economicCalculation.ReliabilityCalculation;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.utils.ResultsMapping;
 
@@ -13,8 +13,8 @@ public class Main {
 
     public static int minArch = 1;
     public static int maxArch = 3;
-    public static int populationSize = 1000;
-    public static int numberOfIterations = 2000;
+    public static int populationSize = 2500;
+    public static int numberOfIterations = 5000;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();

@@ -1,6 +1,6 @@
 package org.mpei.nti.substation.substationGeneration;
 
-import org.mpei.nti.calculation.modelCalculation.CostsCalculation;
+import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationStructures.*;
 
 import java.util.List;

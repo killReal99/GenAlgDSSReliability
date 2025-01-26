@@ -1,13 +1,10 @@
 package org.mpei.nti.calculation.modelCalculation;
 
-import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
-
-import java.util.Objects;
 
 import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
-public class OverTriggering {
+public class OverTriggeringLine {
 
     public static float overTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
@@ -56,11 +53,7 @@ public class OverTriggering {
 
         float Pfull = Psv + Pust + Psoft;
 
-        float P = Pne * Pfull * Pkz + Pne * (1 - Pfull) * Pkz + (1 - Pne) * Pfull * PkzKa;
-
-        float q = ((float) -Math.log(1.0f - P) / 1.0f);
-        float W = Pper * Tvosst;
-        return W * q * qapv;
+        return Pne * Pfull * Pkz + Pne * (1 - Pfull) * Pkz + (1 - Pne) * Pfull * PkzKa;
     }
 
 }

@@ -4,7 +4,7 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
-public class FalsePositive {
+public class FalsePositiveLine {
 
     public static float falsePositiveCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
@@ -77,10 +77,7 @@ public class FalsePositive {
 
         float Pfull = Psv + Pust + Pupravl + Psoft;
 
-        float P = Pne * Pfull + Pne * (1 - Pfull) + (1 - Pne) * Pfull;
-        float q = ((float) -Math.log(1.0f - P) / 1.0f);
-        float W = Pper * Tvosst;
-        return W * q;
+        return Pne * Pfull + Pne * (1 - Pfull) + (1 - Pne) * Pfull;
     }
 
 }

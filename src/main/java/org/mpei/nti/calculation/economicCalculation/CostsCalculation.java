@@ -1,4 +1,4 @@
-package org.mpei.nti.calculation.modelCalculation;
+package org.mpei.nti.calculation.economicCalculation;
 
 import org.mpei.nti.economic.BuildingCAPEX;
 import org.mpei.nti.economic.BuildingOPEX;

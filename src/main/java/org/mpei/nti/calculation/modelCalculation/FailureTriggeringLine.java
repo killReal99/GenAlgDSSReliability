@@ -4,9 +4,9 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
-public class FailureTriggering {
+public class FailureTriggeringLine {
 
-    public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+    public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
         float A1 = (float) 1 / 19;
         float A3 = (float) 1 / 19;
@@ -87,11 +87,7 @@ public class FailureTriggering {
 
         float Pfull = Psv + PotkIED + PotkPds + Pust + Potkkom + Psoft;
 
-        float P = Pne * Pfull * Pkz + Pne * (1 - Pfull) * Pkz + (1 - Pne) * Pfull * PkzKa;
-
-        float q = ((float) -Math.log(1 - P) / 1.0f);
-        float W = Pper * Tvosst;
-        return W * q;
+        return (Pne * Pfull * Pkz + Pne * (1 - Pfull) * Pkz + (1 - Pne) * Pfull * PkzKa);
     }
 
 }

@@ -1,4 +1,4 @@
-package org.mpei.nti.calculation.modelCalculation;
+package org.mpei.nti.calculation.economicCalculation;
 
 import org.mpei.nti.calculation.modesCalculation.MockUndersupplyCalculation;
 import org.mpei.nti.economic.BuildingCAPEX;
@@ -22,18 +22,11 @@ public class ReliabilityCalculation {
                     substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
 
                     substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() +
-                            underSupplyCalculation(substationMeasuresPerYear) + substationMeasuresPerYear.getCapexPrice() +
+                            MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear) + substationMeasuresPerYear.getCapexPrice() +
                             substationMeasuresPerYear.getOpexPrice());
                 }
             }
         }
-    }
-
-    public static float underSupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float Mizl_Mlozh = MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear);
-
-        float Motk = FailureTriggering.failureTriggeringCalculation(substationMeasuresPerYear);
-        return (Mizl_Mlozh + Motk) * 99 * 1000;
     }
 
     public static void idsCheck(SubstationMeasures substationMeasures) {
