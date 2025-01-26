@@ -4,7 +4,6 @@ import org.mpei.nti.calculation.modelCalculation.FailureTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.FalsePositiveLine;
 import org.mpei.nti.calculation.modelCalculation.OverTriggeringLine;
 import org.mpei.nti.substation.substationStructures.IED;
-import org.mpei.nti.substation.substationStructures.Protections;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.Probability;
@@ -15,12 +14,21 @@ public class MockUndersupplyCalculation {
 
     public static float undersupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
         Probability w1Probability = new Probability(0.0f, 0.0f, 1.0f);
+        Probability w2Probability = new Probability(0.0f, 0.0f, 1.0f);
+        Probability w3Probability = new Probability(0.0f, 0.0f, 1.0f);
+        Probability w4Probability = new Probability(0.0f, 0.0f, 1.0f);
         int iedIndex = 0;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
                 String[] parse = ied.getNameOfIED().split("_");
                 if (parse[0].equals("W1")) {
                     lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w1Probability);
+                } else if (parse[0].equals("W2")) {
+                    lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w2Probability);
+                } else if (parse[0].equals("W3")) {
+                    lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w3Probability);
+                } else if (parse[0].equals("W4")) {
+                    lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w4Probability);
                 }
                 iedIndex++;
             }
@@ -29,11 +37,21 @@ public class MockUndersupplyCalculation {
         float lineUnderSupplyW1 = (undersupplyCalculation(w1Probability.getOverTriggerProbability(), 1) +
             undersupplyCalculation(w1Probability.getFalsePositiveProbability(), 2) +
             undersupplyCalculation(w1Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
-        return lineUnderSupplyW1;
+        float lineUnderSupplyW2 = (undersupplyCalculation(w2Probability.getOverTriggerProbability(), 1) +
+            undersupplyCalculation(w2Probability.getFalsePositiveProbability(), 2) +
+            undersupplyCalculation(w2Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
+        float lineUnderSupplyW3 = (undersupplyCalculation(w3Probability.getOverTriggerProbability(), 1) +
+            undersupplyCalculation(w3Probability.getFalsePositiveProbability(), 2) +
+            undersupplyCalculation(w3Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
+        float lineUnderSupplyW4 = (undersupplyCalculation(w4Probability.getOverTriggerProbability(), 1) +
+            undersupplyCalculation(w4Probability.getFalsePositiveProbability(), 2) +
+            undersupplyCalculation(w4Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
+
+        return lineUnderSupplyW1 + lineUnderSupplyW2 + lineUnderSupplyW3 + lineUnderSupplyW4;
     }
 
-
-    public static void lineProbabilityCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int index, Probability elementProbability) {
+    public static void lineProbabilityCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int index,
+                                                  Probability elementProbability) {
         float dzlOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
         float mtzOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
         float tznpOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
