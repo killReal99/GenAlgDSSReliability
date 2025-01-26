@@ -20,19 +20,15 @@ public class MockUndersupplyCalculation {
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
                 String[] parse = ied.getNameOfIED().split("_");
                 if (parse[0].equals("W1")) {
-
                     lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w1Probability);
-
-
                 }
-
                 iedIndex++;
             }
         }
 
-        float lineUnderSupplyW1 = (undersupplyCalculation(overTriggerProbabilityW1, 1) +
-                undersupplyCalculation(falsePositiveProbabilityW1, 2) +
-                undersupplyCalculation(failureTriggerProbablilityW1, 2)) * 99 * 1000;
+        float lineUnderSupplyW1 = (undersupplyCalculation(w1Probability.getOverTriggerProbability(), 1) +
+            undersupplyCalculation(w1Probability.getFalsePositiveProbability(), 2) +
+            undersupplyCalculation(w1Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
         return lineUnderSupplyW1;
     }
 
@@ -42,49 +38,49 @@ public class MockUndersupplyCalculation {
         float mtzOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
         float tznpOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
         float dzOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
-
         float oldOverTrigger = elementProbability.getOverTriggerProbability();
         float newOverTrigger = mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability) +
-                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability);
-
+            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
+            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
+            mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+            mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
+            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+            mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability) +
+            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability);
         elementProbability.setOverTriggerProbability(oldOverTrigger * newOverTrigger + (1 - oldOverTrigger) * newOverTrigger +
-                oldOverTrigger * (1 - newOverTrigger));
+            oldOverTrigger * (1 - newOverTrigger));
 
         float dzlFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
         float mtzFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
         float tznpFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
         float dzFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
-        elementProbability.setFalsePositiveProbability(mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability) +
-                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability));
-        elementProbability
+        float oldFalsePositive = elementProbability.getFalsePositiveProbability();
+        float newFalsePositive = mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+            mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+            mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+            mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability) +
+            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability);
+        elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
+            oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
 
-
-        failureTriggerProbablilityW1 *= FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear, iedIndex);
-
+        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
+        float newFailureTrigger = FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear, index);
+        elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
     }
 
     public static float undersupplyCalculation(float probablility, int calculationType) {
