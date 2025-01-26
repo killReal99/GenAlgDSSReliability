@@ -59,8 +59,8 @@ public class Crossing {
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24()
                 );
                 List<IED> childIedList = new ArrayList<>();
-                for (int j = 1; j < 4; j++) {
-                    for (int k = 0; k < 2; k++) {
+                for (int j = 1; j < 5; j++) {
+                    for (int k = 1; k < 3; k++) {
                         // LINE
                         List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
                         IED ied = new IED("W" + j + "_" + k, EquipmentType.LINE, protectionsList,
@@ -98,8 +98,8 @@ public class Crossing {
                     secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD21(),
                     secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24());
                 List<IED> childIedList = new ArrayList<>();
-                for (int j = 1; j < 4; j++) {
-                    for (int k = 0; k < 2; k++) {
+                for (int j = 1; j < 5; j++) {
+                    for (int k = 1; k < 3; k++) {
                         // LINE
                         List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
                         IED ied = new IED("W" + j+ "_" + k, EquipmentType.LINE, protectionsList,
@@ -148,8 +148,8 @@ public class Crossing {
                 firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24()
             );
             List<IED> childIedListTwo = new ArrayList<>();
-            for (int j = 1; j < 4; j++) {
-                for (int k = 0; k < 2; k++) {
+            for (int j = 1; j < 5; j++) {
+                for (int k = 1; k < 3; k++) {
                     // LINE
                     List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
                     IED ied = new IED("W" + j+ "_" + k, EquipmentType.LINE, protectionsList,
@@ -202,8 +202,8 @@ public class Crossing {
             substationMeasuresPerYearList.get(swapYearNumber - 1).setImprosedMeasures(childImprosedMeasures);
         } else {
             List<IED> childIedList = new ArrayList<>();
-            for (int j = 1; j < 4; j++) {
-                for (int k = 0; k < 2; k++) {
+            for (int j = 1; j < 5; j++) {
+                for (int k = 1; k < 3; k++) {
                     List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
                     IED ied = new IED("W" + j + "_" + k, EquipmentType.LINE, protectionsList,
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD2(),
