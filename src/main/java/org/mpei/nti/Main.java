@@ -39,9 +39,11 @@ public class Main {
                 Sorting.quickSort(population, 0, population.size() - 1);
                 Deletion.deletePartOfPopulation(population);
 
-                System.out.println("Iteration number " + (i + 1));
-                System.out.println("The best individual " + population.get(0).hashCode() + " with total price " +
-                    String.format("%f", population.get(0).getTotalPrice()) + " rubles");
+                System.out.println("Номер итерации " + (i + 1));
+                System.out.println("Лучший индивид " + population.get(0).hashCode() + " с весовой функцией " +
+                        String.format("%f", population.get(0).getTotalPrice()) + " руб" + " медианный индивид " +
+                        population.get((int) (populationSize / 2)).hashCode() + " с весовой функцией " +
+                        String.format("%f", population.get((int) (populationSize / 2)).getTotalPrice()) + " руб");
             } else break;
 
             if (Math.round(previousValueOfTotalPrice) == Math.round(population.get(0).getTotalPrice())) {
