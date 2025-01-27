@@ -1,10 +1,10 @@
-package org.mpei.nti.calculation.modelCalculation;
+package org.mpei.nti.calculation.modelCalculation.Bus;
 
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
-public class FailureTriggeringLine {
+public class FailureTriggeringBus {
 
     public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
