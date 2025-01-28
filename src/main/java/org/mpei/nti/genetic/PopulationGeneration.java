@@ -28,7 +28,6 @@ public class PopulationGeneration {
 
     public static List<IED> IEDGenerator() {
         List<IED> iedList = new ArrayList<>();
-        // LINE
         for (int i = 1; i < 5; i++) {
             for (int j = 1; j < 3; j++) {
                 List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
@@ -40,11 +39,10 @@ public class PopulationGeneration {
                 iedList.add(ied);
             }
         }
-        // Bus
         for (int i = 1; i < 3; i++) {
             for (int j = 1; j < 3; j++) {
-                List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                IED ied = new IED("B" + i + "_" + j, EquipmentType.BUS, protectionsList, (int) Math.round(Math.random()),
+                List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
+                IED ied = new IED("K" + i + "_" + j, EquipmentType.BUS, protectionsList, (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
@@ -52,9 +50,8 @@ public class PopulationGeneration {
                 iedList.add(ied);
             }
         }
-        // Transformer
         for (int i = 1; i < 3; i++) {
-            List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+            List<Protections> protectionsList = ProtectionsSet.transformerProtectionsSetGeneration();
             IED ied = new IED("T" + i + "_1", EquipmentType.TRANSFORMER, protectionsList, (int) Math.round(Math.random()),
                 (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                 (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),

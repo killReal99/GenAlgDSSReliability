@@ -5,6 +5,8 @@ public enum ProtectionType {
     DZL,
     MTZ,
     TZNP,
-    DZ
+    DZ,
+    DZSH,
+    DZT
 
 }

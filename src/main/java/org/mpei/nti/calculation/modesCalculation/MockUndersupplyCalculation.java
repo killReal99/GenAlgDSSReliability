@@ -1,5 +1,8 @@
 package org.mpei.nti.calculation.modesCalculation;
 
+import org.mpei.nti.calculation.modelCalculation.Bus.FailureTriggeringBus;
+import org.mpei.nti.calculation.modelCalculation.Bus.FalsePositiveBus;
+import org.mpei.nti.calculation.modelCalculation.Bus.OverTriggeringBus;
 import org.mpei.nti.calculation.modelCalculation.Line.FalsePositiveLine;
 import org.mpei.nti.calculation.modelCalculation.Line.OverTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.Transformer.FailureTriggeringTransformer;
@@ -19,10 +22,14 @@ public class MockUndersupplyCalculation {
         Probability w2Probability = new Probability(0.0f, 0.0f, 1.0f);
         Probability w3Probability = new Probability(0.0f, 0.0f, 1.0f);
         Probability w4Probability = new Probability(0.0f, 0.0f, 1.0f);
+        Probability k1Probability = new Probability(0.0f, 0.0f, 1.0f);
+        Probability k2Probability = new Probability(0.0f, 0.0f, 1.0f);
+        Probability t1Probability = new Probability(0.0f, 0.0f, 1.0f);
+        Probability t2Probability = new Probability(0.0f, 0.0f, 1.0f);
         int iedIndex = 0;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
+            String[] parse = ied.getNameOfIED().split("_");
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
-                String[] parse = ied.getNameOfIED().split("_");
                 if (parse[0].equals("W1")) {
                     lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w1Probability);
                 } else if (parse[0].equals("W2")) {
@@ -32,8 +39,22 @@ public class MockUndersupplyCalculation {
                 } else if (parse[0].equals("W4")) {
                     lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w4Probability);
                 }
-                iedIndex++;
             }
+            if (ied.getEquipmentTypeName() == EquipmentType.BUS){
+                if (parse[0].equals("K1")){
+                    busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k1Probability);
+                } else if (parse[0].equals("K2")) {
+                    busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k2Probability);
+                }
+            }
+            if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER){
+                if (parse[0].equals("T1")){
+                    transformerProbabilityCalculation(substationMeasuresPerYear, iedIndex, t1Probability);
+                } else if (parse[0].equals("T2")) {
+                    transformerProbabilityCalculation(substationMeasuresPerYear, iedIndex, t2Probability);
+                }
+            }
+            iedIndex++;
         }
 
         float lineUnderSupplyW1 = (undersupplyCalculation(w1Probability.getOverTriggerProbability(), 1) +
@@ -151,6 +172,57 @@ public class MockUndersupplyCalculation {
 
         float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
         float newFailureTrigger = FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear, index);
+        elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
+    }
+
+    public static void busProbabilityCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int index,
+                                                         Probability elementProbability) {
+        float dzlOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
+        float mtzOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
+        float tznpOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
+        float dzOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
+        float oldOverTrigger = elementProbability.getOverTriggerProbability();
+        float newOverTrigger = mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
+                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
+                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
+                mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+                mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
+                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+                mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability) +
+                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
+                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
+                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability);
+        elementProbability.setOverTriggerProbability(oldOverTrigger * newOverTrigger + (1 - oldOverTrigger) * newOverTrigger +
+                oldOverTrigger * (1 - newOverTrigger));
+
+        float dzlFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
+        float mtzFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
+        float tznpFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
+        float dzFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
+        float oldFalsePositive = elementProbability.getFalsePositiveProbability();
+        float newFalsePositive = mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+                mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+                mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
+                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+                mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability) +
+                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
+                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
+                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability);
+        elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
+                oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
+
+        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
+        float newFailureTrigger = FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear, index);
         elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
     }
 

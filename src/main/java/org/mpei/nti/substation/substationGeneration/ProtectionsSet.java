@@ -18,4 +18,18 @@ public class ProtectionsSet {
         return protectionsList;
     }
 
+    public static List<Protections> busProtectionsSetGeneration() {
+        List<Protections> protectionsList = new ArrayList<>();
+        protectionsList.add(new Protections(ProtectionType.DZSH, EquipmentType.BUS));
+        protectionsList.add(new Protections(ProtectionType.MTZ, EquipmentType.BUS));
+        return protectionsList;
+    }
+
+    public static List<Protections> transformerProtectionsSetGeneration() {
+        List<Protections> protectionsList = new ArrayList<>();
+        protectionsList.add(new Protections(ProtectionType.DZT, EquipmentType.TRANSFORMER));
+        protectionsList.add(new Protections(ProtectionType.MTZ, EquipmentType.TRANSFORMER));
+        return protectionsList;
+    }
+
 }
