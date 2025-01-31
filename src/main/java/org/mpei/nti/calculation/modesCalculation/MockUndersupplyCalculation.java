@@ -3,6 +3,7 @@ package org.mpei.nti.calculation.modesCalculation;
 import org.mpei.nti.calculation.modelCalculation.Bus.FailureTriggeringBus;
 import org.mpei.nti.calculation.modelCalculation.Bus.FalsePositiveBus;
 import org.mpei.nti.calculation.modelCalculation.Bus.OverTriggeringBus;
+import org.mpei.nti.calculation.modelCalculation.Line.FailureTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.Line.FalsePositiveLine;
 import org.mpei.nti.calculation.modelCalculation.Line.OverTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.Transformer.FailureTriggeringTransformer;
@@ -120,7 +121,7 @@ public class MockUndersupplyCalculation {
             oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
 
         float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
-        float newFailureTrigger = FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear, index);
+        float newFailureTrigger = FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear, index);
         elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
     }
 

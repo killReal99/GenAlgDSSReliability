@@ -34,6 +34,11 @@ public class Main {
                 Selection.selectionOfSuitableIndividuals(population);
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
                 Mutating.mutatePopulation(newPopulation);
+
+                for (SubstationMeasures substationMeasures : newPopulation) {
+                    OptimizeGenotype.protocolsProtectionOptimization(substationMeasures);
+                }
+
                 population.addAll(newPopulation);
                 ReliabilityCalculation.goalFunctionCalculation(population);
                 Sorting.quickSort(population, 0, population.size() - 1);
@@ -41,12 +46,10 @@ public class Main {
 
                 System.out.println("Номер итерации " + (i + 1));
                 System.out.println("Лучший индивид " + population.get(0).hashCode() + " с весовой функцией " +
-                        String.format("%f", population.get(0).getTotalPrice()) + " руб" + " медианный индивид " +
-                        population.get((int) (populationSize / 2)).hashCode() + " с весовой функцией " +
-                        String.format("%f", population.get((int) (populationSize / 2)).getTotalPrice()) + " руб");
+                        String.format("%f", population.get(0).getTotalPrice()) + " руб");
             } else break;
 
-            if (Math.round(previousValueOfTotalPrice) == Math.round(population.get(0).getTotalPrice())) {
+            if (previousValueOfTotalPrice == population.get(0).getTotalPrice()) {
                 priceIterator++;
             } else priceIterator = 0;
 
