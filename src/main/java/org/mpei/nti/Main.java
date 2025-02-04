@@ -25,22 +25,21 @@ public class Main {
         }
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population);
+        Selection.selectionOfSuitableIndividuals(population);
 
         float previousValueOfTotalPrice = 0.0f;
         int priceIterator = 0;
 
         for (int i = 0; i < numberOfIterations; i++) {
             if (priceIterator != numberOfIterations / 2) {
-                Selection.selectionOfSuitableIndividuals(population);
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
                 Mutating.mutatePopulation(newPopulation);
-
                 for (SubstationMeasures substationMeasures : newPopulation) {
                     OptimizeGenotype.protocolsProtectionOptimization(substationMeasures);
                 }
-
                 population.addAll(newPopulation);
                 ReliabilityCalculation.goalFunctionCalculation(population);
+                Selection.selectionOfSuitableIndividuals(population);
                 Sorting.quickSort(population, 0, population.size() - 1);
                 Deletion.deletePartOfPopulation(population);
 

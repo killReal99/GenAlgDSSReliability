@@ -1,6 +1,5 @@
 package org.mpei.nti.genetic;
 
-import org.mpei.nti.Main;
 import org.mpei.nti.substation.substationGeneration.SubstationMeasuresPerYearGeneration;
 import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;

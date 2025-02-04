@@ -20,7 +20,7 @@ public class Selection {
                         deletingChecker = true;
                     }
                 } else {
-                    if (substationMeasuresPerYear.getCapexPrice() >= 8000000f || substationMeasuresPerYear.getOpexPrice() >= 1000000f) {
+                    if (substationMeasuresPerYear.getCapexPrice() >= 8000000f || substationMeasuresPerYear.getOpexPrice() >= 1500000f) {
                         substationMeasureForDeleting = substationMeasures;
                         deletingChecker = true;
                     }

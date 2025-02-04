@@ -33,7 +33,7 @@ public class OptimizeGenotype {
         }
     }
 
-    public static void firewallOptimization(SubstationMeasures substationMeasures){
+    public static void firewallOptimization(SubstationMeasures substationMeasures) {
         int firewallCheck = 0;
         for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
             if (firewallCheck == 0 && substationMeasuresPerYear.getImprosedMeasures().getD20() == 1) {
@@ -49,7 +49,7 @@ public class OptimizeGenotype {
         }
     }
 
-    public static void antivirusOptimization(SubstationMeasures substationMeasures){
+    public static void antivirusOptimization(SubstationMeasures substationMeasures) {
         int antivirusCheck = 0;
         for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
             if (antivirusCheck == 0 && substationMeasuresPerYear.getImprosedMeasures().getD19() == 1) {
@@ -65,15 +65,17 @@ public class OptimizeGenotype {
         }
     }
 
-    public static void protocolsProtectionOptimization(SubstationMeasures substationMeasures){
+    public static void protocolsProtectionOptimization(SubstationMeasures substationMeasures) {
         for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
-            if (substationMeasuresPerYear.getArchitectureType() == 2){
-                for (IED ied : substationMeasuresPerYear.getIedList()){
+            if (substationMeasuresPerYear.getArchitectureType() == 2) {
+                substationMeasuresPerYear.getOrganizationalMeasures().setD1(0);
+                for (IED ied : substationMeasuresPerYear.getIedList()) {
                     ied.setD2(0);
                 }
             }
-            if (substationMeasuresPerYear.getArchitectureType() == 1){
-                for (IED ied : substationMeasuresPerYear.getIedList()){
+            if (substationMeasuresPerYear.getArchitectureType() == 1) {
+                substationMeasuresPerYear.getOrganizationalMeasures().setD1(0);
+                for (IED ied : substationMeasuresPerYear.getIedList()) {
                     ied.setD2(0);
                     ied.setD17(0);
                 }
