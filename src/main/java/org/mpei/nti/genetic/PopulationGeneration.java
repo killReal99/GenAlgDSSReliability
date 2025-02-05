@@ -28,6 +28,7 @@ public class PopulationGeneration {
 
     public static List<IED> IEDGenerator() {
         List<IED> iedList = new ArrayList<>();
+        //Lines 110 kV
         for (int i = 1; i < 5; i++) {
             for (int j = 1; j < 3; j++) {
                 List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
@@ -38,6 +39,16 @@ public class PopulationGeneration {
                     (int) Math.round(Math.random()));
                 iedList.add(ied);
             }
+        }
+        //Lines 35 kV and 10 kV
+        for (int i = 5; i < 17; i++) {
+            List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+            IED ied = new IED("W" + i + "_" + 1, EquipmentType.LINE, protectionsList, (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()));
+            iedList.add(ied);
         }
         for (int i = 1; i < 3; i++) {
             for (int j = 1; j < 3; j++) {
