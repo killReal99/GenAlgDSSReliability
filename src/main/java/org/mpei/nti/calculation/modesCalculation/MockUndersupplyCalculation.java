@@ -42,9 +42,9 @@ public class MockUndersupplyCalculation {
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.BUS){
-                if (parse[0].equals("K1")){
+                if (parse[0].equals("B1")){
                     busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k1Probability);
-                } else if (parse[0].equals("K2")) {
+                } else if (parse[0].equals("B2")) {
                     busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k2Probability);
                 }
             }
