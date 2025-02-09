@@ -19,7 +19,7 @@ public class Crossing {
             fullPopulationWeight += individual.getTotalPrice();
         }
         List<RoulettePart> rouletteWeights = rouletteWeightCalculation(population, fullPopulationWeight);
-        for (int i = 0; i < population.size(); i++) {
+        for (int i = 0; i < (population.size() * 2); i++) {
             if (Math.random() < crossingProbability) {
                 SubstationMeasures firstParent = population.get(rouletteSearch(rouletteWeights,
                         (float) Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart(),

@@ -13,8 +13,8 @@ public class Main {
 
     public static int minArch = 1;
     public static int maxArch = 3;
-    public static int populationSize = 500; //2500
-    public static int numberOfIterations = 1000; //6000
+    public static int populationSize = 2500;
+    public static int numberOfIterations = 6000;
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
@@ -23,6 +23,7 @@ public class Main {
         for (int i = 0; i < populationSize; i++) {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch));
         }
+        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population);
         Selection.selectionOfSuitableIndividuals(population);
