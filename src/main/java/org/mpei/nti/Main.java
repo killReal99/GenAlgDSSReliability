@@ -13,8 +13,8 @@ public class Main {
 
     public static int minArch = 1;
     public static int maxArch = 3;
-    public static int populationSize = 2000;
-    public static int numberOfIterations = 5000;
+    public static int populationSize = 500; //2500
+    public static int numberOfIterations = 1000; //6000
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
@@ -35,7 +35,7 @@ public class Main {
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
                 Mutating.mutatePopulation(newPopulation);
                 for (SubstationMeasures substationMeasures : newPopulation) {
-                    OptimizeGenotype.protocolsProtectionOptimization(substationMeasures);
+                    OptimizeGenotype.architectureOptimization(substationMeasures);
                 }
                 population.addAll(newPopulation);
                 ReliabilityCalculation.goalFunctionCalculation(population);

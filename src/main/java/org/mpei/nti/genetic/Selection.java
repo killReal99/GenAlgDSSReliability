@@ -15,12 +15,12 @@ public class Selection {
             boolean deletingChecker = false;
             for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
                 if (substationMeasuresPerYear.getYearNumber() == 1) {
-                    if (substationMeasuresPerYear.getCapexPrice() >= 13000000f || substationMeasuresPerYear.getOpexPrice() >= 7000000f) {
+                    if (substationMeasuresPerYear.getCapexPrice() >= 10000000f || substationMeasuresPerYear.getOpexPrice() >= 4000000f) {
                         substationMeasureForDeleting = substationMeasures;
                         deletingChecker = true;
                     }
                 } else {
-                    if (substationMeasuresPerYear.getCapexPrice() >= 10000000f || substationMeasuresPerYear.getOpexPrice() >= 2000000f) {
+                    if (substationMeasuresPerYear.getCapexPrice() >= 10000000f || substationMeasuresPerYear.getOpexPrice() >= 5000000f) {
                         substationMeasureForDeleting = substationMeasures;
                         deletingChecker = true;
                     }

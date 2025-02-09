@@ -41,11 +41,11 @@ public class Crossing {
                                 SubstationMeasures secondParent) {
         SubstationMeasures child = new SubstationMeasures();
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
-        int swapYearNumber = (int) (Math.random() * (25 - 1) + 1);
-        for (int i = 0; i <= 24; i++) {
+        int swapYearNumber = (int) (Math.random() * (24 - 1) + 1);
+        for (int i = 0; i < 25; i++) {
             if (i <= swapYearNumber) {
                 int architectureType = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-                OrganizationalMeasures childdOrganizationalMeasures = new OrganizationalMeasures(
+                OrganizationalMeasures childOrganizationalMeasures = new OrganizationalMeasures(
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
@@ -62,106 +62,29 @@ public class Crossing {
                         firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24()
                 );
                 List<IED> childIedList = new ArrayList<>();
-                int iedNumber = 0;
-                for (int j = 1; j < 17; j++) {
-                    if (j < 5) {
-                        for (int k = 1; k < 3; k++) {
-                            List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                            IED ied = new IED("W" + j + "_" + k, EquipmentType.LINE, protectionsList,
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                            childIedList.add(ied);
-                            iedNumber++;
-                        }
-                    } else {  //Lines 35 kV and 10 kV
-                        List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                        IED ied = new IED("W" + j + "_1", EquipmentType.LINE, protectionsList,
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                        childIedList.add(ied);
-                        iedNumber++;
-                    }
-                }
-
-                //Bus
-                for (int j = 1; j < 7; j++) {
-                    if (j < 3) {
-                        for (int k = 1; k < 3; k++) {
-                            List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                            IED ied = new IED("B" + j + "_" + k, EquipmentType.BUS, protectionsList,
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                    firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                            childIedList.add(ied);
-                            iedNumber++;
-                        }
-                    } else {
-                        List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                        IED ied = new IED("B" + j + "_1", EquipmentType.BUS, protectionsList,
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                        childIedList.add(ied);
-                        iedNumber++;
-                    }
-                }
-                //Transformer
-                for (int j = 1; j < 3; j++) {
-                    List<Protections> protectionsList = ProtectionsSet.transformerProtectionsSetGeneration();
-                    IED ied = new IED("T" + j + "_1", EquipmentType.TRANSFORMER, protectionsList,
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
+                for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
+                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                    IED ied = new IED(firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
+                            protectionsList,
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD8(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD9(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD13(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD14(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD15(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
                     childIedList.add(ied);
-                    iedNumber++;
                 }
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                        architectureType, (i + 1), childdOrganizationalMeasures, childImprosedMeasures, childIedList));
+                        architectureType, (i + 1), childOrganizationalMeasures, childImprosedMeasures, childIedList));
             } else {
                 int architectureType = secondParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-                OrganizationalMeasures childdOrganizationalMeasures = new OrganizationalMeasures(
+                OrganizationalMeasures childOrganizationalMeasures = new OrganizationalMeasures(
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
@@ -177,105 +100,26 @@ public class Crossing {
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD21(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24());
                 List<IED> childIedList = new ArrayList<>();
-                int iedNumber = 0;
-                for (int j = 1; j < 17; j++) {
-                    if (j < 5) {
-                        for (int k = 1; k < 3; k++) {
-                            // LINE
-                            List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                            IED ied = new IED("W" + j + "_" + k, EquipmentType.LINE, protectionsList,
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                            childIedList.add(ied);
-                            iedNumber++;
-                        }
-                    } else { //Lines 35 kV and 10 kV
-                        List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                        IED ied = new IED("W" + j + "_1", EquipmentType.LINE, protectionsList,
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                        childIedList.add(ied);
-                        iedNumber++;
-                    }
-
-                }
-
-                //Bus
-                for (int j = 1; j < 7; j++) {
-                    if (j < 3) {
-                        for (int k = 1; k < 3; k++) {
-                            List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                            IED ied = new IED("B" + j + "_" + k, EquipmentType.BUS, protectionsList,
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                    secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                            childIedList.add(ied);
-                            iedNumber++;
-                        }
-                    } else {
-                        List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                        IED ied = new IED("B" + j + "_1", EquipmentType.BUS, protectionsList,
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                        childIedList.add(ied);
-                        iedNumber++;
-                    }
-                }
-                //Transformer
-                for (int j = 1; j < 3; j++) {
-                    List<Protections> protectionsList = ProtectionsSet.transformerProtectionsSetGeneration();
-                    IED ied = new IED("T" + j + "_1", EquipmentType.TRANSFORMER, protectionsList,
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
+                for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
+                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                    IED ied = new IED(secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
+                            protectionsList,
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD8(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD9(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD13(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD14(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD15(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
                     childIedList.add(ied);
-                    iedNumber++;
                 }
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                        architectureType, (i + 1), childdOrganizationalMeasures, childImprosedMeasures, childIedList));
+                        architectureType, (i + 1), childOrganizationalMeasures, childImprosedMeasures, childIedList));
             }
         }
         child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
@@ -284,18 +128,19 @@ public class Crossing {
 
     public static void insideYearSwap(List<SubstationMeasures> substationMeasuresList, SubstationMeasures firstParent,
                                       SubstationMeasures secondParent) {
+        SubstationMeasures child = new SubstationMeasures();
         int swapYearNumber = (int) (Math.random() * (25 - 1) + 1);
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
-        for (int i = 0; i <= 24; i++) {
-            int architectureTypeSecond = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-            OrganizationalMeasures childOrganizationalMeasuresTwo = new OrganizationalMeasures(
+        for (int i = 0; i < 25; i++) {
+            int architectureType = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
+            OrganizationalMeasures childOrganizationalMeasures = new OrganizationalMeasures(
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD12(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD16(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD22());
-            ImprosedMeasures childImprosedMeasuresTwo = new ImprosedMeasures(
+            ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD3(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD7(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD11(),
@@ -304,117 +149,35 @@ public class Crossing {
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD21(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24()
             );
-            List<IED> childIedListTwo = new ArrayList<>();
-            int iedNumber = 0;
-            for (int j = 1; j < 17; j++) {
-                if (j < 5) {
-                    for (int k = 1; k < 3; k++) {
-                        // LINE
-                        List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                        IED ied = new IED("W" + j + "_" + k, EquipmentType.LINE, protectionsList,
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                        childIedListTwo.add(ied);
-                        iedNumber++;
-                    }
-                } else { //Lines 35 kV and 10 kV
-                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                    IED ied = new IED("W" + j + "_1", EquipmentType.LINE, protectionsList,
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                    childIedListTwo.add(ied);
-                    iedNumber++;
-                }
+            List<IED> childIedList = new ArrayList<>();
+            for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
+                List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                IED ied = new IED(firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
+                        protectionsList,
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD8(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD9(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD13(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD14(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD15(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
+                childIedList.add(ied);
             }
-
-            //Bus
-            for (int j = 1; j < 7; j++) {
-                if (j < 3) {
-                    for (int k = 1; k < 3; k++) {
-                        List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                        IED ied = new IED("B" + j + "_" + k, EquipmentType.BUS, protectionsList,
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                                firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                        childIedListTwo.add(ied);
-                        iedNumber++;
-                    }
-                } else {
-                    List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                    IED ied = new IED("B" + j + "_1", EquipmentType.BUS, protectionsList,
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                    childIedListTwo.add(ied);
-                    iedNumber++;
-                }
-            }
-            //Transformer
-            for (int j = 1; j < 3; j++) {
-                List<Protections> protectionsList = ProtectionsSet.transformerProtectionsSetGeneration();
-                IED ied = new IED("T" + j + "_1", EquipmentType.TRANSFORMER, protectionsList,
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD2(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD4(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD5(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD8(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD9(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD13(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD14(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD15(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD17(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD18(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(iedNumber).getD23());
-                childIedListTwo.add(ied);
-                iedNumber++;
-            }
-
-            SubstationMeasuresPerYear childSubstationMeasuresPerYearTwo = new SubstationMeasuresPerYear(0.0f, 0.0f, 0.0f,
-                    architectureTypeSecond, i, childOrganizationalMeasuresTwo, childImprosedMeasuresTwo, childIedListTwo);
-
-            substationMeasuresPerYearList.add(childSubstationMeasuresPerYearTwo);
+            substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
+                    architectureType, (i + 1), childOrganizationalMeasures, childImprosedMeasures, childIedList));
         }
-        SubstationMeasures child = new SubstationMeasures(0.0f, 0.0f, 0.0f,
-                substationMeasuresPerYearList);
+        child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
 
         double randomNumber = Math.random();
-        if (randomNumber < 0.25) {
-            int arch = secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getArchitectureType();
-            substationMeasuresPerYearList.get(swapYearNumber - 1).setArchitectureType(arch);
-        } else if (randomNumber < 0.5) {
+        if (randomNumber < 0.05) {
+            int architecture = secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getArchitectureType();
+            substationMeasuresPerYearList.get(swapYearNumber - 1).setArchitectureType(architecture);
+        } else if (randomNumber < 0.25) {
             OrganizationalMeasures childdOrganizationalMeasures = new OrganizationalMeasures(
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD1(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD6(),
@@ -423,7 +186,7 @@ public class Crossing {
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD16(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD22());
             substationMeasuresPerYearList.get(swapYearNumber).setOrganizationalMeasures(childdOrganizationalMeasures);
-        } else if (randomNumber < 0.75) {
+        } else if (randomNumber < 0.45) {
             ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getImprosedMeasures().getD3(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getImprosedMeasures().getD7(),
@@ -436,118 +199,35 @@ public class Crossing {
             substationMeasuresPerYearList.get(swapYearNumber - 1).setImprosedMeasures(childImprosedMeasures);
         } else {
             List<IED> childIedList = new ArrayList<>();
-            int iedNumber = 0;
-            for (int j = 1; j < 17; j++) {
-                if (j < 5) {
-                    for (int k = 1; k < 3; k++) {
-                        List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                        IED ied = new IED("W" + j + "_" + k, EquipmentType.LINE, protectionsList,
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD2(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD4(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD5(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD8(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD9(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD13(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD14(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD15(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD17(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD18(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD23());
-                        childIedList.add(ied);
-                        iedNumber++;
-                    }
-                } else { //Lines 35 kV and 10 kV
-                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                    IED ied = new IED("W" + j + "_1", EquipmentType.LINE, protectionsList,
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD2(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD4(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD5(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD8(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD9(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD13(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD14(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD15(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD17(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD18(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD23());
-                    childIedList.add(ied);
-                    iedNumber++;
-                }
-            }
-
-            //Bus
-            for (int j = 1; j < 7; j++) {
-                if (j < 3) {
-                    for (int k = 1; k < 3; k++) {
-                        List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                        IED ied = new IED("B" + j + "_" + k, EquipmentType.BUS, protectionsList,
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD2(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD4(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD5(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD8(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD9(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD13(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD14(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD15(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD17(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD18(),
-                                secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD23());
-                        childIedList.add(ied);
-                        iedNumber++;
-                    }
-                } else {
-                    List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
-                    IED ied = new IED("B" + j + "_1", EquipmentType.BUS, protectionsList,
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD2(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD4(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD5(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD8(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD9(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD13(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD14(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD15(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD17(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD18(),
-                            secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD23());
-                    childIedList.add(ied);
-                    iedNumber++;
-                }
-            }
-            //Transformer
-            for (int j = 1; j < 3; j++) {
-                List<Protections> protectionsList = ProtectionsSet.transformerProtectionsSetGeneration();
-                IED ied = new IED("T" + j + "_1", EquipmentType.TRANSFORMER, protectionsList,
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD2(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD4(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD5(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD8(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD9(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD13(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD14(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD15(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD17(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD18(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(iedNumber).getD23());
+            for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().size(); j++) {
+                List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                IED ied = new IED(secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getNameOfIED(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getEquipmentTypeName(),
+                        protectionsList,
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD2(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD4(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD5(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD8(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD9(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD13(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD14(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD15(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD17(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD18(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD23());
                 childIedList.add(ied);
-                iedNumber++;
             }
-
             substationMeasuresPerYearList.get(swapYearNumber - 1).setIedList(childIedList);
         }
+        substationMeasuresPerYearList.get(swapYearNumber - 1).setCapexPrice(0.0f);
+        substationMeasuresPerYearList.get(swapYearNumber - 1).setOpexPrice(0.0f);
+        substationMeasuresPerYearList.get(swapYearNumber - 1).setTotalPrice(0.0f);
+        substationMeasuresPerYearList.set(swapYearNumber - 1, SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getArchitectureType(), swapYearNumber,
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getOrganizationalMeasures(),
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getImprosedMeasures(),
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getIedList()));
 
-        for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasuresPerYearList) {
-            if (substationMeasuresPerYear.getYearNumber() == 1) {
-                substationMeasuresPerYear.setCapexPrice(CostsCalculation.buildingCAPEX(substationMeasuresPerYear) +
-                        CostsCalculation.exploitationCAPEX(substationMeasuresPerYear));
-                substationMeasuresPerYear.setOpexPrice(CostsCalculation.buildingOPEX(substationMeasuresPerYear) +
-                        CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
-            } else {
-                substationMeasuresPerYear.setCapexPrice(CostsCalculation.exploitationCAPEX(substationMeasuresPerYear));
-                substationMeasuresPerYear.setOpexPrice(CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
-            }
-            substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getCapexPrice() +
-                    substationMeasuresPerYear.getOpexPrice());
-        }
         child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
         substationMeasuresList.add(child);
     }

@@ -33,7 +33,7 @@ public class PopulationGeneration {
             if (i < 5) {
                 for (int j = 1; j < 3; j++) {
                     List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
-                    IED ied = new IED("W" + i + "_" + j, EquipmentType.LINE, protectionsList, (int) Math.round(Math.random()),
+                    IED ied = new IED("W" + i + "_" + j, EquipmentType.LINE, protectionsList, 1,
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),

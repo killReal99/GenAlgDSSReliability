@@ -13,7 +13,7 @@ public class OptimizeGenotype {
             idsOptimization(substationMeasures);
             firewallOptimization(substationMeasures);
             antivirusOptimization(substationMeasures);
-            protocolsProtectionOptimization(substationMeasures);
+            architectureOptimization(substationMeasures);
         }
     }
 
@@ -65,7 +65,7 @@ public class OptimizeGenotype {
         }
     }
 
-    public static void protocolsProtectionOptimization(SubstationMeasures substationMeasures) {
+    public static void architectureOptimization(SubstationMeasures substationMeasures) {
         for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
             if (substationMeasuresPerYear.getArchitectureType() == 2) {
                 substationMeasuresPerYear.getOrganizationalMeasures().setD1(0);
