@@ -15,7 +15,7 @@ public class Mutating {
         float mutationProbability = 0.9f;
         for (SubstationMeasures substationMeasures : population) {
             if (Math.random() < mutationProbability) {
-                int randomYear = (int) (Math.random() * 24 + 0.05);
+                int randomYear = (int) (Math.random() * 24 + 0.055);
                 double mutationAlgorithm = Math.random();
                 if (mutationAlgorithm < 0.8) {
                     onePointMutation(substationMeasures, randomYear);
