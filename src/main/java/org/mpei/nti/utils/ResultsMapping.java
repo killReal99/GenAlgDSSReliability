@@ -18,7 +18,7 @@ public class ResultsMapping {
         writer.println("OPEX затраты за 25 лет " + String.format("%f", population.get(0).getOpexPrice()));
         writer.println(" ");
         for (SubstationMeasuresPerYear substationMeasuresPerYear : population.get(0).getSubstationMeasuresPerYear()) {
-            writer.println("Год №" + String.format("%d", substationMeasuresPerYear.getYearNumber()));
+            writer.println("Год № " + String.format("%d", substationMeasuresPerYear.getYearNumber()));
             writer.println("Архитектура " + String.format("%d", substationMeasuresPerYear.getArchitectureType()));
             //ORG
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD1() == 1) {
@@ -54,7 +54,7 @@ public class ResultsMapping {
             if (substationMeasuresPerYear.getImprosedMeasures().getD19() == 1) {
                 writer.println("Наложенные СЗИ на АРМ инженера РЗА (антивирус и/или система защиты конечных точек)");
             }
-            if (substationMeasuresPerYear.getImprosedMeasures().getD19() == 1) {
+            if (substationMeasuresPerYear.getImprosedMeasures().getD20() == 1) {
                 writer.println("Межсетевой экран");
             }
             if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {

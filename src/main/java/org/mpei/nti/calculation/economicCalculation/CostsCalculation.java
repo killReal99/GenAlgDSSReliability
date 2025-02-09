@@ -1,4 +1,4 @@
-package org.mpei.nti.modelCalculation;
+package org.mpei.nti.calculation.economicCalculation;
 
 import org.mpei.nti.economic.BuildingCAPEX;
 import org.mpei.nti.economic.BuildingOPEX;
@@ -76,8 +76,7 @@ public class CostsCalculation {
                 substationMeasuresPerYear.getImprosedMeasures().getD20() * BuildingOPEX.D20 +
                 substationMeasuresPerYear.getImprosedMeasures().getD21() * BuildingOPEX.D21 +
                 substationMeasuresPerYear.getImprosedMeasures().getD24() * BuildingOPEX.D24;
-        float organizationalMeasuresPrice = substationMeasuresPerYear.getOrganizationalMeasures().getD1() * BuildingOPEX.D1 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD6() * BuildingOPEX.D6 +
+        float organizationalMeasuresPrice = substationMeasuresPerYear.getOrganizationalMeasures().getD6() * BuildingOPEX.D6 +
                 substationMeasuresPerYear.getOrganizationalMeasures().getD10() * BuildingOPEX.D10 +
                 substationMeasuresPerYear.getOrganizationalMeasures().getD12() * BuildingOPEX.D12 +
                 substationMeasuresPerYear.getOrganizationalMeasures().getD16() * BuildingOPEX.D16 +

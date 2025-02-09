@@ -1,8 +1,9 @@
 package org.mpei.nti.genetic;
 
-import org.mpei.nti.modelCalculation.CostsCalculation;
+import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationGeneration.*;
 import org.mpei.nti.substation.substationStructures.*;
+import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.RoulettePart;
 
 import java.util.ArrayList;
@@ -13,19 +14,24 @@ public class Crossing {
     public static List<SubstationMeasures> populationCrossing(List<SubstationMeasures> population) {
         List<SubstationMeasures> newSubstationMeasuresList = new ArrayList<>();
         float fullPopulationWeight = 0.0f;
+        float crossingProbability = 0.95f;
         for (SubstationMeasures individual : population) {
             fullPopulationWeight += individual.getTotalPrice();
         }
         List<RoulettePart> rouletteWeights = rouletteWeightCalculation(population, fullPopulationWeight);
-        for (int i = 0; i < population.size(); i++) {
-            SubstationMeasures firstParent = population.get(rouletteIndexChecker(rouletteWeights,
-                    Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart()));
-            SubstationMeasures secondParent = population.get(rouletteIndexChecker(rouletteWeights,
-                    Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart()));
-            if (Math.random() >= 0.5) {
-                yearSwap(newSubstationMeasuresList, firstParent, secondParent);
-            } else {
-                insideYearSwap(newSubstationMeasuresList, firstParent, secondParent);
+        for (int i = 0; i < (population.size() * 2); i++) {
+            if (Math.random() < crossingProbability) {
+                SubstationMeasures firstParent = population.get(rouletteSearch(rouletteWeights,
+                        (float) Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart(),
+                        rouletteWeights.size() / 2));
+                SubstationMeasures secondParent = population.get(rouletteSearch(rouletteWeights,
+                        (float) Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart(),
+                        rouletteWeights.size() / 2));
+                if (Math.random() >= 0.5) {
+                    yearSwap(newSubstationMeasuresList, firstParent, secondParent);
+                } else {
+                    insideYearSwap(newSubstationMeasuresList, firstParent, secondParent);
+                }
             }
         }
         return newSubstationMeasuresList;
@@ -35,18 +41,18 @@ public class Crossing {
                                 SubstationMeasures secondParent) {
         SubstationMeasures child = new SubstationMeasures();
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
-        int swapYearNumber = (int) (Math.random() * (25 - 1) + 1);
-        for (int i = 0; i <= 24; i++) {
+        int swapYearNumber = (int) (Math.random() * (24 - 1) + 1);
+        for (int i = 0; i < 25; i++) {
             if (i <= swapYearNumber) {
                 int architectureType = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-                OrganizationalMeasures childdOrganizationalMeasures = OrganizationalMeasuresGeneration.organizationalMeasuresGeneration(
+                OrganizationalMeasures childOrganizationalMeasures = new OrganizationalMeasures(
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD12(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD16(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD22());
-                ImprosedMeasures childImprosedMeasures = ImprosedMeasuresGeneration.improsedMeasuresGeneration(
+                ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                         firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD3(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD7(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD11(),
@@ -57,7 +63,10 @@ public class Crossing {
                 );
                 List<IED> childIedList = new ArrayList<>();
                 for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                    IED childIED = IEDGeneration.iedGeneration(
+                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                    IED ied = new IED(firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
+                            protectionsList,
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -69,32 +78,33 @@ public class Crossing {
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
-                    childIedList.add(childIED);
+                    childIedList.add(ied);
                 }
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                        architectureType, (i + 1), childdOrganizationalMeasures, childImprosedMeasures, childIedList));
+                        architectureType, (i + 1), childOrganizationalMeasures, childImprosedMeasures, childIedList));
             } else {
-
                 int architectureType = secondParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-                OrganizationalMeasures childdOrganizationalMeasures = OrganizationalMeasuresGeneration.organizationalMeasuresGeneration(
+                OrganizationalMeasures childOrganizationalMeasures = new OrganizationalMeasures(
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD12(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD16(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD22());
-                ImprosedMeasures childImprosedMeasures = ImprosedMeasuresGeneration.improsedMeasuresGeneration(
+                ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD3(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD7(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD11(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD19(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD20(),
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD21(),
-                        secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24()
-                );
+                        secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24());
                 List<IED> childIedList = new ArrayList<>();
                 for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                    IED childIED = IEDGeneration.iedGeneration(
+                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                    IED ied = new IED(secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
+                            protectionsList,
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -106,10 +116,10 @@ public class Crossing {
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
-                    childIedList.add(childIED);
+                    childIedList.add(ied);
                 }
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                        architectureType, (i + 1), childdOrganizationalMeasures, childImprosedMeasures, childIedList));
+                        architectureType, (i + 1), childOrganizationalMeasures, childImprosedMeasures, childIedList));
             }
         }
         child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
@@ -118,18 +128,19 @@ public class Crossing {
 
     public static void insideYearSwap(List<SubstationMeasures> substationMeasuresList, SubstationMeasures firstParent,
                                       SubstationMeasures secondParent) {
+        SubstationMeasures child = new SubstationMeasures();
         int swapYearNumber = (int) (Math.random() * (25 - 1) + 1);
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
-            int architectureTypeSecond = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
-            OrganizationalMeasures childOrganizationalMeasuresTwo = new OrganizationalMeasures(
+            int architectureType = firstParent.getSubstationMeasuresPerYear().get(i).getArchitectureType();
+            OrganizationalMeasures childOrganizationalMeasures = new OrganizationalMeasures(
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD1(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD6(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD10(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD12(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD16(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getOrganizationalMeasures().getD22());
-            ImprosedMeasures childImprosedMeasuresTwo = new ImprosedMeasures(
+            ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD3(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD7(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD11(),
@@ -138,9 +149,12 @@ public class Crossing {
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD21(),
                     firstParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24()
             );
-            List<IED> childIedListTwo = new ArrayList<>();
+            List<IED> childIedList = new ArrayList<>();
             for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                IED childIED = IEDGeneration.iedGeneration(
+                List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                IED ied = new IED(firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
+                        protectionsList,
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -152,21 +166,18 @@ public class Crossing {
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
-                childIedListTwo.add(childIED);}
-
-                SubstationMeasuresPerYear childSubstationMeasuresPerYearTwo = new SubstationMeasuresPerYear(0.0f, 0.0f, 0.0f,
-                        architectureTypeSecond, i, childOrganizationalMeasuresTwo, childImprosedMeasuresTwo, childIedListTwo);
-
-                substationMeasuresPerYearList.add(childSubstationMeasuresPerYearTwo);
+                childIedList.add(ied);
+            }
+            substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
+                    architectureType, (i + 1), childOrganizationalMeasures, childImprosedMeasures, childIedList));
         }
-        SubstationMeasures child = new SubstationMeasures(0.0f, 0.0f, 0.0f,
-                substationMeasuresPerYearList);
+        child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
 
         double randomNumber = Math.random();
-        if (randomNumber < 0.25) {
-            int arch = secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getArchitectureType();
-            substationMeasuresPerYearList.get(swapYearNumber - 1).setArchitectureType(arch);
-        } else if (randomNumber < 0.5) {
+        if (randomNumber < 0.05) {
+            int architecture = secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getArchitectureType();
+            substationMeasuresPerYearList.get(swapYearNumber - 1).setArchitectureType(architecture);
+        } else if (randomNumber < 0.25) {
             OrganizationalMeasures childdOrganizationalMeasures = new OrganizationalMeasures(
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD1(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD6(),
@@ -175,7 +186,7 @@ public class Crossing {
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD16(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getOrganizationalMeasures().getD22());
             substationMeasuresPerYearList.get(swapYearNumber).setOrganizationalMeasures(childdOrganizationalMeasures);
-        } else if (randomNumber < 0.75) {
+        } else if (randomNumber < 0.45) {
             ImprosedMeasures childImprosedMeasures = new ImprosedMeasures(
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getImprosedMeasures().getD3(),
                     secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getImprosedMeasures().getD7(),
@@ -189,7 +200,10 @@ public class Crossing {
         } else {
             List<IED> childIedList = new ArrayList<>();
             for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().size(); j++) {
-                IED childIED = IEDGeneration.iedGeneration(
+                List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                IED ied = new IED(secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getNameOfIED(),
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getEquipmentTypeName(),
+                        protectionsList,
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD2(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD4(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD5(),
@@ -201,34 +215,51 @@ public class Crossing {
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD17(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD18(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD23());
-                childIedList.add(childIED);
+                childIedList.add(ied);
             }
             substationMeasuresPerYearList.get(swapYearNumber - 1).setIedList(childIedList);
         }
+        substationMeasuresPerYearList.get(swapYearNumber - 1).setCapexPrice(0.0f);
+        substationMeasuresPerYearList.get(swapYearNumber - 1).setOpexPrice(0.0f);
+        substationMeasuresPerYearList.get(swapYearNumber - 1).setTotalPrice(0.0f);
+        substationMeasuresPerYearList.set(swapYearNumber - 1, SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getArchitectureType(), swapYearNumber,
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getOrganizationalMeasures(),
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getImprosedMeasures(),
+                substationMeasuresPerYearList.get(swapYearNumber - 1).getIedList()));
 
-        for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasuresPerYearList) {
-            if (substationMeasuresPerYear.getYearNumber() == 1) {
-                substationMeasuresPerYear.setCapexPrice(CostsCalculation.buildingCAPEX(substationMeasuresPerYear) +
-                        CostsCalculation.exploitationCAPEX(substationMeasuresPerYear));
-                substationMeasuresPerYear.setOpexPrice(CostsCalculation.buildingOPEX(substationMeasuresPerYear) +
-                        CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
-            } else {
-                substationMeasuresPerYear.setCapexPrice(CostsCalculation.exploitationCAPEX(substationMeasuresPerYear));
-                substationMeasuresPerYear.setOpexPrice(CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
-            }
-            substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getCapexPrice() +
-                    substationMeasuresPerYear.getOpexPrice());
-        }
         child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
         substationMeasuresList.add(child);
     }
 
-
-    public static Integer rouletteIndexChecker(List<RoulettePart> rouletteWeights, double pointer) {
+    public static int rouletteSearch(List<RoulettePart> rouletteWeights, float pointer, int startPoint) {
         int index = 0;
-        for (RoulettePart roulettePart : rouletteWeights) {
-            if (pointer >= roulettePart.getLeftPart() && pointer <= roulettePart.getRightPart()) {
-                index = roulettePart.getIndex();
+        if (pointer >= rouletteWeights.get(startPoint).getLeftPart() && pointer <= rouletteWeights.get(startPoint).getRightPart()) {
+            index = rouletteWeights.get(startPoint).getIndex();
+        } else {
+            if (pointer <= rouletteWeights.get(startPoint).getLeftPart()) {
+                int newStartPoint = startPoint - (int) (startPoint *
+                        (rouletteWeights.get(startPoint).getLeftPart() - pointer) /
+                        rouletteWeights.get(rouletteWeights.size() - 1).getRightPart());
+                if (newStartPoint < 0) {
+                    newStartPoint = 0;
+                }
+                if (startPoint == newStartPoint) {
+                    newStartPoint = newStartPoint - 1;
+                }
+                index = rouletteSearch(rouletteWeights, pointer, newStartPoint);
+            }
+            if (pointer >= rouletteWeights.get(startPoint).getRightPart()) {
+                int newStartPoint = startPoint + (int) (startPoint *
+                        (pointer - rouletteWeights.get(startPoint).getLeftPart()) /
+                        rouletteWeights.get(rouletteWeights.size() - 1).getRightPart());
+                if (newStartPoint > (rouletteWeights.size() - 1)) {
+                    newStartPoint = (rouletteWeights.size() - 1);
+                }
+                if (startPoint == newStartPoint) {
+                    newStartPoint = newStartPoint + 1;
+                }
+                index = rouletteSearch(rouletteWeights, pointer, newStartPoint);
             }
         }
         return index;
