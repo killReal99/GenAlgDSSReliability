@@ -27,7 +27,7 @@ public class Crossing {
                 SubstationMeasures secondParent = population.get(rouletteSearch(rouletteWeights,
                         (float) Math.random() * rouletteWeights.get(rouletteWeights.size() - 1).getRightPart(),
                         rouletteWeights.size() / 2));
-                if (Math.random() >= 0.5) {
+                if (Math.random() >= 0.7) {
                     yearSwap(newSubstationMeasuresList, firstParent, secondParent);
                 } else {
                     insideYearSwap(newSubstationMeasuresList, firstParent, secondParent);

@@ -17,7 +17,7 @@ public class Mutating {
             if (Math.random() < mutationProbability) {
                 int randomYear = (int) (Math.random() * 24 + 0.055);
                 double mutationAlgorithm = Math.random();
-                if (mutationAlgorithm < 0.8) {
+                if (mutationAlgorithm < 0.9) {
                     onePointMutation(substationMeasures, randomYear);
                 } else {
                     blockMutation(substationMeasures, randomYear);
