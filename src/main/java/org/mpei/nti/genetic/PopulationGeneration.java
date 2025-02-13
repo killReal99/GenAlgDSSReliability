@@ -37,7 +37,7 @@ public class PopulationGeneration {
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()));
+                            (int) Math.round(Math.random()), 0.0f);
                     iedList.add(ied);
                 }
             } else { //Lines 35 kV and 10 kV
@@ -46,7 +46,7 @@ public class PopulationGeneration {
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                        (int) Math.round(Math.random()));
+                        (int) Math.round(Math.random()), 0.0f);
                 iedList.add(ied);
             }
         }
@@ -59,7 +59,7 @@ public class PopulationGeneration {
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                             (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()));
+                            (int) Math.round(Math.random()), 0.0f);
                     iedList.add(ied);
                 }
             } else { //Buss 35 kV and 10 kV
@@ -68,7 +68,7 @@ public class PopulationGeneration {
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                        (int) Math.round(Math.random()));
+                        (int) Math.round(Math.random()), 0.0f);
                 iedList.add(ied);
             }
         }
@@ -79,7 +79,7 @@ public class PopulationGeneration {
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()));
+                    (int) Math.round(Math.random()), 0.0f);
             iedList.add(ied);
         }
         return iedList;

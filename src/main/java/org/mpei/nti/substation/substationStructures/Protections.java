@@ -14,4 +14,6 @@ import org.mpei.nti.substation.substationStructures.Enums.ProtectionType;
 public class Protections {
     private ProtectionType protectionType;
     private EquipmentType equipmentType;
+    private float falsePositive;
+    private float overTriggering;
 }

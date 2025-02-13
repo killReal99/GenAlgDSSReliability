@@ -42,4 +42,5 @@ public class IED {
     private int D18;
     /*Встроенный в ИЭУ механизм защиты от DoS предотвратил атаку типа отказ в обслуживании.*/
     private int D23;
+    private double failureTriggering;
 }

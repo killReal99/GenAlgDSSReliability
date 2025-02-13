@@ -37,14 +37,14 @@ public class BoundaryIndividualsAdding {
                     List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
                     IED ied = new IED("W" + i + "_" + j, EquipmentType.LINE, protectionsList, boundaryValue,
                             boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                            boundaryValue, boundaryValue, boundaryValue, boundaryValue);
+                            boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                     iedList.add(ied);
                 }
             } else { //Lines 35 kV and 10 kV
                 List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
                 IED ied = new IED("W" + i + "_1", EquipmentType.LINE, protectionsList, boundaryValue,
                         boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                        boundaryValue, boundaryValue, boundaryValue, boundaryValue);
+                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                 iedList.add(ied);
             }
         }
@@ -54,14 +54,14 @@ public class BoundaryIndividualsAdding {
                     List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
                     IED ied = new IED("B" + i + "_" + j, EquipmentType.BUS, protectionsList, boundaryValue,
                             boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                            boundaryValue, boundaryValue, boundaryValue, boundaryValue);
+                            boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                     iedList.add(ied);
                 }
             } else { //Buss 35 kV and 10 kV
                 List<Protections> protectionsList = ProtectionsSet.busProtectionsSetGeneration();
                 IED ied = new IED("B" + i + "_1", EquipmentType.BUS, protectionsList, boundaryValue,
                         boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                        boundaryValue, boundaryValue, boundaryValue, boundaryValue);
+                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                 iedList.add(ied);
             }
         }
@@ -69,7 +69,7 @@ public class BoundaryIndividualsAdding {
             List<Protections> protectionsList = ProtectionsSet.transformerProtectionsSetGeneration();
             IED ied = new IED("T" + i + "_1", EquipmentType.TRANSFORMER, protectionsList, boundaryValue,
                     boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                    boundaryValue, boundaryValue, boundaryValue, boundaryValue);
+                    boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
             iedList.add(ied);
         }
         return iedList;

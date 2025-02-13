@@ -77,7 +77,7 @@ public class Crossing {
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD15(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
-                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
+                            firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23(), 0.0f);
                     childIedList.add(ied);
                 }
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
@@ -115,7 +115,7 @@ public class Crossing {
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD15(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
-                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
+                            secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23(), 0.0f);
                     childIedList.add(ied);
                 }
                 substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
@@ -165,7 +165,7 @@ public class Crossing {
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD15(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD17(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD18(),
-                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23());
+                        firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD23(), 0.0f);
                 childIedList.add(ied);
             }
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
@@ -214,7 +214,7 @@ public class Crossing {
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD15(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD17(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD18(),
-                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD23());
+                        secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD23(), 0.0f);
                 childIedList.add(ied);
             }
             substationMeasuresPerYearList.get(swapYearNumber - 1).setIedList(childIedList);
