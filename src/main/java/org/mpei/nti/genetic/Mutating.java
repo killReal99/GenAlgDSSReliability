@@ -12,7 +12,7 @@ import static org.mpei.nti.Main.minArch;
 public class Mutating {
 
     public static void mutatePopulation(List<SubstationMeasures> population) {
-        float mutationProbability = 0.9f;
+        float mutationProbability = 0.80f;
         for (SubstationMeasures substationMeasures : population) {
             if (Math.random() < mutationProbability) {
                 int randomYear = (int) (Math.random() * 24 + 0.055);

@@ -14,11 +14,14 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.Probability;
 
+import java.util.HashMap;
+
 import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
 public class MockUndersupplyCalculation {
 
     public static float undersupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        HashMap<String, Boolean> breakersMap = new HashMap<>();
         Probability w1Probability = new Probability(0.0f, 0.0f, 1.0f);
         Probability w2Probability = new Probability(0.0f, 0.0f, 1.0f);
         Probability w3Probability = new Probability(0.0f, 0.0f, 1.0f);
