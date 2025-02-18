@@ -8,6 +8,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class ResultsMapping {
 
     public static void resultsMapping(List<SubstationMeasures> population) throws IOException {
@@ -103,6 +105,12 @@ public class ResultsMapping {
             writer.println(" ");
         }
         writer.close();
+
+        String optimize = new ObjectMapper().writeValueAsString(population.get(0));
+        PrintWriter jsonObj = new PrintWriter("src" + File.separator + "main" + File.separator +
+                "resources" + File.separator + "optimize.json", StandardCharsets.UTF_8);
+        jsonObj.println(optimize);
+        jsonObj.close();
     }
 
 }
