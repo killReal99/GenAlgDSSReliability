@@ -21,6 +21,7 @@ import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 public class MockUndersupplyCalculation {
 
     public static float undersupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        HashMap<String, Boolean> breakersWithProtectionsMap = new HashMap<>();
         HashMap<String, Boolean> breakersMap = new HashMap<>();
         Probability w1Probability = new Probability(0.0f, 0.0f, 1.0f);
         Probability w2Probability = new Probability(0.0f, 0.0f, 1.0f);
@@ -42,6 +43,30 @@ public class MockUndersupplyCalculation {
                     lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w3Probability);
                 } else if (parse[0].equals("W4")) {
                     lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w4Probability);
+                } else if (parse[0].equals("W5")) {
+
+                } else if (parse[0].equals("W6")) {
+
+                } else if (parse[0].equals("W7")) {
+
+                } else if (parse[0].equals("W8")) {
+
+                } else if (parse[0].equals("W9")) {
+
+                } else if (parse[0].equals("W10")) {
+
+                } else if (parse[0].equals("W11")) {
+
+                } else if (parse[0].equals("W12")) {
+
+                }  else if (parse[0].equals("W13")) {
+
+                }  else if (parse[0].equals("W14")) {
+
+                }  else if (parse[0].equals("W15")) {
+
+                }  else if (parse[0].equals("W16")) {
+
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.BUS){
@@ -49,6 +74,14 @@ public class MockUndersupplyCalculation {
                     busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k1Probability);
                 } else if (parse[0].equals("B2")) {
                     busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k2Probability);
+                } else if (parse[0].equals("B3")) {
+
+                } else if (parse[0].equals("B4")) {
+
+                } else if (parse[0].equals("B5")) {
+
+                } else if (parse[0].equals("B6")) {
+
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER){
@@ -231,9 +264,9 @@ public class MockUndersupplyCalculation {
     }
 
     public static float undersupplyCalculation(float probablility, int calculationType) {
-        float q = ((float) -Math.log(1 - probablility) / 1.0f);
+        float q = (float) -Math.log(1 - probablility);
         float W = Pper * Tvosst;
-        float undersupply = 0.0f;
+        float undersupply;
         if (calculationType == 1) {
             undersupply = W * q * qapv;
         } else {

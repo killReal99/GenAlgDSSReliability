@@ -3,6 +3,7 @@ package org.mpei.nti;
 import org.mpei.nti.genetic.*;
 import org.mpei.nti.calculation.economicCalculation.ReliabilityCalculation;
 import org.mpei.nti.substation.substationStructures.*;
+import org.mpei.nti.utils.Accelerator;
 import org.mpei.nti.utils.ResultsMapping;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class Main {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch));
         }
         BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch);
+        Accelerator.quickStart(population);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population);
         Selection.selectionOfSuitableIndividuals(population);
@@ -32,7 +34,7 @@ public class Main {
         int priceIterator = 0;
 
         for (int i = 0; i < numberOfIterations; i++) {
-            if (priceIterator != numberOfIterations / 2) {
+            if (priceIterator != numberOfIterations * 0.1) {
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
                 Mutating.mutatePopulation(newPopulation);
                 for (SubstationMeasures substationMeasures : newPopulation) {
