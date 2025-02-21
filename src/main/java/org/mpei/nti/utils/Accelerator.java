@@ -22,8 +22,7 @@ public class Accelerator {
             substationMeasuresPerYear.setTotalPrice(0.0f);
             substationMeasuresPerYear.setCapexPrice(0.0f);
             substationMeasuresPerYear.setOpexPrice(0.0f);
-            SubstationMeasuresPerYearGeneration.economicPerYearCalculation(substationMeasuresPerYear,
-                    substationMeasuresPerYear.getYearNumber());
+            SubstationMeasuresPerYearGeneration.economicPerYearCalculation(substationMeasuresPerYear);
         }
         population.add(substationMeasures);
     }

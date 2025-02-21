@@ -17,12 +17,12 @@ public class SubstationMeasuresPerYearGeneration {
         substationMeasuresPerYear.setOrganizationalMeasures(organizationalMeasures);
         substationMeasuresPerYear.setImprosedMeasures(improsedMeasures);
         substationMeasuresPerYear.setIedList(iedList);
-        economicPerYearCalculation(substationMeasuresPerYear, yearNumber);
+        economicPerYearCalculation(substationMeasuresPerYear);
         return substationMeasuresPerYear;
     }
 
-    public static void economicPerYearCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int yearNumber) {
-        if (yearNumber == 1) {
+    public static void economicPerYearCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        if (substationMeasuresPerYear.getYearNumber() == 1) {
             substationMeasuresPerYear.setCapexPrice(CostsCalculation.buildingCAPEX(substationMeasuresPerYear) +
                     CostsCalculation.exploitationCAPEX(substationMeasuresPerYear));
             substationMeasuresPerYear.setOpexPrice(CostsCalculation.buildingOPEX(substationMeasuresPerYear) +
