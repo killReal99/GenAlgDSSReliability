@@ -15,7 +15,7 @@ import java.util.List;
 public class IED {
     private String nameOfIED;
     private EquipmentType equipmentTypeName;
-    private List<Protections> protectionsList;
+    private List<Protection> protectionList;
     /*Криптографическая защита пакетов SV с использованием имитовставки, предотвратит обработку SV потока,
 сгенерированного нарушителем.*/
     private int D2;

@@ -6,7 +6,7 @@ import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
 public class FailureTriggeringBus {
 
-    public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
+    public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
 
         float A1 = (float) 1 / 19;
         float A3 = (float) 1 / 19;

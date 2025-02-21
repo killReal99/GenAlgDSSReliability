@@ -11,7 +11,7 @@ import org.mpei.nti.substation.substationStructures.Enums.ProtectionType;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Protections {
+public class Protection {
     private ProtectionType protectionType;
     private EquipmentType equipmentType;
     private float falsePositive;

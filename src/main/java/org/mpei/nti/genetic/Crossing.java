@@ -1,9 +1,7 @@
 package org.mpei.nti.genetic;
 
-import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationGeneration.*;
 import org.mpei.nti.substation.substationStructures.*;
-import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.RoulettePart;
 
 import java.util.ArrayList;
@@ -63,10 +61,10 @@ public class Crossing {
                 );
                 List<IED> childIedList = new ArrayList<>();
                 for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                    List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
                     IED ied = new IED(firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
-                            protectionsList,
+                            protectionList,
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -101,10 +99,10 @@ public class Crossing {
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24());
                 List<IED> childIedList = new ArrayList<>();
                 for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                    List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                    List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
                     IED ied = new IED(secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
-                            protectionsList,
+                            protectionList,
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -151,10 +149,10 @@ public class Crossing {
             );
             List<IED> childIedList = new ArrayList<>();
             for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
                 IED ied = new IED(firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
-                        protectionsList,
+                        protectionList,
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD2(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD4(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getD5(),
@@ -200,10 +198,10 @@ public class Crossing {
         } else {
             List<IED> childIedList = new ArrayList<>();
             for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().size(); j++) {
-                List<Protections> protectionsList = ProtectionsSet.lineProtectionsSetGeneration();
+                List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
                 IED ied = new IED(secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getNameOfIED(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getEquipmentTypeName(),
-                        protectionsList,
+                        protectionList,
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD2(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD4(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD5(),

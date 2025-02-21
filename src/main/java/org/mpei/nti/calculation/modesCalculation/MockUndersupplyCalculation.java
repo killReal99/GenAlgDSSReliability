@@ -10,6 +10,7 @@ import org.mpei.nti.calculation.modelCalculation.Transformer.FailureTriggeringTr
 import org.mpei.nti.calculation.modelCalculation.Transformer.FalsePositiveTransformer;
 import org.mpei.nti.calculation.modelCalculation.Transformer.OverTriggeringTransformer;
 import org.mpei.nti.substation.substationStructures.IED;
+import org.mpei.nti.substation.substationStructures.Protection;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.Probability;
@@ -35,6 +36,11 @@ public class MockUndersupplyCalculation {
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             String[] parse = ied.getNameOfIED().split("_");
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
+                ied.setFailureTriggering(FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear));
+                for (Protection protection : ied.getProtectionList()){
+                    protection.setOverTriggering(OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
+                    protection.setFalsePositive(FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
+                }
                 if (parse[0].equals("W1")) {
                     lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w1Probability);
                 } else if (parse[0].equals("W2")) {
@@ -70,6 +76,11 @@ public class MockUndersupplyCalculation {
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.BUS){
+                ied.setFailureTriggering(FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear));
+                for (Protection protection : ied.getProtectionList()){
+                    protection.setOverTriggering(OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
+                    protection.setFalsePositive(FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
+                }
                 if (parse[0].equals("B1")){
                     busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k1Probability);
                 } else if (parse[0].equals("B2")) {
@@ -85,6 +96,11 @@ public class MockUndersupplyCalculation {
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER){
+                ied.setFailureTriggering(FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear));
+                for (Protection protection : ied.getProtectionList()){
+                    protection.setOverTriggering(OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
+                    protection.setFalsePositive(FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
+                }
                 if (parse[0].equals("T1")){
                     transformerProbabilityCalculation(substationMeasuresPerYear, iedIndex, t1Probability);
                 } else if (parse[0].equals("T2")) {
@@ -156,8 +172,8 @@ public class MockUndersupplyCalculation {
         elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
             oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
 
-        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
-        float newFailureTrigger = FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear, index);
+        float oldFailureTrigger = elementProbability.getFailureTriggerProbablility();
+        float newFailureTrigger = FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear);
         elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
     }
 
@@ -207,8 +223,8 @@ public class MockUndersupplyCalculation {
         elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
             oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
 
-        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
-        float newFailureTrigger = FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear, index);
+        float oldFailureTrigger = elementProbability.getFailureTriggerProbablility();
+        float newFailureTrigger = FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear);
         elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
     }
 
@@ -258,8 +274,8 @@ public class MockUndersupplyCalculation {
         elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
                 oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
 
-        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
-        float newFailureTrigger = FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear, index);
+        float oldFailureTrigger = elementProbability.getFailureTriggerProbablility();
+        float newFailureTrigger = FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear);
         elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
     }
 
