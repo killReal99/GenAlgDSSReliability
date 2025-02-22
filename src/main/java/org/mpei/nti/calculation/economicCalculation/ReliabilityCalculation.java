@@ -3,16 +3,18 @@ package org.mpei.nti.calculation.economicCalculation;
 import org.mpei.nti.calculation.modesCalculation.MockUndersupplyCalculation;
 import org.mpei.nti.economic.BuildingCAPEX;
 import org.mpei.nti.economic.BuildingOPEX;
+import org.mpei.nti.substation.substationStructures.Breaker;
 import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ReliabilityCalculation {
 
-    public static void goalFunctionCalculation(List<SubstationMeasures> substationMeasuresList) {
+    public static void goalFunctionCalculation(List<SubstationMeasures> substationMeasuresList, HashMap<Breaker, Float> breakersMap) {
         for (SubstationMeasures substationMeasure : substationMeasuresList) {
             if (substationMeasure.getTotalPrice() == 0.0f) {
                 idsCheck(substationMeasure);
@@ -25,7 +27,7 @@ public class ReliabilityCalculation {
                     substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
 
                     substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() +
-                            MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear) + substationMeasuresPerYear.getCapexPrice() +
+                            MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear, breakersMap) + substationMeasuresPerYear.getCapexPrice() +
                             substationMeasuresPerYear.getOpexPrice());
                 }
             }
