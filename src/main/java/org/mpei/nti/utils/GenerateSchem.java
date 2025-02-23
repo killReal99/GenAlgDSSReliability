@@ -140,7 +140,7 @@ public class GenerateSchem {
                                                                                                         breakers.add(Q24);
                                                                                                         schemaStatus.setBreakers(breakers);
                                                                                                         float undersupply = (float) (120f * Math.random());
-                                                                                                        if (undersupply > 105f) {
+                                                                                                        if (undersupply > 115f) {
                                                                                                             schemaStatus.setUndersupply(undersupply);
                                                                                                             schemaStatusList.add(schemaStatus);
                                                                                                         }

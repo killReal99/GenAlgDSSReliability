@@ -9,5 +9,5 @@ import java.util.List;
 @Setter
 public class IEDImpact {
     private Breaker breaker;
-    private List<IED> iedList;
+    private List<String> iedList;
 }
