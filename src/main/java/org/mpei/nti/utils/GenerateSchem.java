@@ -15,7 +15,6 @@ public class GenerateSchem {
 
     public static void generateStartSchem() throws IOException {
         List<SchemaStatus> schemaStatusList = new ArrayList<>();
-        double counter = 0;
         for (int q1 = 0; q1 <= 1; q1++) {
             for (int q2 = 0; q2 <= 1; q2++) {
                 for (int q3 = 0; q3 <= 1; q3++) {
@@ -139,12 +138,11 @@ public class GenerateSchem {
                                                                                                         Q24.setPosition(q24);
                                                                                                         breakers.add(Q24);
                                                                                                         schemaStatus.setBreakers(breakers);
-                                                                                                        float undersupply = (float) (120f * Math.random());
-                                                                                                        if (undersupply > 115f) {
+                                                                                                        float undersupply = (float) (120 * Math.random());
+                                                                                                        if (Math.random() > 0.999) {
                                                                                                             schemaStatus.setUndersupply(undersupply);
                                                                                                             schemaStatusList.add(schemaStatus);
                                                                                                         }
-                                                                                                        counter++;
                                                                                                     }
                                                                                                 }
                                                                                             }

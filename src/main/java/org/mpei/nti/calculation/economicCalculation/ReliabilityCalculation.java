@@ -16,7 +16,7 @@ public class ReliabilityCalculation {
                                                HashMap<Breaker, Probability> breakersMap, List<IEDImpact> iedImpactList,
                                                List<SchemaStatus> schemaStatusList) {
         for (SubstationMeasures substationMeasure : substationMeasuresList) {
-            if (substationMeasure.getTotalPrice() == 0.0f) {
+            if (substationMeasure.getTotalPrice() == 0f) {
                 idsCheck(substationMeasure);
                 firewallCheck(substationMeasure);
                 antivirusCheck(substationMeasure);

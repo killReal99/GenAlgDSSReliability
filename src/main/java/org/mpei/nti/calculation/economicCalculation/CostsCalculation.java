@@ -9,7 +9,7 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 public class CostsCalculation {
 
     public static Float buildingCAPEX(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float buildingCAPEX = 0.0f;
+        float buildingCAPEX;
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
             buildingCAPEX = BuildingCAPEX.withoutISFirstArch;
         } else if (substationMeasuresPerYear.getArchitectureType() == 2) {
@@ -36,7 +36,7 @@ public class CostsCalculation {
     }
 
     public static Float exploitationCAPEX(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float embeddedMeasuresPrice = 0.0f;
+        float embeddedMeasuresPrice = 0f;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             embeddedMeasuresPrice += (ied.getD2() * BuildingCAPEX.D2 + ied.getD4() * BuildingCAPEX.D4 +
                     ied.getD5() * BuildingCAPEX.D5 + ied.getD8() * BuildingCAPEX.D8 + ied.getD9() * BuildingCAPEX.D9 +
@@ -54,7 +54,7 @@ public class CostsCalculation {
     }
 
     public static Float buildingOPEX(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float buildingOPEX = 0.0f;
+        float buildingOPEX;
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
             buildingOPEX = BuildingOPEX.withoutISFirstArch;
         } else if (substationMeasuresPerYear.getArchitectureType() == 2) {
@@ -85,7 +85,7 @@ public class CostsCalculation {
     }
 
     public static Float exploitationOPEX(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float embeddedMeasuresPrice = 0.0f;
+        float embeddedMeasuresPrice = 0f;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             embeddedMeasuresPrice += (ied.getD2() * ExploitationOPEX.D2 + ied.getD4() * ExploitationOPEX.D4 +
                     ied.getD5() * ExploitationOPEX.D5 + ied.getD8() * ExploitationOPEX.D8 +

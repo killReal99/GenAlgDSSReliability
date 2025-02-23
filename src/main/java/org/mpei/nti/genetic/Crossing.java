@@ -248,19 +248,24 @@ public class Crossing {
                 index = rouletteSearch(rouletteWeights, pointer, newStartPoint);
             }
             if (pointer >= rouletteWeights.get(startPoint).getRightPart()) {
-                int newStartPoint = startPoint + (int) (startPoint *
-                        (pointer - rouletteWeights.get(startPoint).getLeftPart()) /
-                        rouletteWeights.get(rouletteWeights.size() - 1).getRightPart());
-                if (newStartPoint > (rouletteWeights.size() - 1)) {
-                    newStartPoint = (rouletteWeights.size() - 1);
-                }
-                if (startPoint == newStartPoint) {
-                    newStartPoint = newStartPoint + 1;
-                }
+                int newStartPoint = getNewStartPoint(rouletteWeights, pointer, startPoint);
                 index = rouletteSearch(rouletteWeights, pointer, newStartPoint);
             }
         }
         return index;
+    }
+
+    private static int getNewStartPoint(List<RoulettePart> rouletteWeights, float pointer, int startPoint) {
+        int newStartPoint = startPoint + (int) (startPoint *
+                (pointer - rouletteWeights.get(startPoint).getLeftPart()) /
+                rouletteWeights.get(rouletteWeights.size() - 1).getRightPart());
+        if (newStartPoint > (rouletteWeights.size() - 1)) {
+            newStartPoint = (rouletteWeights.size() - 1);
+        }
+        if (startPoint == newStartPoint) {
+            newStartPoint = newStartPoint + 1;
+        }
+        return newStartPoint;
     }
 
     public static List<RoulettePart> rouletteWeightCalculation(List<SubstationMeasures> population,

@@ -58,15 +58,15 @@ public class FailureTriggeringBus {
         float DD24 = (1 - D24 * substationMeasuresPerYear.getImprosedMeasures().getD24());
 
         if (substationMeasuresPerYear.getArchitectureType() == 2) {
-            A1 = 0.0f;
-            A3 = 0.0f;
+            A1 = 0f;
+            A3 = 0f;
         }
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
-            A1 = 0.0f;
-            A3 = 0.0f;
-            A23 = 0.0f;
-            A31 = 0.0f;
-            A41 = 0.0f;
+            A1 = 0f;
+            A3 = 0f;
+            A23 = 0f;
+            A31 = 0f;
+            A41 = 0f;
         }
 
         float Psv = A1 * A2 * DD1 * DD2 + A3 * A4 * DD3;

@@ -15,7 +15,6 @@ import org.mpei.nti.utils.Probability;
 
 import java.util.*;
 
-import static java.lang.Float.NaN;
 import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
 
 public class MockUndersupplyCalculation {
@@ -58,9 +57,7 @@ public class MockUndersupplyCalculation {
             float falsePositivedBreaker = 1f;
             float failureTriggeredBreaker = 1f;
             for (Breaker breaker : schemaStatus.getBreakers()) {
-                Iterator<HashMap.Entry<Breaker, Probability>> iterator = breakersMap.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry<Breaker, Probability> breakerProbabilityEntry = iterator.next();
+                for (Map.Entry<Breaker, Probability> breakerProbabilityEntry : breakersMap.entrySet()) {
                     if (breakerProbabilityEntry.getKey().getBreakerName().equals(breaker.getBreakerName())) {
                         if (breaker.getPosition() == 1) {
                             overTriggeredBreaker *= breakerProbabilityEntry.getValue().getOverTriggerProbability();
@@ -79,9 +76,7 @@ public class MockUndersupplyCalculation {
 
     public static void probabilityCalculation
             (HashMap<Breaker, Probability> breakersMap, List<IEDImpact> iedImpactList, List<IED> iedList) {
-        Iterator<HashMap.Entry<Breaker, Probability>> iterator = breakersMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Breaker, Probability> breakerProbabilityEntry = iterator.next();
+        for (Map.Entry<Breaker, Probability> breakerProbabilityEntry : breakersMap.entrySet()) {
             IED rpaCurrentMain = new IED();
             IED rpaCurrentReserve = new IED();
             IED rpaNeighborsMain = new IED();
@@ -364,36 +359,26 @@ public class MockUndersupplyCalculation {
     public static float eightParamsCalculate(float a, float b, float c, float d, float e, float f, float g, float h) {
         return a + b + c + d + e + f + g + h - (a * b + a * c + a * d + a * e + a * f + a * g + a * h + b * c +
                 b * d + b * e + b * f + b * g + b * h + c * d + c * e + c * f + c * g + c * h + d * e + d * f + d * g +
-                d * h + e * f + e * g + e * h + f * g + f * h + g * h) + (a * b * c + a * b * d + a * b * e + a * b * f +
-                a * b * g + a * b * h + a * c * d + a * c * e + a * c * f + a * c * g + a * c * h + a * d * e +
-                a * d * f + a * d * g + a * d * h + a * e * f + a * e * g + a * e * h + a * f * g + a * f * h +
-                a * h * g + a * h * f + b * c * d + b * c * e + b * c * f + b * c * g + b * c * h + b * d * e + b * d * f +
-                b * d * g + b * d * h + b * e * f + b * e * g + b * e * h + b * f * g + b * f * h + b * h * g + b * h * f +
-                c * d * e + c * d * f + c * d * g + c * d * h + c * e * f + c * e * g + c * e * h + c * f * g + c * f * h +
-                c * h * g + c * h * f + d * e * f + d * e * g + d * e * h + d * f * g + d * f * h + d * h * g + d * h * f +
-                e * f * g + e * f * h + e * h * g + e * h * f + f * g * h + f * h * g + f * h * g + f * h * e + h * g * f +
-                h * g * e + h * e * g + h * e * f) - (a * b * c * d + a * b * c * e + a * b * c * f + a * b * c * g +
-                a * b * c * h + a * b * d * e + a * b * d * f + a * b * d * g + a * b * d * h + a * b * e * f +
-                a * b * e * g + a * b * e * h + a * b * f * g + a * b * f * h + a * b * h * g + a * b * h * f +
-                a * c * d * e + a * c * d * f + a * c * d * g + a * c * d * h + a * c * e * f + a * c * e * g +
-                a * c * e * h + a * c * f * g + a * c * f * h + a * c * h * g + a * c * h * f + a * d * e * g +
-                a * d * e * f + a * d * e * g + a * d * e * f + a * d * e * g + a * d * e * h + a * d * f * g +
-                a * d * f * h + a * d * h * g + a * d * h * f + a * e * f * g + a * e * f * h + a * e * h * g +
-                a * e * h * f + a * f * g * f + a * f * h * g + a * f * h * g + a * f * h * e + a * h * g * f +
-                a * h * g * e + a * h * e * g + a * h * e * f + b * c * e * d + b * c * d * f + b * c * d * g +
+                d * h + e * f + e * g + e * h + f * g + f * h + g * h) + (a * b * c + a * b * d + a * b * e +
+                a * b * f + a * b * g + a * b * h + a * c * d + a * c * e + a * c * f + a * c * g + a * c * h +
+                a * d * e + a * d * f + a * d * g + a * d * h + a * e * f + a * e * g + a * e * h + a * f * g +
+                a * f * h + a * g * h + b * c * d + b * c * e + b * c * f + b * c * g + b * c * h + b * d * e +
+                b * d * f + b * d * g + b * d * h + b * e * f + b * e * g + b * e * h + b * f * g + b * f * h +
+                b * g * h + c * d * e + c * d * f + c * d * g + c * d * h + c * e * f + c * e * g + c * e * h +
+                c * f * g + c * f * h + c * g * h + d * e * f + d * e * g + d * e * h + d * f * g + d * f * h +
+                d * g * h + e * f * g + e * f * h + e * g * h + f * g * h) - (a * b * c * d + a * b * c * e +
+                a * b * c * f + a * b * c * g + a * b * c * h + a * b * d * e + a * b * d * f + a * b * d * g +
+                a * b * d * h + a * b * e * f + a * b * e * g + a * b * e * h + a * b * f * g + a * b * f * h +
+                a * b * g * h + a * c * d * e + a * c * d * f + a * c * d * g + a * c * d * h + a * c * e * f +
+                a * c * e * g + a * c * e * h + a * c * f * g + a * c * f * h + a * c * g * h + a * d * e * f +
+                a * d * e * g + a * d * e * h + a * d * f * g + a * d * f * h + a * d * g * h + a * e * f * g +
+                a * e * f * h + a * e * g * h + a * f * g * h + b * c * d * e + b * c * d * f + b * c * d * g +
                 b * c * d * h + b * c * e * f + b * c * e * g + b * c * e * h + b * c * f * g + b * c * f * h +
-                b * c * h * g + b * c * h * f + b * d * e * f + b * d * e * g + b * d * e * h + b * d * f * g +
-                b * d * f * h + b * d * h * g + b * d * h * f + b * e * f * g + b * e * f * h + b * e * h * g +
-                b * e * h * f + b * f * g * f + b * f * h * g + b * f * h * g + b * f * h * e + b * h * g * f +
-                b * h * g * e + b * h * e * g + b * h * e * f + c * d * e * f + c * d * e * g + c * d * e * h +
-                c * d * f * g + c * d * f * h + c * d * h * g + c * d * h * f + c * e * f * g + c * e * f * h +
-                c * e * h * g + c * e * h * f + c * f * g * f + c * f * h * g + c * f * h * g + c * f * h * e +
-                c * h * g * f + c * h * g * e + c * h * e * g + c * h * e * f + d * e * f * g + d * e * f * h +
-                d * e * h * g + d * e * h * f + d * f * g * f + d * f * h * g + d * f * h * g + d * f * h * e +
-                d * h * g * f + d * h * g * e + d * h * e * g + d * h * e * f + e * f * g * f + e * f * h * g +
-                e * f * h * g + e * f * h * e + e * h * g * f + e * h * g * e + e * h * e * g + e * h * e * f +
-                f * g * h * f + f * h * h * g + f * h * g * h + f * h * f * e + h * h * g * f + h * h * g * e +
-                h * h * e * g + h * h * e * f) + (a * b * c * d * e + a * b * c * d * f + a * b * c * d * g +
+                b * c * g * h + b * d * e * f + b * d * e * g + b * d * e * h + b * d * f * g + b * d * f * h +
+                b * d * g * h + b * e * f * g + b * e * f * h + b * e * g * h + b * f * g * h + c * d * e * f +
+                c * d * e * g + c * d * e * h + c * d * f * g + c * d * f * h + c * d * g * h + c * e * f * g +
+                c * e * f * h + c * e * g * h + c * f * g * h + d * e * f * g + d * e * f * h + d * e * g * h +
+                d * f * g * h + e * f * g * h) + (a * b * c * d * e + a * b * c * d * f + a * b * c * d * g +
                 a * b * c * d * h + a * b * c * e * f + a * b * c * e * g + a * b * c * e * h + a * b * c * f * g +
                 a * b * c * f * h + a * b * c * g * h + a * b * d * e * f + a * b * d * e * g + a * b * d * e * h +
                 a * b * d * f * g + a * b * d * f * h + a * b * d * g * h + a * b * e * f * g + a * b * e * f * h +
@@ -404,14 +389,17 @@ public class MockUndersupplyCalculation {
                 b * c * d * f * g + b * c * d * f * h + b * c * d * g * h + b * c * e * f * g + b * c * e * f * h +
                 b * c * e * g * h + b * c * f * g * h + b * d * e * f * g + b * d * e * f * h + b * d * e * g * h +
                 b * d * f * g * h + b * e * f * g * h + c * d * e * f * g + c * d * e * f * h + c * d * e * g * h +
-                c * d * f * g * h + c * e * f * g * h + d * e * f * g * h) - (a * b * c * d * e * f + a * b * c * d * e * g +
-                a * b * c * d * e * h + a * b * c * d * f * g + a * b * c * d * f * h + a * b * c * d * g * h +
-                a * b * c * e * f * g + a * b * c * e * f * h + a * b * c * e * g * h + a * b * c * f * g * h +
-                a * b * d * e * f * g + a * b * d * e * f * h + a * b * d * e * g * h + a * b * d * f * g * h +
-                a * b * e * f * g * h + a * c * d * e * f * g + a * c * d * e * f * h + a * c * d * e * g * h +
-                a * c * d * f * g * h + a * c * e * f * g * h + a * d * e * f * g * h + b * c * d * e * f * g +
-                b * c * d * e * f * h + b * c * d * e * g * h + b * c * d * f * g * h + b * c * e * f * g * h +
-                b * d * e * f * g * h + c * d * e * f * g * h) + a * b * c * d * e * f * g * h;
+                c * d * f * g * h + c * e * f * g * h + d * e * f * g * h) - (a * b * c * d * e * f +
+                a * b * c * d * e * g + a * b * c * d * e * h + a * b * c * d * f * g + a * b * c * d * f * h +
+                a * b * c * d * g * h + a * b * c * e * f * g + a * b * c * e * f * h + a * b * c * e * g * h +
+                a * b * c * f * g * h + a * b * d * e * f * g + a * b * d * e * f * h + a * b * d * e * g * h +
+                a * b * d * f * g * h + a * b * e * f * g * h + a * c * d * e * f * g + a * c * d * e * f * h +
+                a * c * d * e * g * h + a * c * d * f * g * h + a * c * e * f * g * h + a * d * e * f * g * h +
+                b * c * d * e * f * g + b * c * d * e * f * h + b * c * d * e * g * h + b * c * d * f * g * h +
+                b * c * e * f * g * h + b * d * e * f * g * h + c * d * e * f * g * h) + (a * b * c * d * e * f * g +
+                a * b * c * d * e * f * h + a * b * c * d * e * g * h + a * b * c * d * f * g * h +
+                a * b * c * e * f * g * h + a * b * d * e * f * g * h + a * c * d * e * f * g * h +
+                b * c * d * e * f * g * h) - a * b * c * d * e * f * g * h;
     }
 
     public static float nineParamsCalculate(float a, float b, float c, float d, float e, float f, float g, float h,
