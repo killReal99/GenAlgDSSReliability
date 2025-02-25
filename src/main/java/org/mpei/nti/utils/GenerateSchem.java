@@ -15,7 +15,6 @@ public class GenerateSchem {
 
     public static void generateStartSchem() throws IOException {
         List<SchemaStatus> schemaStatusList = new ArrayList<>();
-        float p = 0.5f;
         for (int q1 = 0; q1 <= 1; q1++) {
             for (int q2 = 0; q2 <= 1; q2++) {
                 for (int q3 = 0; q3 <= 1; q3++) {
@@ -41,7 +40,7 @@ public class GenerateSchem {
                                                                                                 for (int q23 = 0; q23 <= 1; q23++) {
                                                                                                     for (int q24 = 0; q24 <= 1; q24++) {
                                                                                                         int probabilityCounter = q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21 + q22 + q23 + q24;
-                                                                                                        if (Math.pow(0.5, probabilityCounter) > 0.005 && Math.random() > 0.99) {
+                                                                                                        if (probabilityCounter < 5) {
                                                                                                             SchemaStatus schemaStatus = new SchemaStatus();
                                                                                                             List<Breaker> breakers = new ArrayList<>();
                                                                                                             Breaker Q1 = new Breaker();
@@ -141,7 +140,7 @@ public class GenerateSchem {
                                                                                                             Q24.setPosition(q24);
                                                                                                             breakers.add(Q24);
                                                                                                             schemaStatus.setBreakers(breakers);
-                                                                                                            float undersupply = 10f * probabilityCounter + (float) Math.random();
+                                                                                                            float undersupply = 30f * (1 + probabilityCounter * (float) Math.random());
                                                                                                             schemaStatus.setUndersupply(undersupply);
                                                                                                             schemaStatusList.add(schemaStatus);
                                                                                                         }
