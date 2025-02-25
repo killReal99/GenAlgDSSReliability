@@ -6,19 +6,16 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 
 import java.util.List;
 
-import static org.mpei.nti.Main.maxArch;
-import static org.mpei.nti.Main.minArch;
-
 public class Mutating {
 
-    public static void mutatePopulation(List<SubstationMeasures> population) {
+    public static void mutatePopulation(List<SubstationMeasures> population, int minArch, int maxArch) {
         float mutationProbability = 0.80f;
         for (SubstationMeasures substationMeasures : population) {
             if (Math.random() < mutationProbability) {
                 int randomYear = (int) (Math.random() * 24 + 0.055);
                 double mutationAlgorithm = Math.random();
                 if (mutationAlgorithm < 0.9) {
-                    onePointMutation(substationMeasures, randomYear);
+                    onePointMutation(substationMeasures, randomYear, minArch, maxArch);
                 } else {
                     blockMutation(substationMeasures, randomYear);
                 }
@@ -27,7 +24,7 @@ public class Mutating {
     }
 
 
-    public static void onePointMutation(SubstationMeasures substationMeasures, int randomYear) {
+    public static void onePointMutation(SubstationMeasures substationMeasures, int randomYear, int minArch, int maxArch) {
         int countOfChromosomes = 14 + 11 * substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().size();
         double randomChromosome = Math.random();
         if (randomChromosome <= 1.0 / countOfChromosomes) {

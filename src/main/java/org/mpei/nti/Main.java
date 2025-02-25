@@ -14,13 +14,13 @@ import java.util.List;
 
 public class Main {
 
-    public static int minArch = 1;
-    public static int maxArch = 3;
-    public static int populationSize = 10;
-    public static int numberOfIterations = 10;
-
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
+        int minArch = 1;
+        int maxArch = 3;
+        int populationSize = 50;
+        int numberOfIterations = 100;
+
 //        GenerateSchem.generateStartSchem();
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
@@ -42,7 +42,7 @@ public class Main {
         for (int i = 0; i < numberOfIterations; i++) {
             if (priceIterator != numberOfIterations * 0.1) {
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
-                Mutating.mutatePopulation(newPopulation);
+                Mutating.mutatePopulation(newPopulation, minArch, maxArch);
                 for (SubstationMeasures substationMeasures : newPopulation) {
                     OptimizeGenotype.architectureOptimization(substationMeasures);
                 }
@@ -50,7 +50,7 @@ public class Main {
                 ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
                 Selection.selectionOfSuitableIndividuals(population);
                 Sorting.quickSort(population, 0, population.size() - 1);
-                Deletion.deletePartOfPopulation(population);
+                Deletion.deletePartOfPopulation(population, populationSize);
 
                 System.out.println("Номер итерации " + (i + 1));
                 System.out.println("Лучший индивид " + population.get(0).hashCode() + " с весовой функцией " +
@@ -67,6 +67,6 @@ public class Main {
         ResultsMapping.resultsMapping(population);
 
         final long endTime = System.currentTimeMillis();
-        System.out.println("Общее время выполнения: " + (endTime - startTime) / 1000 + " секунд");
+        System.out.println("Общее время выполнения: " + (endTime - startTime) / 1000 + " сек");
     }
 }
