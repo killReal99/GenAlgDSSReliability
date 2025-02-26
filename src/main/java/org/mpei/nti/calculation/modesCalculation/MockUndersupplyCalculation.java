@@ -25,21 +25,21 @@ public class MockUndersupplyCalculation {
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
                 ied.setFailureTriggering(FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear));
-                for (Protection protection : ied.getProtectionList()) {
+                for (Protection protection : ied.getProtections()) {
                     protection.setOverTriggering(OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                     protection.setFalsePositive(FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.BUS) {
                 ied.setFailureTriggering(FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear));
-                for (Protection protection : ied.getProtectionList()) {
+                for (Protection protection : ied.getProtections()) {
                     protection.setOverTriggering(OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                     protection.setFalsePositive(FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
                 ied.setFailureTriggering(FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear));
-                for (Protection protection : ied.getProtectionList()) {
+                for (Protection protection : ied.getProtections()) {
                     protection.setOverTriggering(OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                     protection.setFalsePositive(FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
                 }
@@ -133,17 +133,17 @@ public class MockUndersupplyCalculation {
                                                                          IED rpaCurrentMain, IED rpaCurrentReserve,
                                                                          IED rpaNeighborsMain, IED rpaNeighborsReserve) {
         List<Protection> protectionList = new ArrayList<>();
-        if (rpaCurrentMain.getProtectionList() != null) {
-            protectionList.addAll(rpaCurrentMain.getProtectionList());
+        if (rpaCurrentMain.getProtections() != null) {
+            protectionList.addAll(rpaCurrentMain.getProtections());
         }
-        if (rpaCurrentReserve.getProtectionList() != null) {
-            protectionList.addAll(rpaCurrentReserve.getProtectionList());
+        if (rpaCurrentReserve.getProtections() != null) {
+            protectionList.addAll(rpaCurrentReserve.getProtections());
         }
-        if (rpaNeighborsMain.getProtectionList() != null) {
-            protectionList.addAll(rpaNeighborsMain.getProtectionList());
+        if (rpaNeighborsMain.getProtections() != null) {
+            protectionList.addAll(rpaNeighborsMain.getProtections());
         }
-        if (rpaNeighborsReserve.getProtectionList() != null) {
-            protectionList.addAll(rpaNeighborsReserve.getProtectionList());
+        if (rpaNeighborsReserve.getProtections() != null) {
+            protectionList.addAll(rpaNeighborsReserve.getProtections());
         }
 
         if (protectionList.size() == 1) {

@@ -18,8 +18,8 @@ public class Main {
         final long startTime = System.currentTimeMillis();
         int minArch = 1;
         int maxArch = 3;
-        int populationSize = 150;
-        int numberOfIterations = 200;
+        int populationSize = 100;
+        int numberOfIterations = 50;
 
 //        GenerateSchem.generateStartSchem();
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
@@ -30,7 +30,7 @@ public class Main {
         for (int i = 0; i < populationSize; i++) {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch));
         }
-        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch);
+//        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch);
         Accelerator.quickStart(population);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);

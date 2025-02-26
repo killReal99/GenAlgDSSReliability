@@ -1,21 +1,16 @@
-create table "public".equipment (
-    id serial primary key,
-    equipment_type varchar(255) not null unique
-    );
-
 create table "public".protection (
-    id serial primary key,
+    id uuid primary key,
     protection_type varchar(255) not null,
-    equipment_type varchar(255) references "public".equipment (equipment_type),
+    equipment_type varchar(255) not null,
     false_positive decimal(8,9),
     over_triggering decimal(8,9)),
-    );
+);
 
 create table "public".ied (
-    id serial primary key,
+    id uuid primary key,
     name_of_ied varchar(255) not null unique,
-    equipment_type varchar(255) references "public".equipment (equipment_type),
-    protection_id int references "public".protection (id),
+    equipment_type varchar(255) not null,
+    protection_id uuid references "public".protection (id),
     d2 int,
     d4 int,
     d5 int,
@@ -28,10 +23,10 @@ create table "public".ied (
     d18 int,
     d23 int,
     failure_triggering decimal(8,9))
-    );
+);
 
 create table "public".improsed_measures (
-    id serial primary key,
+    id uuid primary key,
     d3 int,
     d7 int,
     d11 int,
@@ -42,7 +37,7 @@ create table "public".improsed_measures (
 );
 
 create table "public".organizational_measures (
-    id serial primary key,
+    id uuid primary key,
     d1 int,
     d6 int,
     d10 int,
@@ -52,22 +47,21 @@ create table "public".organizational_measures (
 );
 
 create table "public".substation_measures_per_year (
-    id serial primary key,
+    id uuid primary key,
     total_price decimal(12,5) not null,
     opex_price decimal(12,5) not null,
     capex_price decimal(12,5) not null,
     architecture_type int not null,
     year_number int not null,
-    organizational_measures int references "public".organizational_measures (id),
-    improsed_measures int references "public".improsed_measures (id),
-    ied_id int references "public".ied (id)
+    organizational_measures uuid references "public".organizational_measures (id),
+    improsed_measures uuid references "public".improsed_measures (id),
+    ied_id uuid references "public".ied (id)
 );
 
 create table "public".substation_measures (
-    id serial primary key,
+    id uuid primary key,
     total_price decimal(12,5) not null,
     opex_price decimal(12,5) not null,
     capex_price decimal(12,5) not null,
-    substation_measures_per_year_id int references "public".substation_measures_per_year (id)
+    substation_measures_per_year_id uuid references "public".substation_measures_per_year (id)
 );
-
