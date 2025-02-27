@@ -12,7 +12,7 @@ public class BreakersMapGeneration {
         for (int i = 1; i < 25; i++) {
             Breaker breaker = new Breaker();
             breaker.setBreakerName("Q" + i);
-            breaker.setPosition(0);
+            breaker.setPosition(1);
             breakersMap.put(breaker,  new Probability(0f, 0f, 0f));
         }
         return breakersMap;

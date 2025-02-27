@@ -18,8 +18,8 @@ public class Main {
         final long startTime = System.currentTimeMillis();
         int minArch = 1;
         int maxArch = 3;
-        int populationSize = 100;
-        int numberOfIterations = 50;
+        int populationSize = 1000;
+        int numberOfIterations = 1000;
 
 //        GenerateSchem.generateStartSchem();
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
@@ -30,7 +30,7 @@ public class Main {
         for (int i = 0; i < populationSize; i++) {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch));
         }
-//        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch);
+        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch);
         Accelerator.quickStart(population);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
@@ -46,14 +46,14 @@ public class Main {
                 for (SubstationMeasures substationMeasures : newPopulation) {
                     OptimizeGenotype.architectureOptimization(substationMeasures);
                 }
+                ReliabilityCalculation.goalFunctionCalculation(newPopulation, breakersMap, iedImpactList, schemaStatusList);
                 population.addAll(newPopulation);
-                ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
                 Selection.selectionOfSuitableIndividuals(population);
                 Sorting.quickSort(population, 0, population.size() - 1);
                 Deletion.deletePartOfPopulation(population, populationSize);
 
-                System.out.println("Номер итерации " + (i + 1));
-                System.out.println("Лучший индивид " + population.get(0).hashCode() + " с весовой функцией " +
+                System.out.println("Номер итерации " + (i++));
+                System.out.println("Лучший индивид " + population.get(0).getId() + " с весовой функцией " +
                         String.format("%f", population.get(0).getTotalPrice()) + " руб");
             } else break;
 

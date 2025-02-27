@@ -4,6 +4,7 @@ import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationStructures.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public class SubstationMeasuresPerYearGeneration {
 
@@ -12,6 +13,7 @@ public class SubstationMeasuresPerYearGeneration {
                                                                          ImprosedMeasures improsedMeasures,
                                                                          List<IED> iedList) {
         SubstationMeasuresPerYear substationMeasuresPerYear = new SubstationMeasuresPerYear();
+        substationMeasuresPerYear.setId(UUID.randomUUID());
         substationMeasuresPerYear.setArchitectureType(architectureType);
         substationMeasuresPerYear.setYearNumber(yearNumber);
         substationMeasuresPerYear.setOrganizationalMeasures(organizationalMeasures);

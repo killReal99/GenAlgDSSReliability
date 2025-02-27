@@ -57,12 +57,13 @@ public class MockUndersupplyCalculation {
             float falsePositivedBreaker = 1f;
             float failureTriggeredBreaker = 1f;
             for (Breaker breaker : schemaStatus.getBreakers()) {
-                if (breaker.getPosition() == 1) {
+                if (breaker.getPosition() == 0) {
                     for (Map.Entry<Breaker, Probability> breakerProbabilityEntry : breakersMap.entrySet()) {
                         if (breakerProbabilityEntry.getKey().getBreakerName().equals(breaker.getBreakerName())) {
                             overTriggeredBreaker *= breakerProbabilityEntry.getValue().getOverTriggerProbability();
                             falsePositivedBreaker *= breakerProbabilityEntry.getValue().getFalsePositiveProbability();
                             failureTriggeredBreaker *= breakerProbabilityEntry.getValue().getFailureTriggerProbablility();
+                            break;
                         }
                     }
                 }
