@@ -18,8 +18,8 @@ public class Main {
         final long startTime = System.currentTimeMillis();
         int minArch = 1;
         int maxArch = 3;
-        int populationSize = 1000;
-        int numberOfIterations = 1000;
+        int populationSize = 100;
+        int numberOfIterations = 100;
 
 //        GenerateSchem.generateStartSchem();
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
@@ -52,7 +52,7 @@ public class Main {
                 Sorting.quickSort(population, 0, population.size() - 1);
                 Deletion.deletePartOfPopulation(population, populationSize);
 
-                System.out.println("Номер итерации " + (i++));
+                System.out.println("Номер итерации " + (i + 1));
                 System.out.println("Лучший индивид " + population.get(0).getId() + " с весовой функцией " +
                         String.format("%f", population.get(0).getTotalPrice()) + " руб");
             } else break;

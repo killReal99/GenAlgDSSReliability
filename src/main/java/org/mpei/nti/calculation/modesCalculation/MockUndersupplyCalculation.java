@@ -24,21 +24,21 @@ public class MockUndersupplyCalculation {
         int iedIndex = 0;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
-                ied.setFailureTriggering(FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear));
+                ied.setFailureTriggering(FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                 for (Protection protection : ied.getProtections()) {
                     protection.setOverTriggering(OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                     protection.setFalsePositive(FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.BUS) {
-                ied.setFailureTriggering(FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear));
+                ied.setFailureTriggering(FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                 for (Protection protection : ied.getProtections()) {
                     protection.setOverTriggering(OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                     protection.setFalsePositive(FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
-                ied.setFailureTriggering(FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear));
+                ied.setFailureTriggering(FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                 for (Protection protection : ied.getProtections()) {
                     protection.setOverTriggering(OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
                     protection.setFalsePositive(FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
