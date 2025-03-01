@@ -18,8 +18,10 @@ public class Main {
         final long startTime = System.currentTimeMillis();
         int minArch = 1;
         int maxArch = 3;
-        int populationSize = 100;
-        int numberOfIterations = 100;
+        boolean lanRosseti = false;
+        boolean iedRosseti = false;
+        int populationSize = 500;
+        int numberOfIterations = 5000;
 
 //        GenerateSchem.generateStartSchem();
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
