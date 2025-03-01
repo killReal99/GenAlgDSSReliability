@@ -29,6 +29,15 @@ public class SubstationMeasures {
     @Column(name = "capex_price")
     private float capexPrice;
 
+    @Column(name = "lan_rosseti")
+    private boolean lanRosseti;
+
+    @Column(name = "ied_rosseti")
+    private boolean iedRosseti;
+
+    @Column(name = "fstec")
+    private int fstec;
+
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubstationMeasuresPerYear> substationMeasuresPerYear;
 }

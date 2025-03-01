@@ -14,7 +14,7 @@ public class ResultsMapping {
 
     public static void resultsMapping(List<SubstationMeasures> population) throws IOException {
         PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
-                "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
+            "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
         writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
         writer.println("CAPEX затраты за 25 лет " + String.format("%f", population.get(0).getCapexPrice()));
         writer.println("OPEX затраты за 25 лет " + String.format("%f", population.get(0).getOpexPrice()));
@@ -28,14 +28,14 @@ public class ResultsMapping {
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD6() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие подключение нарушителя к инженерному " +
-                        "АРМ, используемому для локального доступа");
+                    "АРМ, используемому для локального доступа");
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD10() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие подключение нарушителя к АРМ инженера РЗА");
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD12() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие доступ к сервисному порту для " +
-                        "конфигурирования ИЭУ РЗА");
+                    "конфигурирования ИЭУ РЗА");
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD16() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие доступ нарушителя к шине станции");
@@ -107,8 +107,23 @@ public class ResultsMapping {
         writer.close();
 
         String optimize = new ObjectMapper().writeValueAsString(population.get(0));
+        String lan = "";
+        String ied = "";
+        int fstec = 0;
+        if (population.get(0).isLanRosseti()) {
+            lan = "LAN_";
+        }
+        if (population.get(0).isIedRosseti()){
+            ied = "IED_";
+        }
+        fstec = switch (population.get(0).getFstec()) {
+            case 1 -> 1;
+            case 2 -> 2;
+            case 3 -> 3;
+            default -> fstec;
+        };
         PrintWriter jsonObj = new PrintWriter("src" + File.separator + "main" + File.separator +
-                "resources" + File.separator + "optimize.json", StandardCharsets.UTF_8);
+            "resources" + File.separator + "optimize_" + lan + ied + fstec + ".json", StandardCharsets.UTF_8);
         jsonObj.println(optimize);
         jsonObj.close();
     }

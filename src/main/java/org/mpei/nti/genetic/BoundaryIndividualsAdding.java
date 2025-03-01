@@ -13,7 +13,8 @@ import java.util.UUID;
 
 public class BoundaryIndividualsAdding {
 
-    public static void addBoundaryAdding(List<SubstationMeasures> population, int minArch, int maxArch) {
+    public static void addBoundaryAdding(List<SubstationMeasures> population, int minArch, int maxArch, boolean lanRosseti,
+                                         boolean iedRosseti, int fstec) {
         int archQuantity = maxArch - minArch + 1;
         for (int i = 0; i < archQuantity; i++) {
             for (int j = 0; j < 2; j++) {
@@ -21,12 +22,13 @@ public class BoundaryIndividualsAdding {
                 for (int year = 1; year <= 25; year++) {
                     ImprosedMeasures improsedMeasures = new ImprosedMeasures(UUID.randomUUID(), j, j, j, j, j, j, j);
                     OrganizationalMeasures organizationalMeasures = new OrganizationalMeasures(UUID.randomUUID(),
-                            j, j, j, j, j, j);
+                        j, j, j, j, j, j);
 
                     substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                            (i + 1), year, organizationalMeasures, improsedMeasures, IEDGenerator(j)));
+                        (i + 1), year, organizationalMeasures, improsedMeasures, IEDGenerator(j)));
                 }
-                population.add(SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList));
+                population.add(SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList,
+                    lanRosseti, iedRosseti, fstec));
             }
         }
     }
@@ -38,16 +40,16 @@ public class BoundaryIndividualsAdding {
             if (i < 5) {
                 for (int j = 1; j < 3; j++) {
                     List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
-                    IED ied = new IED(UUID.randomUUID(),"W" + i + "_" + j, EquipmentType.LINE, protectionList, boundaryValue,
-                            boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                            boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
+                    IED ied = new IED(UUID.randomUUID(), "W" + i + "_" + j, EquipmentType.LINE, protectionList, boundaryValue,
+                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
+                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                     iedList.add(ied);
                 }
             } else { //Lines 35 kV and 10 kV
                 List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
-                IED ied = new IED(UUID.randomUUID(),"W" + i + "_1", EquipmentType.LINE, protectionList, boundaryValue,
-                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
+                IED ied = new IED(UUID.randomUUID(), "W" + i + "_1", EquipmentType.LINE, protectionList, boundaryValue,
+                    boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
+                    boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                 iedList.add(ied);
             }
         }
@@ -55,24 +57,24 @@ public class BoundaryIndividualsAdding {
             if (i < 3) {
                 for (int j = 1; j < 3; j++) {
                     List<Protection> protectionList = ProtectionsSet.busProtectionsSetGeneration();
-                    IED ied = new IED(UUID.randomUUID(),"B" + i + "_" + j, EquipmentType.BUS, protectionList, boundaryValue,
-                            boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                            boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
+                    IED ied = new IED(UUID.randomUUID(), "B" + i + "_" + j, EquipmentType.BUS, protectionList, boundaryValue,
+                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
+                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                     iedList.add(ied);
                 }
             } else { //Buss 35 kV and 10 kV
                 List<Protection> protectionList = ProtectionsSet.busProtectionsSetGeneration();
-                IED ied = new IED(UUID.randomUUID(),"B" + i + "_1", EquipmentType.BUS, protectionList, boundaryValue,
-                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                        boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
+                IED ied = new IED(UUID.randomUUID(), "B" + i + "_1", EquipmentType.BUS, protectionList, boundaryValue,
+                    boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
+                    boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
                 iedList.add(ied);
             }
         }
         for (int i = 1; i < 3; i++) {
             List<Protection> protectionList = ProtectionsSet.transformerProtectionsSetGeneration();
-            IED ied = new IED(UUID.randomUUID(),"T" + i + "_1", EquipmentType.TRANSFORMER, protectionList, boundaryValue,
-                    boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
-                    boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
+            IED ied = new IED(UUID.randomUUID(), "T" + i + "_1", EquipmentType.TRANSFORMER, protectionList, boundaryValue,
+                boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue, boundaryValue,
+                boundaryValue, boundaryValue, boundaryValue, boundaryValue, 0.0f);
             iedList.add(ied);
         }
         return iedList;

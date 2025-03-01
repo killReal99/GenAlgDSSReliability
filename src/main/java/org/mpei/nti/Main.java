@@ -20,20 +20,20 @@ public class Main {
         int maxArch = 3;
         boolean lanRosseti = false;
         boolean iedRosseti = false;
-        int populationSize = 500;
-        int numberOfIterations = 5000;
+        int fstec = 0;
+        int populationSize = 100;
+        int numberOfIterations = 100;
 
-//        GenerateSchem.generateStartSchem();
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
         List<IEDImpact> iedImpactList = IEDImpactGeneration.generate(breakersMap);
 
         List<SubstationMeasures> population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
-            population.add(PopulationGeneration.generatePopulation(minArch, maxArch));
+            population.add(PopulationGeneration.generatePopulation(minArch, maxArch, lanRosseti, iedRosseti, fstec));
         }
-        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch);
-        Accelerator.quickStart(population);
+        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch, lanRosseti, iedRosseti, fstec);
+//        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
         Selection.selectionOfSuitableIndividuals(population);

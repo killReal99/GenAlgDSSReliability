@@ -10,21 +10,23 @@ import java.util.UUID;
 
 public class PopulationGeneration {
 
-    public static SubstationMeasures generatePopulation(int minArch, int maxArch) {
+    public static SubstationMeasures generatePopulation(int minArch, int maxArch, boolean lanRosseti, boolean iedRosseti,
+                                                        int fstec) {
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int year = 1; year <= 25; year++) {
             ImprosedMeasures improsedMeasures = new ImprosedMeasures(UUID.randomUUID(), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
+                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
             OrganizationalMeasures organizationalMeasures = new OrganizationalMeasures(UUID.randomUUID(),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
+                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
 
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                    ((int) (Math.random() * (maxArch - minArch) + minArch)), year, organizationalMeasures,
-                    improsedMeasures, IEDGenerator()));
+                ((int) (Math.random() * (maxArch - minArch) + minArch)), year, organizationalMeasures,
+                improsedMeasures, IEDGenerator()));
         }
-        return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList);
+        return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList, lanRosseti,
+            iedRosseti, fstec);
     }
 
     public static List<IED> IEDGenerator() {
@@ -34,20 +36,20 @@ public class PopulationGeneration {
             if (i < 5) {
                 for (int j = 1; j < 3; j++) {
                     List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
-                    IED ied = new IED(UUID.randomUUID(),"W" + i + "_" + j, EquipmentType.LINE, protectionList, (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), 0.0f);
-                    iedList.add(ied);
-                }
-            } else { //Lines 35 kV and 10 kV
-                List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
-                IED ied = new IED(UUID.randomUUID(),"W" + i + "_1", EquipmentType.LINE, protectionList, (int) Math.round(Math.random()),
+                    IED ied = new IED(UUID.randomUUID(), "W" + i + "_" + j, EquipmentType.LINE, protectionList, (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), 0.0f);
+                    iedList.add(ied);
+                }
+            } else { //Lines 35 kV and 10 kV
+                List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                IED ied = new IED(UUID.randomUUID(), "W" + i + "_1", EquipmentType.LINE, protectionList, (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), 0.0f);
                 iedList.add(ied);
             }
         }
@@ -56,31 +58,31 @@ public class PopulationGeneration {
             if (i < 3) {
                 for (int j = 1; j < 3; j++) {
                     List<Protection> protectionList = ProtectionsSet.busProtectionsSetGeneration();
-                    IED ied = new IED(UUID.randomUUID(),"B" + i + "_" + j, EquipmentType.BUS, protectionList, (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                            (int) Math.round(Math.random()), 0.0f);
-                    iedList.add(ied);
-                }
-            } else { //Buss 35 kV and 10 kV
-                List<Protection> protectionList = ProtectionsSet.busProtectionsSetGeneration();
-                IED ied = new IED(UUID.randomUUID(),"B" + i + "_1", EquipmentType.BUS, protectionList, (int) Math.round(Math.random()),
+                    IED ied = new IED(UUID.randomUUID(), "B" + i + "_" + j, EquipmentType.BUS, protectionList, (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                         (int) Math.round(Math.random()), 0.0f);
+                    iedList.add(ied);
+                }
+            } else { //Buss 35 kV and 10 kV
+                List<Protection> protectionList = ProtectionsSet.busProtectionsSetGeneration();
+                IED ied = new IED(UUID.randomUUID(), "B" + i + "_1", EquipmentType.BUS, protectionList, (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                    (int) Math.round(Math.random()), 0.0f);
                 iedList.add(ied);
             }
         }
 
         for (int i = 1; i < 3; i++) {
             List<Protection> protectionList = ProtectionsSet.transformerProtectionsSetGeneration();
-            IED ied = new IED(UUID.randomUUID(),"T" + i + "_1", EquipmentType.TRANSFORMER, protectionList, (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                    (int) Math.round(Math.random()), 0.0f);
+            IED ied = new IED(UUID.randomUUID(), "T" + i + "_1", EquipmentType.TRANSFORMER, protectionList, (int) Math.round(Math.random()),
+                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
+                (int) Math.round(Math.random()), 0.0f);
             iedList.add(ied);
         }
         return iedList;
