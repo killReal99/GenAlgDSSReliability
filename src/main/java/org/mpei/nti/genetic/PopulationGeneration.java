@@ -1,5 +1,6 @@
 package org.mpei.nti.genetic;
 
+import jakarta.persistence.Column;
 import org.mpei.nti.substation.substationGeneration.*;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
@@ -14,9 +15,21 @@ public class PopulationGeneration {
                                                         int fstec) {
         List<SubstationMeasuresPerYear> substationMeasuresPerYearList = new ArrayList<>();
         for (int year = 1; year <= 25; year++) {
+            int D19;
+            int D20;
+            int D21;
+            if (lanRosseti) {
+                D19 = 1;
+                D20 = 1;
+                D21 = 1;
+            } else {
+                D19 = (int) Math.round(Math.random());
+                D20 = (int) Math.round(Math.random());
+                D21 = (int) Math.round(Math.random());
+            }
             ImprosedMeasures improsedMeasures = new ImprosedMeasures(UUID.randomUUID(), (int) Math.round(Math.random()),
-                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
-                (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
+                    (int) Math.round(Math.random()), (int) Math.round(Math.random()), D19, D20, D21,
+                    (int) Math.round(Math.random()));
             OrganizationalMeasures organizationalMeasures = new OrganizationalMeasures(UUID.randomUUID(),
                 (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()),
                 (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));

@@ -21,8 +21,8 @@ public class Main {
         boolean lanRosseti = false;
         boolean iedRosseti = false;
         int fstec = 0;
-        int populationSize = 100;
-        int numberOfIterations = 100;
+        int populationSize = 500;
+        int numberOfIterations = 2000;
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
@@ -33,7 +33,7 @@ public class Main {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch, lanRosseti, iedRosseti, fstec));
         }
         BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch, lanRosseti, iedRosseti, fstec);
-//        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
+        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
         Selection.selectionOfSuitableIndividuals(population);
@@ -43,11 +43,12 @@ public class Main {
 
         for (int i = 0; i < numberOfIterations; i++) {
             if (priceIterator != numberOfIterations * 0.1) {
-                List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population);
-                Mutating.mutatePopulation(newPopulation, minArch, maxArch);
-                for (SubstationMeasures substationMeasures : newPopulation) {
-                    OptimizeGenotype.architectureOptimization(substationMeasures);
-                }
+                List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population, lanRosseti, iedRosseti,
+                fstec);
+                Mutating.mutatePopulation(newPopulation, minArch, maxArch, lanRosseti, iedRosseti, fstec);
+//                for (SubstationMeasures substationMeasures : newPopulation) {
+//                    OptimizeGenotype.architectureOptimization(substationMeasures);
+//                }
                 ReliabilityCalculation.goalFunctionCalculation(newPopulation, breakersMap, iedImpactList, schemaStatusList);
                 population.addAll(newPopulation);
                 Selection.selectionOfSuitableIndividuals(population);
@@ -57,12 +58,14 @@ public class Main {
                 System.out.println("Номер итерации " + (i + 1));
                 System.out.println("Лучший индивид " + population.get(0).getId() + " с весовой функцией " +
                         String.format("%f", population.get(0).getTotalPrice()) + " руб");
+                System.out.println("Медианный индивид " + population.get(population.size() / 2).getId() + " с весовой функцией " +
+                        String.format("%f", population.get(population.size() / 2).getTotalPrice()) + " руб");
+                System.out.println("Худший индивид " + population.get(population.size() - 1).getId() + " с весовой функцией " +
+                        String.format("%f", population.get(population.size() - 1).getTotalPrice()) + " руб");
             } else break;
-
             if (previousValueOfTotalPrice == population.get(0).getTotalPrice()) {
                 priceIterator++;
             } else priceIterator = 0;
-
             previousValueOfTotalPrice = population.get(0).getTotalPrice();
         }
 

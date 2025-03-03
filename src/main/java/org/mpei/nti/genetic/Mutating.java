@@ -8,28 +8,39 @@ import java.util.List;
 
 public class Mutating {
 
-    public static void mutatePopulation(List<SubstationMeasures> population, int minArch, int maxArch) {
+    public static void mutatePopulation(List<SubstationMeasures> population, int minArch, int maxArch,
+                                        boolean lanRosseti, boolean iedRosseti, int fstec) {
         float mutationProbability = 0.80f;
         for (SubstationMeasures substationMeasures : population) {
             if (Math.random() < mutationProbability) {
                 int randomYear = (int) (Math.random() * 24 + 0.055);
                 double mutationAlgorithm = Math.random();
                 if (mutationAlgorithm < 0.9) {
-                    onePointMutation(substationMeasures, randomYear, minArch, maxArch);
+                    onePointMutation(substationMeasures, randomYear, minArch, maxArch, lanRosseti, iedRosseti, fstec);
                 } else {
-                    blockMutation(substationMeasures, randomYear);
+                    blockMutation(substationMeasures, randomYear, lanRosseti, iedRosseti, fstec);
                 }
             }
         }
     }
 
-
-    public static void onePointMutation(SubstationMeasures substationMeasures, int randomYear, int minArch, int maxArch) {
+    public static void onePointMutation(SubstationMeasures substationMeasures, int randomYear, int minArch, int maxArch,
+                                        boolean lanRosseti, boolean iedRosseti, int fstec) {
         int countOfChromosomes = 14 + 11 * substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().size();
         double randomChromosome = Math.random();
         if (randomChromosome <= 1.0 / countOfChromosomes) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).
                     setArchitectureType((int) (Math.random() * (maxArch - minArch) + minArch + 0.01));
+            if (substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType() == 1) {
+                for (IED ied : substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList()) {
+                    ied.setD2(0);
+                    ied.setD17(0);
+                }
+            } else if (substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType() == 2) {
+                for (IED ied : substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList()) {
+                    ied.setD17(0);
+                }
+            }
         } else if (randomChromosome > 1.0 / countOfChromosomes && randomChromosome <= 2.0 / countOfChromosomes) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                     setD3(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD3()));
@@ -39,13 +50,13 @@ public class Mutating {
         } else if (randomChromosome > 3.0 / countOfChromosomes && randomChromosome <= 4.0 / countOfChromosomes) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                     setD11(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD11()));
-        } else if (randomChromosome > 4.0 / countOfChromosomes && randomChromosome <= 5.0 / countOfChromosomes) {
+        } else if (randomChromosome > 4.0 / countOfChromosomes && randomChromosome <= 5.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                     setD19(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD19()));
-        } else if (randomChromosome > 5.0 / countOfChromosomes && randomChromosome <= 6.0 / countOfChromosomes) {
+        } else if (randomChromosome > 5.0 / countOfChromosomes && randomChromosome <= 6.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                     setD20(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD20()));
-        } else if (randomChromosome > 6.0 / countOfChromosomes && randomChromosome <= 7.0 / countOfChromosomes) {
+        } else if (randomChromosome > 6.0 / countOfChromosomes && randomChromosome <= 7.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                     setD21(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD21()));
         } else if (randomChromosome > 7.0 / countOfChromosomes && randomChromosome <= 8.0 / countOfChromosomes) {
@@ -74,7 +85,11 @@ public class Mutating {
             for (IED ied : substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList()) {
                 if (randomChromosome > (14.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
                         randomChromosome <= (15.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
-                    ied.setD2(mutate(ied.getD2()));
+                    if (substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType() != 3) {
+                        ied.setD2(0);
+                    } else {
+                        ied.setD2(mutate(ied.getD2()));
+                    }
                     break;
                 } else if (randomChromosome > (15.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
                         randomChromosome <= (16.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
@@ -106,7 +121,11 @@ public class Mutating {
                     break;
                 } else if (randomChromosome > (22.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
                         randomChromosome <= (23.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
-                    ied.setD17(mutate(ied.getD17()));
+                    if (substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType() == 1) {
+                        ied.setD17(0);
+                    } else {
+                        ied.setD17(mutate(ied.getD17()));
+                    }
                     break;
                 } else if (randomChromosome > (23.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
                         randomChromosome <= (24.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
@@ -131,7 +150,7 @@ public class Mutating {
         }
     }
 
-    public static void blockMutation(SubstationMeasures substationMeasures, int randomYear) {
+    public static void blockMutation(SubstationMeasures substationMeasures, int randomYear, boolean lanRosseti, boolean iedRosseti, int fstec) {
         int countOfBlocks = 2 + substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().size();
         double randomBlock = Math.random();
         if (randomBlock <= 1.0 / countOfBlocks) {
@@ -141,12 +160,14 @@ public class Mutating {
                     mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD7()));
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD11(
                     mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD11()));
-            substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD19(
-                    mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD19()));
-            substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD20(
-                    mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD20()));
-            substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD21(
-                    mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD21()));
+            if (!lanRosseti) {
+                substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD19(
+                        mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD19()));
+                substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD20(
+                        mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD20()));
+                substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD21(
+                        mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD21()));
+            }
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD24(
                     mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD24()));
         } else if (randomBlock > 1.0 / countOfBlocks && randomBlock <= 2.0 / countOfBlocks) {
@@ -165,8 +186,17 @@ public class Mutating {
         } else {
             for (int i = 0; i < substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().size(); i++) {
                 if (randomBlock > 2.0 / countOfBlocks && randomBlock <= (3.0 + i) / countOfBlocks) {
-                    substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD2(
-                            mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD2()));
+                    if (substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType() == 1) {
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD2(0);
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD17(0);
+                    } else if (substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType() == 2) {
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD2(0);
+                    } else {
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD2(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD2()));
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD17(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD17()));
+                    }
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD4(
                             mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD4()));
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD5(
@@ -181,8 +211,6 @@ public class Mutating {
                             mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD14()));
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD15(
                             mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD15()));
-                    substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD17(
-                            mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD17()));
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD18(
                             mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD18()));
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD23(

@@ -13,7 +13,7 @@ public class OptimizeGenotype {
             idsOptimization(substationMeasures);
             firewallOptimization(substationMeasures);
             antivirusOptimization(substationMeasures);
-            architectureOptimization(substationMeasures);
+//            architectureOptimization(substationMeasures);
         }
     }
 
