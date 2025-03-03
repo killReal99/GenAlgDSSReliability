@@ -8,26 +8,26 @@ public class FailureTriggeringLine {
 
     public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
-        float A1 = 0.05f;
-        float A3 = 0.05f;
-        float A5 = 0.05f;
-        float A7 = 0.05f;
-        float A9 = 0.05f;
-        float A11 = 0.05f;
-        float A13 = 0.05f;
-        float A15 = 0.05f;
-        float A17 = 0.05f;
-        float A19 = 0.05f;
-        float A23 = 0.05f;
-        float A29 = 0.05f;
-        float A31 = 0.05f;
-        float A33 = 0.05f;
-        float A35 = 0.05f;
-        float A37 = 0.05f;
-        float A39 = 0.05f;
-        float A41 = 0.05f;
-        float A43 = 0.05f;
-        float A45 = 0.05f;
+        float A1 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A3 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A5 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A7 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A9 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A11 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A13 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A15 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A17 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A19 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A23 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A29 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A31 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A33 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A35 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A37 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A39 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A41 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A43 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
+        float A45 = 1 / (20f * substationMeasuresPerYear.getIedList().size());
 
         float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
         float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(iedIndex).getD2());

@@ -8,16 +8,16 @@ public class OverTriggeringBus {
 
     public static float overTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
-        float A1 = 0.1f;
-        float A3 = 0.1f;
-        float A5 = 0.1f;
-        float A7 = 0.1f;
-        float A9 = 0.1f;
-        float A11 = 0.1f;
-        float A13 = 0.1f;
-        float A15 = 0.1f;
-        float A17 = 0.1f;
-        float A19 = 0.1f;
+        float A1 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A3 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A5 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A7 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A9 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A11 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A13 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A15 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A17 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
+        float A19 = 1 / (10f * substationMeasuresPerYear.getIedList().size());
 
         float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
         float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(iedIndex).getD2());
