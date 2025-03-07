@@ -2,6 +2,7 @@ package org.mpei.nti.genetic;
 
 import org.mpei.nti.substation.substationGeneration.*;
 import org.mpei.nti.substation.substationStructures.*;
+import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.RoulettePart;
 
 import java.util.ArrayList;
@@ -63,7 +64,14 @@ public class Crossing {
                 );
                 List<IED> childIedList = new ArrayList<>();
                 for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                    List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                    List<Protection> protectionList = new ArrayList<>();
+                    if (firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.LINE) {
+                        protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                    } else if (firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.BUS) {
+                        protectionList = ProtectionsSet.busProtectionsSetGeneration();
+                    } else if (firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
+                        protectionList = ProtectionsSet.transformerProtectionsSetGeneration();
+                    }
                     IED ied = new IED(UUID.randomUUID(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
                             firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
@@ -102,7 +110,14 @@ public class Crossing {
                         secondParent.getSubstationMeasuresPerYear().get(i).getImprosedMeasures().getD24());
                 List<IED> childIedList = new ArrayList<>();
                 for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                    List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                    List<Protection> protectionList = new ArrayList<>();
+                    if (secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.LINE) {
+                        protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                    } else if (secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.BUS) {
+                        protectionList = ProtectionsSet.busProtectionsSetGeneration();
+                    } else if (secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
+                        protectionList = ProtectionsSet.transformerProtectionsSetGeneration();
+                    }
                     IED ied = new IED(UUID.randomUUID(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
                             secondParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
@@ -154,7 +169,14 @@ public class Crossing {
             );
             List<IED> childIedList = new ArrayList<>();
             for (int j = 0; j < firstParent.getSubstationMeasuresPerYear().get(i).getIedList().size(); j++) {
-                List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                List<Protection> protectionList = new ArrayList<>();
+                if (firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.LINE) {
+                    protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                } else if (firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.BUS) {
+                    protectionList = ProtectionsSet.busProtectionsSetGeneration();
+                } else if (firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
+                    protectionList = ProtectionsSet.transformerProtectionsSetGeneration();
+                }
                 IED ied = new IED(UUID.randomUUID(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getNameOfIED(),
                         firstParent.getSubstationMeasuresPerYear().get(i).getIedList().get(j).getEquipmentTypeName(),
@@ -202,20 +224,23 @@ public class Crossing {
             );
             substationMeasuresPerYearList.get(swapYearNumber - 1).setImprosedMeasures(childImprosedMeasures);
         } else {
-            int D2;
-            int D17;
             List<IED> childIedList = new ArrayList<>();
             for (int j = 0; j < secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().size(); j++) {
-                List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                int D2 = 0;
+                int D17 = 0;
+                List<Protection> protectionList = new ArrayList<>();
+                if (secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getEquipmentTypeName() == EquipmentType.LINE) {
+                    protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                } else if (secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getEquipmentTypeName() == EquipmentType.BUS) {
+                    protectionList = ProtectionsSet.busProtectionsSetGeneration();
+                } else if (secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
+                    protectionList = ProtectionsSet.transformerProtectionsSetGeneration();
+                }
                 if (secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getArchitectureType() == 3) {
                     D2 = secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD2();
                     D17 = secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD17();
                 } else if (secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getArchitectureType() == 2) {
-                    D2 = 0;
                     D17 = secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getD17();
-                } else {
-                    D2 = 0;
-                    D17 = 0;
                 }
                 IED ied = new IED(UUID.randomUUID(),
                         secondParent.getSubstationMeasuresPerYear().get(swapYearNumber - 1).getIedList().get(j).getNameOfIED(),

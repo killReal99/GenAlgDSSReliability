@@ -177,7 +177,7 @@ public class ReliabilityCalculation {
         List<Boolean> d17CheckList = new ArrayList<>();
         List<Boolean> d18CheckList = new ArrayList<>();
         List<Boolean> d23CheckList = new ArrayList<>();
-        for (int i = 0; i < substationMeasures.getSubstationMeasuresPerYear().get(0).getIedList().size(); i++){
+        for (int i = 0; i < substationMeasures.getSubstationMeasuresPerYear().get(0).getIedList().size(); i++) {
             d2CheckList.add(false);
             d4CheckList.add(false);
             d5CheckList.add(false);

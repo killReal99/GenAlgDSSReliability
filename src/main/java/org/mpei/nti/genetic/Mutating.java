@@ -191,6 +191,8 @@ public class Mutating {
                         substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD17(0);
                     } else if (substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getArchitectureType() == 2) {
                         substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD2(0);
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD17(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD17()));
                     } else {
                         substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD2(
                                 mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD2()));
