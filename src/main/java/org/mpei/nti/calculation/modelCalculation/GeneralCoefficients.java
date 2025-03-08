@@ -55,6 +55,7 @@ public class GeneralCoefficients {
     public static float Pkz = 0.93279f;
     public static float PkzKa = 0.0003082f;
     public static float qapv = 0.05f;
-    public static float Pper = 30.0f;
+
+    public static float yearsToAttack = 25f;
     public static float Tvosst = 9.4f;
 }

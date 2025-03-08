@@ -8,21 +8,21 @@ public class FalsePositiveBus {
 
     public static float falsePositiveCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
-        float A1 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A3 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A5 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A7 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A9 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A11 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A13 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A15 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A17 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A19 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A21 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A23 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A25 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A27 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
-        float A29 = 1 / (15f * substationMeasuresPerYear.getIedList().size());
+        float A1 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A3 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A5 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A7 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A9 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A11 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A13 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A15 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A17 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A19 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A21 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A23 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A25 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A27 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A29 = 1 / (15f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
 
         float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
         float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(iedIndex).getD2());
