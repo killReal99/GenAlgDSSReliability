@@ -8,26 +8,26 @@ public class FailureTriggeringBus {
 
     public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
-        float A1 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A3 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A5 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A7 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A9 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A11 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A13 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A15 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A17 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A19 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A23 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A29 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A31 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A33 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A35 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A37 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A39 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A41 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A43 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A45 = 1 / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A1 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A3 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A5 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A7 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A9 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A11 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A13 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A15 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A17 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A19 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A23 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A29 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A31 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A33 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A35 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A37 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A39 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A41 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A43 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        float A45 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
 
         float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
         float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(iedIndex).getD2());

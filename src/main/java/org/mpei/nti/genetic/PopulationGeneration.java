@@ -36,13 +36,13 @@ public class PopulationGeneration {
                     (int) Math.round(Math.random()), (int) Math.round(Math.random()), (int) Math.round(Math.random()));
 
             substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                    architecture, year, organizationalMeasures, improsedMeasures, IEDGenerator(architecture)));
+                    architecture, year, organizationalMeasures, improsedMeasures, IEDGenerator(architecture, iedRosseti)));
         }
         return SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList, lanRosseti,
                 iedRosseti, fstec);
     }
 
-    public static List<IED> IEDGenerator(int architecture) {
+    public static List<IED> IEDGenerator(int architecture, boolean iedRosseti) {
         List<IED> iedList = new ArrayList<>();
         int D2 = 0;
         int D17 = 0;

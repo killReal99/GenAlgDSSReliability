@@ -18,11 +18,11 @@ public class Main {
         final long startTime = System.currentTimeMillis();
         int minArch = 1;
         int maxArch = 3;
-        boolean lanRosseti = true;
+        boolean lanRosseti = false;
         boolean iedRosseti = false;
         int fstec = 0;
         int populationSize = 100;
-        int numberOfIterations = 3000;
+        int numberOfIterations = 300;
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
@@ -33,7 +33,7 @@ public class Main {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch, lanRosseti, iedRosseti, fstec));
         }
         BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch, lanRosseti, iedRosseti, fstec);
-        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
+//        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
 //        Selection.selectionOfSuitableIndividuals(population);

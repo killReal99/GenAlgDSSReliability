@@ -140,6 +140,9 @@ public class Crossing {
             }
         }
         child.setId(UUID.randomUUID());
+        child.setLanRosseti(firstParent.isLanRosseti());
+        child.setIedRosseti(firstParent.isIedRosseti());
+        child.setFstec(firstParent.getFstec());
         child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
         substationMeasuresList.add(child);
     }
@@ -268,6 +271,9 @@ public class Crossing {
                 substationMeasuresPerYearList.get(swapYearNumber - 1).getImprosedMeasures(),
                 substationMeasuresPerYearList.get(swapYearNumber - 1).getIedList()));
         child.setId(UUID.randomUUID());
+        child.setLanRosseti(firstParent.isLanRosseti());
+        child.setIedRosseti(firstParent.isIedRosseti());
+        child.setFstec(firstParent.getFstec());
         child.setSubstationMeasuresPerYear(substationMeasuresPerYearList);
         substationMeasuresList.add(child);
     }
