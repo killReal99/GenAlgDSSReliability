@@ -19,10 +19,10 @@ public class Main {
         int minArch = 1;
         int maxArch = 3;
         boolean lanRosseti = false;
-        boolean iedRosseti = false;
+        boolean iedRosseti = true;
         int fstec = 0;
         int populationSize = 100;
-        int numberOfIterations = 300;
+        int numberOfIterations = 1000;
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
@@ -33,7 +33,7 @@ public class Main {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch, lanRosseti, iedRosseti, fstec));
         }
         BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch, lanRosseti, iedRosseti, fstec);
-//        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
+        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
 //        Selection.selectionOfSuitableIndividuals(population);
@@ -46,9 +46,6 @@ public class Main {
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population, lanRosseti, iedRosseti,
                         fstec);
                 Mutating.mutatePopulation(newPopulation, minArch, maxArch, lanRosseti, iedRosseti, fstec);
-//                for (SubstationMeasures substationMeasures : newPopulation) {
-//                    OptimizeGenotype.architectureOptimization(substationMeasures);
-//                }
                 ReliabilityCalculation.goalFunctionCalculation(newPopulation, breakersMap, iedImpactList, schemaStatusList);
                 population.addAll(newPopulation);
                 Selection.selectionOfSuitableIndividuals(population);

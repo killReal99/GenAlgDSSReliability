@@ -92,11 +92,11 @@ public class Mutating {
                     }
                     break;
                 } else if (randomChromosome > (15.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
-                        randomChromosome <= (16.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
+                        randomChromosome <= (16.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes && !iedRosseti) {
                     ied.setD4(mutate(ied.getD4()));
                     break;
                 } else if (randomChromosome > (16.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
-                        randomChromosome <= (17.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
+                        randomChromosome <= (17.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes && !iedRosseti) {
                     ied.setD5(mutate(ied.getD5()));
                     break;
                 } else if (randomChromosome > (17.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
@@ -108,15 +108,15 @@ public class Mutating {
                     ied.setD9(mutate(ied.getD9()));
                     break;
                 } else if (randomChromosome > (19.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
-                        randomChromosome <= (20.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
+                        randomChromosome <= (20.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes && !iedRosseti) {
                     ied.setD13(mutate(ied.getD13()));
                     break;
                 } else if (randomChromosome > (20.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
-                        randomChromosome <= (21.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
+                        randomChromosome <= (21.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes && !iedRosseti) {
                     ied.setD14(mutate(ied.getD14()));
                     break;
                 } else if (randomChromosome > (21.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
-                        randomChromosome <= (22.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes) {
+                        randomChromosome <= (22.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes && !iedRosseti) {
                     ied.setD15(mutate(ied.getD15()));
                     break;
                 } else if (randomChromosome > (22.0 + 11.0 * numberOfEmbeddedMeauseres) / countOfChromosomes &&
@@ -138,7 +138,6 @@ public class Mutating {
                 }
                 numberOfEmbeddedMeauseres++;
             }
-
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).setCapexPrice(0.0f);
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).setOpexPrice(0.0f);
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).setTotalPrice(0.0f);
@@ -199,20 +198,22 @@ public class Mutating {
                         substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD17(
                                 mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD17()));
                     }
-                    substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD4(
-                            mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD4()));
-                    substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD5(
-                            mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD5()));
+                    if (!iedRosseti) {
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD4(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD4()));
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD5(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD5()));
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD13(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD13()));
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD14(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD14()));
+                        substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD15(
+                                mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD15()));
+                    }
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD8(
                             mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD8()));
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD9(
                             mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD9()));
-                    substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD13(
-                            mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD13()));
-                    substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD14(
-                            mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD14()));
-                    substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD15(
-                            mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD15()));
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD18(
                             mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).getD18()));
                     substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getIedList().get(i).setD23(
@@ -220,7 +221,6 @@ public class Mutating {
                 }
             }
         }
-
     }
 
     public static int mutate(int chromosome) {
