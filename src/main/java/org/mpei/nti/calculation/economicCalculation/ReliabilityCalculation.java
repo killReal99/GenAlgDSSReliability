@@ -1,8 +1,8 @@
 package org.mpei.nti.calculation.economicCalculation;
 
 import org.mpei.nti.calculation.modesCalculation.MockUndersupplyCalculation;
-import org.mpei.nti.economic.BuildingCAPEX;
-import org.mpei.nti.economic.BuildingOPEX;
+import org.mpei.nti.economic.CAPEXEquipment;
+import org.mpei.nti.economic.CAPEXSalary;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.utils.Probability;
 
@@ -41,16 +41,16 @@ public class ReliabilityCalculation {
             if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
                 idsCheck++;
                 if (substationMeasuresPerYear.getYearNumber() != 1 && idsCheck == 1) {
-                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D21);
-                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D21);
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                            CAPEXEquipment.D21 + CAPEXSalary.D21);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                            substationMeasuresPerYear.getCapexPrice());
                 }
                 if (idsCheck == 10) {
-                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D21);
-                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D21);
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                            CAPEXEquipment.D21 + CAPEXSalary.D21);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                            substationMeasuresPerYear.getCapexPrice());
                     idsCheck = 1;
                 }
             } else {
@@ -65,16 +65,16 @@ public class ReliabilityCalculation {
             if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
                 firewallCheck++;
                 if (substationMeasuresPerYear.getYearNumber() != 1 && firewallCheck == 1) {
-                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D20);
-                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D20);
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
+                            + CAPEXEquipment.D20 + CAPEXSalary.D20);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                            substationMeasuresPerYear.getCapexPrice());
                 }
                 if (firewallCheck == 10) {
-                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D20);
-                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D20);
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
+                            + CAPEXEquipment.D20 + CAPEXSalary.D20);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                            substationMeasuresPerYear.getCapexPrice());
                     firewallCheck = 1;
                 }
             } else {
@@ -89,16 +89,16 @@ public class ReliabilityCalculation {
             if (substationMeasuresPerYear.getImprosedMeasures().getD21() == 1) {
                 antivirusCheck++;
                 if (substationMeasuresPerYear.getYearNumber() != 1 && antivirusCheck == 1) {
-                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D19);
-                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D19);
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
+                            + CAPEXEquipment.D19 + CAPEXSalary.D19);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                            substationMeasuresPerYear.getCapexPrice());
                 }
                 if (antivirusCheck == 5) {
-                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D19);
-                    substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D19);
+                    substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
+                            + CAPEXEquipment.D19 + CAPEXSalary.D19);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                            substationMeasuresPerYear.getCapexPrice());
                     antivirusCheck = 1;
                 }
             } else {
@@ -114,48 +114,36 @@ public class ReliabilityCalculation {
                 if (arch == 1) {
                     if (substationMeasuresPerYear.getArchitectureType() == 2) {
                         substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
-                                BuildingCAPEX.fromFirstToSecondRebuild);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() +
-                                BuildingOPEX.fromFirstToSecondRebuild);
+                                CAPEXEquipment.fromFirstToSecondRebuild + CAPEXSalary.fromFirstToSecondRebuild);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     } else {
                         substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
-                                BuildingCAPEX.fromFirstToThirdRebuild);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() +
-                                BuildingOPEX.fromFirstToThirdRebuild);
+                                CAPEXEquipment.fromFirstToThirdRebuild + CAPEXSalary.fromFirstToThirdRebuild);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                 } else if (arch == 2) {
                     if (substationMeasuresPerYear.getArchitectureType() == 1) {
                         substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
-                                BuildingCAPEX.fromSecondToFirstRebuild);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() +
-                                BuildingOPEX.fromSecondToFirstRebuild);
+                                CAPEXEquipment.fromSecondToFirstRebuild + CAPEXSalary.fromSecondToFirstRebuild);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     } else {
                         substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
-                                BuildingCAPEX.fromSecondToThirdRebuild);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() +
-                                BuildingOPEX.fromSecondToThirdRebuild);
+                                CAPEXEquipment.fromSecondToThirdRebuild + CAPEXSalary.fromSecondToThirdRebuild);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                 } else {
                     if (substationMeasuresPerYear.getArchitectureType() == 1) {
                         substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
-                                BuildingCAPEX.fromThirdToFirstRebuild);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() +
-                                BuildingOPEX.fromThirdToFirstRebuild);
+                                CAPEXEquipment.fromThirdToFirstRebuild + CAPEXSalary.fromThirdToFirstRebuild);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     } else {
                         substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
-                                BuildingCAPEX.fromThirdToSecondRebuild);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() +
-                                BuildingOPEX.fromThirdToSecondRebuild);
+                                CAPEXEquipment.fromThirdToSecondRebuild + CAPEXSalary.fromThirdToSecondRebuild);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
                                 substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
                     }
@@ -194,188 +182,133 @@ public class ReliabilityCalculation {
             for (int i = 0; i < substationMeasuresPerYear.getIedList().size(); i++) {
                 if (substationMeasuresPerYear.getIedList().get(i).getD2() == 1) {
                     if (!d2CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D2);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D2);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
+                                + CAPEXEquipment.D2 + CAPEXSalary.D2);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d2CheckList.set(i, true);
                 } else {
-                    if (d2CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D2);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d2CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD4() == 1) {
                     if (!d4CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D4);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D4);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D4 + CAPEXSalary.D4);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d4CheckList.set(i, true);
                 } else {
-                    if (d4CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D4);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d4CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD5() == 1) {
                     if (!d5CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D5);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D5);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
+                                + CAPEXEquipment.D5 + CAPEXSalary.D5);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d5CheckList.set(i, true);
                 } else {
-                    if (d5CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D5);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d5CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD8() == 1) {
                     if (!d8CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D8);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D8);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D8 + CAPEXSalary.D8);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d8CheckList.set(i, true);
                 } else {
-                    if (d8CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D8);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d8CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD9() == 1) {
                     if (!d9CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D9);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D9);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D9 + CAPEXSalary.D9);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d9CheckList.set(i, true);
                 } else {
-                    if (d9CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D9);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d9CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD13() == 1) {
                     if (!d13CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D13);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D13);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D13 + CAPEXSalary.D13);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d13CheckList.set(i, true);
                 } else {
-                    if (d13CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D13);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d13CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD14() == 1) {
                     if (!d14CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D14);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D14);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D14 + CAPEXSalary.D14);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d14CheckList.set(i, true);
                 } else {
-                    if (d14CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D14);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d14CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD15() == 1) {
                     if (!d15CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D15);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D15);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D15 + CAPEXSalary.D15);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d15CheckList.set(i, true);
                 } else {
-                    if (d15CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D15);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d15CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD17() == 1) {
                     if (!d17CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D17);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D17);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D17 + CAPEXSalary.D17);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d17CheckList.set(i, true);
                 } else {
-                    if (d17CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D17);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d17CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD18() == 1) {
                     if (!d18CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D18);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D18);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D18 + CAPEXSalary.D18);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d18CheckList.set(i, true);
                 } else {
-                    if (d18CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D18);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d18CheckList.set(i, false);
                 }
 
                 if (substationMeasuresPerYear.getIedList().get(i).getD23() == 1) {
                     if (!d23CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() + BuildingCAPEX.D23);
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D23);
+                        substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
+                                CAPEXEquipment.D23 + CAPEXSalary.D23);
                         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                                substationMeasuresPerYear.getCapexPrice());
                     }
                     d23CheckList.set(i, true);
                 } else {
-                    if (d23CheckList.get(i) && substationMeasuresPerYear.getYearNumber() != 1) {
-                        substationMeasuresPerYear.setOpexPrice(substationMeasuresPerYear.getOpexPrice() + BuildingOPEX.D23);
-                        substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
-                                substationMeasuresPerYear.getOpexPrice());
-                    }
                     d23CheckList.set(i, false);
                 }
             }

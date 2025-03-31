@@ -1,6 +1,5 @@
 package org.mpei.nti.genetic;
 
-import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
@@ -13,7 +12,6 @@ public class OptimizeGenotype {
             idsOptimization(substationMeasures);
             firewallOptimization(substationMeasures);
             antivirusOptimization(substationMeasures);
-//            architectureOptimization(substationMeasures);
         }
     }
 
@@ -61,24 +59,6 @@ public class OptimizeGenotype {
             }
             if (antivirusCheck == 5) {
                 antivirusCheck = 0;
-            }
-        }
-    }
-
-    public static void architectureOptimization(SubstationMeasures substationMeasures) {
-        for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
-            if (substationMeasuresPerYear.getArchitectureType() == 2) {
-                substationMeasuresPerYear.getOrganizationalMeasures().setD1(0);
-                for (IED ied : substationMeasuresPerYear.getIedList()) {
-                    ied.setD2(0);
-                }
-            }
-            if (substationMeasuresPerYear.getArchitectureType() == 1) {
-                substationMeasuresPerYear.getOrganizationalMeasures().setD1(0);
-                for (IED ied : substationMeasuresPerYear.getIedList()) {
-                    ied.setD2(0);
-                    ied.setD17(0);
-                }
             }
         }
     }

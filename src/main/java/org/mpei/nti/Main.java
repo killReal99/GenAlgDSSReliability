@@ -19,9 +19,9 @@ public class Main {
         int minArch = 1;
         int maxArch = 3;
         boolean lanRosseti = false;
-        boolean iedRosseti = true;
+        boolean iedRosseti = false;
         int fstec = 0;
-        int populationSize = 100;
+        int populationSize = 500;
         int numberOfIterations = 1000;
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
@@ -36,7 +36,7 @@ public class Main {
         Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
-//        Selection.selectionOfSuitableIndividuals(population);
+        Selection.selectionOfSuitableIndividuals(population);
 
         float previousValueOfTotalPrice = 0f;
         int priceIterator = 0;

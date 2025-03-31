@@ -1,6 +1,6 @@
 package org.mpei.nti.economic;
 
-public class BuildingOPEX {
+public class CAPEXSalary {
     public static float withoutISFirstArch = 1f;
     public static float withoutISSecondArch = 1f;
     public static float withoutISThirdArch = 1f;

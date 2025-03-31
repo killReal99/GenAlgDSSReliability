@@ -28,12 +28,11 @@ public class SubstationMeasuresPerYearGeneration {
 
     public static void economicPerYearCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
         if (substationMeasuresPerYear.getYearNumber() == 1) {
-            substationMeasuresPerYear.setCapexPrice(CostsCalculation.buildingCAPEX(substationMeasuresPerYear));
-            substationMeasuresPerYear.setOpexPrice(CostsCalculation.buildingOPEX(substationMeasuresPerYear) +
-                    CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
+            substationMeasuresPerYear.setCapexPrice(CostsCalculation.capexEquipment(substationMeasuresPerYear) +
+                    CostsCalculation.capexSalary(substationMeasuresPerYear));
+            substationMeasuresPerYear.setOpexPrice(CostsCalculation.opex(substationMeasuresPerYear));
         } else {
-            substationMeasuresPerYear.setCapexPrice(CostsCalculation.buildingCAPEX(substationMeasuresPerYear));
-            substationMeasuresPerYear.setOpexPrice(CostsCalculation.exploitationOPEX(substationMeasuresPerYear));
+            substationMeasuresPerYear.setOpexPrice(CostsCalculation.opex(substationMeasuresPerYear));
         }
         substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
     }

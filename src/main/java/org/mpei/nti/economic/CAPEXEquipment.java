@@ -1,16 +1,16 @@
 package org.mpei.nti.economic;
 
-public class BuildingCAPEX {
-    public static float withoutISFirstArch = 1f;
-    public static float withoutISSecondArch = 1f;
-    public static float withoutISThirdArch = 1f;
+public class CAPEXEquipment {
+    public static float withoutISFirstArch = 243000000f;
+    public static float withoutISSecondArch = 270000000f;
+    public static float withoutISThirdArch = 300000000f;
 
-    public static float fromFirstToSecondRebuild = 50f;
-    public static float fromFirstToThirdRebuild = 50f;
-    public static float fromSecondToFirstRebuild = 50f;
-    public static float fromSecondToThirdRebuild = 50f;
-    public static float fromThirdToFirstRebuild = 50f;
-    public static float fromThirdToSecondRebuild = 50f;
+    public static float fromFirstToSecondRebuild = 4000000f;
+    public static float fromFirstToThirdRebuild = 5000000f;
+    public static float fromSecondToFirstRebuild = 2000000f;
+    public static float fromSecondToThirdRebuild = 3000000f;
+    public static float fromThirdToFirstRebuild = 2500000f;
+    public static float fromThirdToSecondRebuild = 2000000f;
 
     public static float D2 = 1083.33f;
     public static float D3 = 20000.0f;

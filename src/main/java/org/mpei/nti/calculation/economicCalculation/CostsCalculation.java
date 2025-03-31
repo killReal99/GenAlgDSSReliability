@@ -1,94 +1,91 @@
 package org.mpei.nti.calculation.economicCalculation;
 
-import org.mpei.nti.economic.BuildingCAPEX;
-import org.mpei.nti.economic.BuildingOPEX;
-import org.mpei.nti.economic.ExploitationOPEX;
+import org.mpei.nti.economic.CAPEXEquipment;
+import org.mpei.nti.economic.CAPEXSalary;
+import org.mpei.nti.economic.OPEX;
 import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 public class CostsCalculation {
 
-    public static Float buildingCAPEX(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float reBuildingCAPEX = 0f;
+    public static Float capexEquipment(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        float reBuildingCAPEX;
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
-            reBuildingCAPEX = BuildingCAPEX.withoutISFirstArch;
+            reBuildingCAPEX = CAPEXEquipment.withoutISFirstArch;
         } else if (substationMeasuresPerYear.getArchitectureType() == 2) {
-            reBuildingCAPEX = BuildingCAPEX.withoutISSecondArch;
+            reBuildingCAPEX = CAPEXEquipment.withoutISSecondArch;
         } else {
-            reBuildingCAPEX = BuildingCAPEX.withoutISThirdArch;
+            reBuildingCAPEX = CAPEXEquipment.withoutISThirdArch;
         }
 
         float embeddedMeasuresPrice = 0f;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
-            embeddedMeasuresPrice += (ied.getD2() * BuildingCAPEX.D2 + ied.getD4() * BuildingCAPEX.D4 +
-                    ied.getD5() * BuildingCAPEX.D5 + ied.getD8() * BuildingCAPEX.D8 + ied.getD9() * BuildingCAPEX.D9 +
-                    ied.getD13() * BuildingCAPEX.D13 + ied.getD14() * BuildingCAPEX.D14 +
-                    ied.getD15() * BuildingCAPEX.D15 + ied.getD17() * BuildingCAPEX.D17 +
-                    ied.getD18() * BuildingCAPEX.D18 + ied.getD23() * BuildingCAPEX.D23);
+            embeddedMeasuresPrice += (ied.getD2() * CAPEXEquipment.D2 + ied.getD4() * CAPEXEquipment.D4 +
+                    ied.getD5() * CAPEXEquipment.D5 + ied.getD8() * CAPEXEquipment.D8 + ied.getD9() * CAPEXEquipment.D9 +
+                    ied.getD13() * CAPEXEquipment.D13 + ied.getD14() * CAPEXEquipment.D14 +
+                    ied.getD15() * CAPEXEquipment.D15 + ied.getD17() * CAPEXEquipment.D17 +
+                    ied.getD18() * CAPEXEquipment.D18 + ied.getD23() * CAPEXEquipment.D23);
         }
-        float improsedMeasuresPrice = substationMeasuresPerYear.getImprosedMeasures().getD3() * BuildingCAPEX.D3 +
-                substationMeasuresPerYear.getImprosedMeasures().getD7() * BuildingCAPEX.D7 +
-                substationMeasuresPerYear.getImprosedMeasures().getD19() * BuildingCAPEX.D19 +
-                substationMeasuresPerYear.getImprosedMeasures().getD20() * BuildingCAPEX.D20 +
-                substationMeasuresPerYear.getImprosedMeasures().getD21() * BuildingCAPEX.D21 +
-                substationMeasuresPerYear.getImprosedMeasures().getD24() * BuildingCAPEX.D24;
+        float improsedMeasuresPrice = substationMeasuresPerYear.getImprosedMeasures().getD3() * CAPEXEquipment.D3 +
+                substationMeasuresPerYear.getImprosedMeasures().getD7() * CAPEXEquipment.D7 +
+                substationMeasuresPerYear.getImprosedMeasures().getD19() * CAPEXEquipment.D19 +
+                substationMeasuresPerYear.getImprosedMeasures().getD20() * CAPEXEquipment.D20 +
+                substationMeasuresPerYear.getImprosedMeasures().getD21() * CAPEXEquipment.D21 +
+                substationMeasuresPerYear.getImprosedMeasures().getD24() * CAPEXEquipment.D24;
         return reBuildingCAPEX + embeddedMeasuresPrice + improsedMeasuresPrice;
     }
 
-    public static Float buildingOPEX(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float buildingOPEX;
+    public static Float capexSalary(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        float capexSalary;
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
-            buildingOPEX = BuildingOPEX.withoutISFirstArch;
+            capexSalary = CAPEXSalary.withoutISFirstArch;
         } else if (substationMeasuresPerYear.getArchitectureType() == 2) {
-            buildingOPEX = BuildingOPEX.withoutISSecondArch;
+            capexSalary = CAPEXSalary.withoutISSecondArch;
         } else {
-            buildingOPEX = BuildingOPEX.withoutISThirdArch;
+            capexSalary = CAPEXSalary.withoutISThirdArch;
         }
         float embeddedMeasuresPrice = 0f;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
-            embeddedMeasuresPrice += (ied.getD2() * BuildingOPEX.D2 + ied.getD4() * BuildingOPEX.D4 +
-                    ied.getD5() * BuildingOPEX.D5 + ied.getD8() * BuildingOPEX.D8 + ied.getD9() * BuildingOPEX.D9 +
-                    ied.getD13() * BuildingOPEX.D13 + ied.getD14() * BuildingOPEX.D14 + ied.getD15() * BuildingOPEX.D15 +
-                    ied.getD17() * BuildingOPEX.D17 + ied.getD18() * BuildingOPEX.D18 + ied.getD23() * BuildingOPEX.D23);
+            embeddedMeasuresPrice += (ied.getD2() * CAPEXSalary.D2 + ied.getD4() * CAPEXSalary.D4 +
+                    ied.getD5() * CAPEXSalary.D5 + ied.getD8() * CAPEXSalary.D8 + ied.getD9() * CAPEXSalary.D9 +
+                    ied.getD13() * CAPEXSalary.D13 + ied.getD14() * CAPEXSalary.D14 + ied.getD15() * CAPEXSalary.D15 +
+                    ied.getD17() * CAPEXSalary.D17 + ied.getD18() * CAPEXSalary.D18 + ied.getD23() * CAPEXSalary.D23);
         }
-        float improsedMeasuresPrice = substationMeasuresPerYear.getImprosedMeasures().getD3() * BuildingOPEX.D3 +
-                substationMeasuresPerYear.getImprosedMeasures().getD7() * BuildingOPEX.D7 +
-                substationMeasuresPerYear.getImprosedMeasures().getD11() * BuildingOPEX.D11 +
-                substationMeasuresPerYear.getImprosedMeasures().getD19() * BuildingOPEX.D19 +
-                substationMeasuresPerYear.getImprosedMeasures().getD20() * BuildingOPEX.D20 +
-                substationMeasuresPerYear.getImprosedMeasures().getD21() * BuildingOPEX.D21 +
-                substationMeasuresPerYear.getImprosedMeasures().getD24() * BuildingOPEX.D24;
-        float organizationalMeasuresPrice = substationMeasuresPerYear.getOrganizationalMeasures().getD6() * BuildingOPEX.D6 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD10() * BuildingOPEX.D10 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD12() * BuildingOPEX.D12 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD16() * BuildingOPEX.D16 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD22() * BuildingOPEX.D22;
-        return buildingOPEX + embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice;
+        float improsedMeasuresPrice = substationMeasuresPerYear.getImprosedMeasures().getD3() * CAPEXSalary.D3 +
+                substationMeasuresPerYear.getImprosedMeasures().getD7() * CAPEXSalary.D7 +
+                substationMeasuresPerYear.getImprosedMeasures().getD11() * CAPEXSalary.D11 +
+                substationMeasuresPerYear.getImprosedMeasures().getD19() * CAPEXSalary.D19 +
+                substationMeasuresPerYear.getImprosedMeasures().getD20() * CAPEXSalary.D20 +
+                substationMeasuresPerYear.getImprosedMeasures().getD21() * CAPEXSalary.D21 +
+                substationMeasuresPerYear.getImprosedMeasures().getD24() * CAPEXSalary.D24;
+        float organizationalMeasuresPrice = substationMeasuresPerYear.getOrganizationalMeasures().getD6() * CAPEXSalary.D6 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD10() * CAPEXSalary.D10 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD12() * CAPEXSalary.D12 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD16() * CAPEXSalary.D16 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD22() * CAPEXSalary.D22;
+        return capexSalary + embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice;
     }
 
-    public static Float exploitationOPEX(SubstationMeasuresPerYear substationMeasuresPerYear) {
+    public static Float opex(SubstationMeasuresPerYear substationMeasuresPerYear) {
         float embeddedMeasuresPrice = 0f;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
-            embeddedMeasuresPrice += (ied.getD2() * ExploitationOPEX.D2 + ied.getD4() * ExploitationOPEX.D4 +
-                    ied.getD5() * ExploitationOPEX.D5 + ied.getD8() * ExploitationOPEX.D8 +
-                    ied.getD9() * ExploitationOPEX.D9 + ied.getD13() * ExploitationOPEX.D13 +
-                    ied.getD14() * ExploitationOPEX.D14 + ied.getD15() * ExploitationOPEX.D15 +
-                    ied.getD17() * ExploitationOPEX.D17 + ied.getD18() * ExploitationOPEX.D18 +
-                    ied.getD23() * ExploitationOPEX.D23);
+            embeddedMeasuresPrice += (ied.getD2() * OPEX.D2 + ied.getD4() * OPEX.D4 + ied.getD5() * OPEX.D5 +
+                    ied.getD8() * OPEX.D8 + ied.getD9() * OPEX.D9 + ied.getD13() * OPEX.D13 + ied.getD14() * OPEX.D14 +
+                    ied.getD15() * OPEX.D15 + ied.getD17() * OPEX.D17 + ied.getD18() * OPEX.D18 + ied.getD23() * OPEX.D23);
         }
-        float improsedMeasuresPrice = substationMeasuresPerYear.getImprosedMeasures().getD3() * ExploitationOPEX.D3 +
-                substationMeasuresPerYear.getImprosedMeasures().getD7() * ExploitationOPEX.D7 +
-                substationMeasuresPerYear.getImprosedMeasures().getD11() * ExploitationOPEX.D11 +
-                substationMeasuresPerYear.getImprosedMeasures().getD19() * ExploitationOPEX.D19 +
-                substationMeasuresPerYear.getImprosedMeasures().getD20() * ExploitationOPEX.D20 +
-                substationMeasuresPerYear.getImprosedMeasures().getD21() * ExploitationOPEX.D21 +
-                substationMeasuresPerYear.getImprosedMeasures().getD24() * ExploitationOPEX.D24;
-        float organizationalMeasuresPrice = substationMeasuresPerYear.getOrganizationalMeasures().getD1() * ExploitationOPEX.D1 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD6() * ExploitationOPEX.D6 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD10() * ExploitationOPEX.D10 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD12() * ExploitationOPEX.D12 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD16() * ExploitationOPEX.D16 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD22() * ExploitationOPEX.D22;
+        float improsedMeasuresPrice = substationMeasuresPerYear.getImprosedMeasures().getD3() * OPEX.D3 +
+                substationMeasuresPerYear.getImprosedMeasures().getD7() * OPEX.D7 +
+                substationMeasuresPerYear.getImprosedMeasures().getD11() * OPEX.D11 +
+                substationMeasuresPerYear.getImprosedMeasures().getD19() * OPEX.D19 +
+                substationMeasuresPerYear.getImprosedMeasures().getD20() * OPEX.D20 +
+                substationMeasuresPerYear.getImprosedMeasures().getD21() * OPEX.D21 +
+                substationMeasuresPerYear.getImprosedMeasures().getD24() * OPEX.D24;
+        float organizationalMeasuresPrice = substationMeasuresPerYear.getOrganizationalMeasures().getD1() * OPEX.D1 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD6() * OPEX.D6 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD10() * OPEX.D10 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD12() * OPEX.D12 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD16() * OPEX.D16 +
+                substationMeasuresPerYear.getOrganizationalMeasures().getD22() * OPEX.D22;
         return embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice;
     }
 
