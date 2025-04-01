@@ -62,22 +62,22 @@ public class Mutating {
         } else if (randomChromosome > 7.0 / countOfChromosomes && randomChromosome <= 8.0 / countOfChromosomes) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().
                     setD24(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD24()));
-        } else if (randomChromosome > 8.0 / countOfChromosomes && randomChromosome <= 9.0 / countOfChromosomes) {
+        } else if (randomChromosome > 8.0 / countOfChromosomes && randomChromosome <= 9.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().
                     setD1(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD1()));
-        } else if (randomChromosome > 9.0 / countOfChromosomes && randomChromosome <= 1.0 / countOfChromosomes) {
+        } else if (randomChromosome > 9.0 / countOfChromosomes && randomChromosome <= 1.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().
                     setD6(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD6()));
-        } else if (randomChromosome > 10.0 / countOfChromosomes && randomChromosome <= 11.0 / countOfChromosomes) {
+        } else if (randomChromosome > 10.0 / countOfChromosomes && randomChromosome <= 11.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().
                     setD10(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD10()));
-        } else if (randomChromosome > 11.0 / countOfChromosomes && randomChromosome <= 12.0 / countOfChromosomes) {
+        } else if (randomChromosome > 11.0 / countOfChromosomes && randomChromosome <= 12.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().
                     setD12(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD12()));
-        } else if (randomChromosome > 12.0 / countOfChromosomes && randomChromosome <= 13.0 / countOfChromosomes) {
+        } else if (randomChromosome > 12.0 / countOfChromosomes && randomChromosome <= 13.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().
                     setD16(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD16()));
-        } else if (randomChromosome > 13.0 / countOfChromosomes && randomChromosome <= 14.0 / countOfChromosomes) {
+        } else if (randomChromosome > 13.0 / countOfChromosomes && randomChromosome <= 14.0 / countOfChromosomes && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().
                     setD22(mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD22()));
         } else {
@@ -169,7 +169,7 @@ public class Mutating {
             }
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().setD24(
                     mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getImprosedMeasures().getD24()));
-        } else if (randomBlock > 1.0 / countOfBlocks && randomBlock <= 2.0 / countOfBlocks) {
+        } else if (randomBlock > 1.0 / countOfBlocks && randomBlock <= 2.0 / countOfBlocks && !lanRosseti) {
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().setD1(
                     mutate(substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().getD1()));
             substationMeasures.getSubstationMeasuresPerYear().get(randomYear).getOrganizationalMeasures().setD6(
