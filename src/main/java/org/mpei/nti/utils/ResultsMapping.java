@@ -1,5 +1,6 @@
 package org.mpei.nti.utils;
 
+import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
@@ -83,7 +84,7 @@ public class ResultsMapping {
                     writer.println("Криптографическая защита протокола MMS с использованием TLS");
                 }
                 if (ied.getD9() == 1) {
-                    writer.println("Механизм удаленной аутентификации к ИЭУ");
+                    writer.println("Механизм удаленной аутентификации ИЭУ");
                 }
                 if (ied.getD13() == 1) {
                     writer.println("Механизм доверенного обновления");

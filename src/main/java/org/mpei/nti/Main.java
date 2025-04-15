@@ -21,22 +21,22 @@ public class Main {
         boolean lanRosseti = false;
         boolean iedRosseti = false;
         int fstec = 0;
-        int populationSize = 500;
-        int numberOfIterations = 1000;
+        int populationSize = 50;
+        int numberOfIterations = 100;
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
         List<IEDImpact> iedImpactList = IEDImpactGeneration.generate(breakersMap);
 
         List<SubstationMeasures> population = new ArrayList<>();
+        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch, lanRosseti, iedRosseti, fstec);
         for (int i = 0; i < populationSize; i++) {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch, lanRosseti, iedRosseti, fstec));
         }
-        BoundaryIndividualsAdding.addBoundaryAdding(population, minArch, maxArch, lanRosseti, iedRosseti, fstec);
         Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
-        Selection.selectionOfSuitableIndividuals(population);
+            Selection.selectionOfSuitableIndividuals(population);
 
         float previousValueOfTotalPrice = 0f;
         int priceIterator = 0;
@@ -46,6 +46,7 @@ public class Main {
                 List<SubstationMeasures> newPopulation = Crossing.populationCrossing(population, lanRosseti, iedRosseti,
                         fstec);
                 Mutating.mutatePopulation(newPopulation, minArch, maxArch, lanRosseti, iedRosseti, fstec);
+                OptimizeGenotype.genotypeOptimization(newPopulation);
                 ReliabilityCalculation.goalFunctionCalculation(newPopulation, breakersMap, iedImpactList, schemaStatusList);
                 population.addAll(newPopulation);
                 Selection.selectionOfSuitableIndividuals(population);

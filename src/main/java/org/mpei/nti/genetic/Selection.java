@@ -13,14 +13,18 @@ public class Selection {
         for (SubstationMeasures substationMeasures : population) {
             SubstationMeasures substationMeasureForDeleting = new SubstationMeasures();
             boolean deletingChecker = false;
+            if (substationMeasures.getCapexPrice() >= 175000000f || substationMeasures.getOpexPrice() >= 15000000f) {
+                substationMeasureForDeleting = substationMeasures;
+                deletingChecker = true;
+            }
             for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
                 if (substationMeasuresPerYear.getYearNumber() == 1) {
-                    if (substationMeasuresPerYear.getCapexPrice() >= 20000000000f || substationMeasuresPerYear.getOpexPrice() >= 500000000f) {
+                    if (substationMeasuresPerYear.getCapexPrice() >= 200000000f || substationMeasuresPerYear.getOpexPrice() >= 1200000f) {
                         substationMeasureForDeleting = substationMeasures;
                         deletingChecker = true;
                     }
                 } else {
-                    if (substationMeasuresPerYear.getCapexPrice() >= 15000000000f || substationMeasuresPerYear.getOpexPrice() >= 500000000f) {
+                    if (substationMeasuresPerYear.getCapexPrice() >= 15000000f || substationMeasuresPerYear.getOpexPrice() >= 1200000f) {
                         substationMeasureForDeleting = substationMeasures;
                         deletingChecker = true;
                     }

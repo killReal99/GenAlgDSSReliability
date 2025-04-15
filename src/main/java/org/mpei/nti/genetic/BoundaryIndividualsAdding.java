@@ -58,7 +58,6 @@ public class BoundaryIndividualsAdding {
                 }
                 population.add(SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList,
                         lanRosseti, iedRosseti, fstec));
-                System.out.println();
             }
         }
     }

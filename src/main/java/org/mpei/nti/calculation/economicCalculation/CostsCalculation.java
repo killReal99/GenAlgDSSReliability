@@ -9,13 +9,13 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 public class CostsCalculation {
 
     public static Float capexEquipment(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        float reBuildingCAPEX;
+        float buildingCAPEX;
         if (substationMeasuresPerYear.getArchitectureType() == 1) {
-            reBuildingCAPEX = CAPEXEquipment.withoutISFirstArch;
+            buildingCAPEX = CAPEXEquipment.withoutISFirstArch;
         } else if (substationMeasuresPerYear.getArchitectureType() == 2) {
-            reBuildingCAPEX = CAPEXEquipment.withoutISSecondArch;
+            buildingCAPEX = CAPEXEquipment.withoutISSecondArch;
         } else {
-            reBuildingCAPEX = CAPEXEquipment.withoutISThirdArch;
+            buildingCAPEX = CAPEXEquipment.withoutISThirdArch;
         }
 
         float embeddedMeasuresPrice = 0f;
@@ -32,7 +32,7 @@ public class CostsCalculation {
                 substationMeasuresPerYear.getImprosedMeasures().getD20() * CAPEXEquipment.D20 +
                 substationMeasuresPerYear.getImprosedMeasures().getD21() * CAPEXEquipment.D21 +
                 substationMeasuresPerYear.getImprosedMeasures().getD24() * CAPEXEquipment.D24;
-        return reBuildingCAPEX + embeddedMeasuresPrice + improsedMeasuresPrice;
+        return buildingCAPEX + embeddedMeasuresPrice + improsedMeasuresPrice;
     }
 
     public static Float capexSalary(SubstationMeasuresPerYear substationMeasuresPerYear) {
@@ -67,6 +67,15 @@ public class CostsCalculation {
     }
 
     public static Float opex(SubstationMeasuresPerYear substationMeasuresPerYear) {
+        float opexBased = 0f;
+        if (substationMeasuresPerYear.getArchitectureType() == 1) {
+            opexBased = OPEX.withoutISFirstArch;
+        } else if (substationMeasuresPerYear.getArchitectureType() == 2) {
+            opexBased = OPEX.withoutISSecondArch;
+        } else {
+            opexBased = OPEX.withoutISThirdArch;
+        }
+
         float embeddedMeasuresPrice = 0f;
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             embeddedMeasuresPrice += (ied.getD2() * OPEX.D2 + ied.getD4() * OPEX.D4 + ied.getD5() * OPEX.D5 +
@@ -86,7 +95,6 @@ public class CostsCalculation {
                 substationMeasuresPerYear.getOrganizationalMeasures().getD12() * OPEX.D12 +
                 substationMeasuresPerYear.getOrganizationalMeasures().getD16() * OPEX.D16 +
                 substationMeasuresPerYear.getOrganizationalMeasures().getD22() * OPEX.D22;
-        return embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice;
+        return opexBased + embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice;
     }
-
 }

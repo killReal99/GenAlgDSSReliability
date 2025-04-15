@@ -4051,7 +4051,7 @@
             },
             {
                 "breakerName": "Q3",
-                "position": 1
+                "position": 0
             },
             {
                 "breakerName": "Q4",
@@ -7178,7 +7178,7 @@
             },
             {
                 "breakerName": "Q2",
-                "position": 1
+                "position": 0
             },
             {
                 "breakerName": "Q3",
@@ -15456,7 +15456,7 @@
         "breakers": [
             {
                 "breakerName": "Q1",
-                "position": 1
+                "position": 0
             },
             {
                 "breakerName": "Q2",
@@ -18801,7 +18801,7 @@
             },
             {
                 "breakerName": "Q4",
-                "position": 1
+                "position": 0
             },
             {
                 "breakerName": "Q5",
@@ -18885,6 +18885,1319 @@
             }
         ],
         "undersupply": 95.04269783505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 0
+            },
+            {
+                "breakerName": "Q2",
+                "position": 0
+            },
+            {
+                "breakerName": "Q3",
+                "position": 0
+            },
+            {
+                "breakerName": "Q4",
+                "position": 1
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 92.04269183505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 1
+            },
+            {
+                "breakerName": "Q2",
+                "position": 0
+            },
+            {
+                "breakerName": "Q3",
+                "position": 0
+            },
+            {
+                "breakerName": "Q4",
+                "position": 0
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 92.04269183505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 0
+            },
+            {
+                "breakerName": "Q2",
+                "position": 1
+            },
+            {
+                "breakerName": "Q3",
+                "position": 0
+            },
+            {
+                "breakerName": "Q4",
+                "position": 0
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 92.04269183505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 0
+            },
+            {
+                "breakerName": "Q2",
+                "position": 0
+            },
+            {
+                "breakerName": "Q3",
+                "position": 1
+            },
+            {
+                "breakerName": "Q4",
+                "position": 0
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 92.04269183505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 0
+            },
+            {
+                "breakerName": "Q2",
+                "position": 0
+            },
+            {
+                "breakerName": "Q3",
+                "position": 1
+            },
+            {
+                "breakerName": "Q4",
+                "position": 1
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 42.013505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 0
+            },
+            {
+                "breakerName": "Q2",
+                "position": 1
+            },
+            {
+                "breakerName": "Q3",
+                "position": 1
+            },
+            {
+                "breakerName": "Q4",
+                "position": 0
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 42.013505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 1
+            },
+            {
+                "breakerName": "Q2",
+                "position": 0
+            },
+            {
+                "breakerName": "Q3",
+                "position": 0
+            },
+            {
+                "breakerName": "Q4",
+                "position": 1
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 42.013505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 0
+            },
+            {
+                "breakerName": "Q2",
+                "position": 1
+            },
+            {
+                "breakerName": "Q3",
+                "position": 0
+            },
+            {
+                "breakerName": "Q4",
+                "position": 1
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 56.113505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 1
+            },
+            {
+                "breakerName": "Q2",
+                "position": 0
+            },
+            {
+                "breakerName": "Q3",
+                "position": 1
+            },
+            {
+                "breakerName": "Q4",
+                "position": 0
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 56.113505093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 0
+            },
+            {
+                "breakerName": "Q2",
+                "position": 1
+            },
+            {
+                "breakerName": "Q3",
+                "position": 1
+            },
+            {
+                "breakerName": "Q4",
+                "position": 1
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 11.8526705093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 1
+            },
+            {
+                "breakerName": "Q2",
+                "position": 0
+            },
+            {
+                "breakerName": "Q3",
+                "position": 1
+            },
+            {
+                "breakerName": "Q4",
+                "position": 1
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 11.8526705093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 1
+            },
+            {
+                "breakerName": "Q2",
+                "position": 1
+            },
+            {
+                "breakerName": "Q3",
+                "position": 0
+            },
+            {
+                "breakerName": "Q4",
+                "position": 1
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 11.8526705093
+    },
+    {
+        "breakers": [
+            {
+                "breakerName": "Q1",
+                "position": 1
+            },
+            {
+                "breakerName": "Q2",
+                "position": 1
+            },
+            {
+                "breakerName": "Q3",
+                "position": 1
+            },
+            {
+                "breakerName": "Q4",
+                "position": 0
+            },
+            {
+                "breakerName": "Q5",
+                "position": 1
+            },
+            {
+                "breakerName": "Q6",
+                "position": 1
+            },
+            {
+                "breakerName": "Q7",
+                "position": 1
+            },
+            {
+                "breakerName": "Q8",
+                "position": 1
+            },
+            {
+                "breakerName": "Q9",
+                "position": 1
+            },
+            {
+                "breakerName": "Q10",
+                "position": 1
+            },
+            {
+                "breakerName": "Q11",
+                "position": 1
+            },
+            {
+                "breakerName": "Q12",
+                "position": 1
+            },
+            {
+                "breakerName": "Q13",
+                "position": 1
+            },
+            {
+                "breakerName": "Q14",
+                "position": 1
+            },
+            {
+                "breakerName": "Q15",
+                "position": 1
+            },
+            {
+                "breakerName": "Q16",
+                "position": 1
+            },
+            {
+                "breakerName": "Q17",
+                "position": 1
+            },
+            {
+                "breakerName": "Q18",
+                "position": 1
+            },
+            {
+                "breakerName": "Q19",
+                "position": 1
+            },
+            {
+                "breakerName": "Q20",
+                "position": 1
+            },
+            {
+                "breakerName": "Q21",
+                "position": 1
+            },
+            {
+                "breakerName": "Q22",
+                "position": 1
+            },
+            {
+                "breakerName": "Q23",
+                "position": 1
+            },
+            {
+                "breakerName": "Q24",
+                "position": 1
+            }
+        ],
+        "undersupply": 11.8526705093
     },
     {
         "breakers": [
