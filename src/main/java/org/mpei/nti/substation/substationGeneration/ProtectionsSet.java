@@ -13,9 +13,13 @@ public class ProtectionsSet {
     public static List<Protection> lineProtectionsSetGeneration() {
         List<Protection> protectionList = new ArrayList<>();
         protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.DZL, EquipmentType.LINE, 0.0f, 0.0f));
-        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.MTZ, EquipmentType.LINE, 0.0f, 0.0f));
-        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.TZNP, EquipmentType.LINE, 0.0f, 0.0f));
         protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.DZ, EquipmentType.LINE, 0.0f, 0.0f));
+        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.TZNP, EquipmentType.LINE, 0.0f, 0.0f));
+        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.MFTO, EquipmentType.LINE, 0.0f, 0.0f));
+        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.MTZ, EquipmentType.LINE, 0.0f, 0.0f));
+        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.AMTZ, EquipmentType.LINE, 0.0f, 0.0f));
+        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.TZP, EquipmentType.LINE, 0.0f, 0.0f));
+        protectionList.add(new Protection(UUID.randomUUID(), ProtectionType.ZNR, EquipmentType.LINE, 0.0f, 0.0f));
         return protectionList;
     }
 

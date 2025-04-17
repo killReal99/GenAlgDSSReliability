@@ -1,5 +1,6 @@
 package org.mpei.nti;
 
+import org.mpei.nti.calculation.modesCalculation.MockUndersupplyCalculation;
 import org.mpei.nti.genetic.*;
 import org.mpei.nti.calculation.economicCalculation.ReliabilityCalculation;
 import org.mpei.nti.substation.substationGeneration.IEDImpactGeneration;
@@ -21,8 +22,9 @@ public class Main {
         boolean lanRosseti = false;
         boolean iedRosseti = false;
         int fstec = 0;
-        int populationSize = 50;
-        int numberOfIterations = 100;
+        int populationSize = 100;
+        int numberOfIterations = 1000;
+
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
@@ -36,7 +38,7 @@ public class Main {
         Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
-            Selection.selectionOfSuitableIndividuals(population);
+        Selection.selectionOfSuitableIndividuals(population);
 
         float previousValueOfTotalPrice = 0f;
         int priceIterator = 0;
