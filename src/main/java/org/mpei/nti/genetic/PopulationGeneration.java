@@ -74,7 +74,7 @@ public class PopulationGeneration {
                         D14 = (int) Math.round(Math.random());
                         D15 = (int) Math.round(Math.random());
                     }
-                    List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                    List<Protection> protectionList = ProtectionsSet.lineProtectionsGeneration(i);
                     IED ied = new IED(UUID.randomUUID(), "W" + i + "_" + j, EquipmentType.LINE, protectionList,
                             D2, D4, D5, (int) Math.round(Math.random()), (int) Math.round(Math.random()), D13, D14, D15,
                             D17, (int) Math.round(Math.random()), (int) Math.round(Math.random()), 0f);
@@ -94,7 +94,7 @@ public class PopulationGeneration {
                     D14 = (int) Math.round(Math.random());
                     D15 = (int) Math.round(Math.random());
                 }
-                List<Protection> protectionList = ProtectionsSet.lineProtectionsSetGeneration();
+                List<Protection> protectionList = ProtectionsSet.lineProtectionsGeneration(i);
                 IED ied = new IED(UUID.randomUUID(), "W" + i + "_1", EquipmentType.LINE, protectionList,
                         D2, D4, D5, (int) Math.round(Math.random()), (int) Math.round(Math.random()), D13, D14, D15,
                         D17, (int) Math.round(Math.random()), (int) Math.round(Math.random()), 0f);
@@ -118,7 +118,7 @@ public class PopulationGeneration {
                         D14 = (int) Math.round(Math.random());
                         D15 = (int) Math.round(Math.random());
                     }
-                    List<Protection> protectionList = ProtectionsSet.busProtectionsSetGeneration();
+                    List<Protection> protectionList = ProtectionsSet.busProtectionsGeneration(i);
                     IED ied = new IED(UUID.randomUUID(), "B" + i + "_" + j, EquipmentType.BUS, protectionList,
                             D2, D4, D5, (int) Math.round(Math.random()), (int) Math.round(Math.random()), D13, D14, D15,
                             D17, (int) Math.round(Math.random()), (int) Math.round(Math.random()), 0f);
@@ -138,7 +138,7 @@ public class PopulationGeneration {
                     D14 = (int) Math.round(Math.random());
                     D15 = (int) Math.round(Math.random());
                 }
-                List<Protection> protectionList = ProtectionsSet.busProtectionsSetGeneration();
+                List<Protection> protectionList = ProtectionsSet.busProtectionsGeneration(i);
                 IED ied = new IED(UUID.randomUUID(), "B" + i + "_1", EquipmentType.BUS, protectionList,
                         D2, D4, D5, (int) Math.round(Math.random()), (int) Math.round(Math.random()), D13, D14, D15,
                         D17, (int) Math.round(Math.random()), (int) Math.round(Math.random()), 0f);
@@ -160,7 +160,7 @@ public class PopulationGeneration {
                 D14 = (int) Math.round(Math.random());
                 D15 = (int) Math.round(Math.random());
             }
-            List<Protection> protectionList = ProtectionsSet.transformerProtectionsSetGeneration();
+            List<Protection> protectionList = ProtectionsSet.transformerProtectionsGeneration();
             IED ied = new IED(UUID.randomUUID(), "T" + i + "_1", EquipmentType.TRANSFORMER, protectionList,
                     D2, D4, D5, (int) Math.round(Math.random()), (int) Math.round(Math.random()), D13, D14, D15,
                     D17, (int) Math.round(Math.random()), (int) Math.round(Math.random()), 0f);

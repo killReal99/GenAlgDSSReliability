@@ -1,6 +1,5 @@
 package org.mpei.nti;
 
-import org.mpei.nti.calculation.modesCalculation.MockUndersupplyCalculation;
 import org.mpei.nti.genetic.*;
 import org.mpei.nti.calculation.economicCalculation.ReliabilityCalculation;
 import org.mpei.nti.substation.substationGeneration.IEDImpactGeneration;
@@ -24,7 +23,6 @@ public class Main {
         int fstec = 0;
         int populationSize = 100;
         int numberOfIterations = 1000;
-
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
