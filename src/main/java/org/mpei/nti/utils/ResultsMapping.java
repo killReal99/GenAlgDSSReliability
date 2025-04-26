@@ -1,5 +1,6 @@
 package org.mpei.nti.utils;
 
+import org.mpei.nti.Main;
 import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
@@ -13,9 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ResultsMapping {
 
-    public static void resultsMapping(List<SubstationMeasures> population) throws IOException {
+    public static void resultsMapping(List<SubstationMeasures> population, List<SubstationMeasures> bestIndividuals) throws IOException {
         PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
-            "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
+                "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
         writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
         writer.println("Экономический ущерб от ненадежности " + String.format("%f", population.get(0).getTotalPrice() -
                 population.get(0).getCapexPrice() - population.get(0).getOpexPrice()));
@@ -31,14 +32,14 @@ public class ResultsMapping {
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD6() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие подключение нарушителя к инженерному " +
-                    "АРМ, используемому для локального доступа");
+                        "АРМ, используемому для локального доступа");
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD10() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие подключение нарушителя к АРМ инженера РЗА");
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD12() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие доступ к сервисному порту для " +
-                    "конфигурирования ИЭУ РЗА");
+                        "конфигурирования ИЭУ РЗА");
             }
             if (substationMeasuresPerYear.getOrganizationalMeasures().getD16() == 1) {
                 writer.println("Организационные меры безопасности, ограничивающие доступ нарушителя к шине станции");
@@ -109,6 +110,22 @@ public class ResultsMapping {
         }
         writer.close();
 
+//        PrintWriter writer2 = new PrintWriter("src" + File.separator + "main" + File.separator +
+//                "resources" + File.separator + "GenResults.csv", StandardCharsets.UTF_8);
+//        int iteration = 1;
+//        int insideIteration = 1;
+//        for (SubstationMeasures bestIndividual : bestIndividuals) {
+//            writer2.println(iteration + "," + (bestIndividual.getTotalPrice() - bestIndividual.getCapexPrice() -
+//                    bestIndividual.getOpexPrice()) + "," + bestIndividual.getCapexPrice() + "," +
+//                    bestIndividual.getOpexPrice());
+//            if (insideIteration == 20) {
+//                iteration++;
+//                insideIteration = 1;
+//            }
+//            insideIteration++;
+//        }
+//        writer2.close();
+
         String optimize = new ObjectMapper().writeValueAsString(population.get(0));
         String lan = "";
         String ied = "";
@@ -116,7 +133,7 @@ public class ResultsMapping {
         if (population.get(0).isLanRosseti()) {
             lan = "LAN_";
         }
-        if (population.get(0).isIedRosseti()){
+        if (population.get(0).isIedRosseti()) {
             ied = "IED_";
         }
         fstec = switch (population.get(0).getFstec()) {
@@ -126,7 +143,7 @@ public class ResultsMapping {
             default -> fstec;
         };
         PrintWriter jsonObj = new PrintWriter("src" + File.separator + "main" + File.separator +
-            "resources" + File.separator + "optimize_" + lan + ied + fstec + ".json", StandardCharsets.UTF_8);
+                "resources" + File.separator + "optimize_" + lan + ied + fstec + ".json", StandardCharsets.UTF_8);
         jsonObj.println(optimize);
         jsonObj.close();
     }

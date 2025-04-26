@@ -18,11 +18,13 @@ public class Main {
         final long startTime = System.currentTimeMillis();
         int minArch = 1;
         int maxArch = 3;
+        boolean multicriterial = false;
         boolean lanRosseti = false;
         boolean iedRosseti = false;
         int fstec = 0;
         int populationSize = 100;
         int numberOfIterations = 1000;
+        List<SubstationMeasures> bestIndividuals = new ArrayList<>();
 
         List<SchemaStatus> schemaStatusList = ReadSchemStatus.readSchem();
         HashMap<Breaker, Probability> breakersMap = BreakersMapGeneration.generate();
@@ -36,7 +38,7 @@ public class Main {
         Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList);
-        Selection.selectionOfSuitableIndividuals(population);
+//        Selection.selectionOfSuitableIndividuals(population);
 
         float previousValueOfTotalPrice = 0f;
         int priceIterator = 0;
@@ -49,10 +51,15 @@ public class Main {
                 OptimizeGenotype.genotypeOptimization(newPopulation);
                 ReliabilityCalculation.goalFunctionCalculation(newPopulation, breakersMap, iedImpactList, schemaStatusList);
                 population.addAll(newPopulation);
-                Selection.selectionOfSuitableIndividuals(population);
-                Sorting.quickSort(population, 0, population.size() - 1);
+//                Selection.selectionOfSuitableIndividuals(population);
+                Sorting.quickSort(population, 0, population.size() - 1, multicriterial);
                 Deletion.deletePartOfPopulation(population, populationSize);
 
+//                for (int a = 0; a < (populationSize * 0.1); a++) {
+//                    if (a < population.size()) {
+//                        bestIndividuals.add(population.get(a));
+//                    }
+//                }
                 System.out.println("Номер итерации " + (i + 1));
                 System.out.println("Лучший индивид " + population.get(0).getId() + " с весовой функцией " +
                         String.format("%f", population.get(0).getTotalPrice()) + " руб");
@@ -63,7 +70,7 @@ public class Main {
             previousValueOfTotalPrice = population.get(0).getTotalPrice();
         }
 
-        ResultsMapping.resultsMapping(population);
+        ResultsMapping.resultsMapping(population, bestIndividuals);
 
         final long endTime = System.currentTimeMillis();
         System.out.println("Общее время выполнения: " + (endTime - startTime) / 1000 + " сек");
