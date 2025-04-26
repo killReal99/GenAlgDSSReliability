@@ -8,51 +8,54 @@ public class FailureTriggeringTransformer {
 
     public static float failureTriggeringCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int iedIndex) {
 
-        float A1 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A3 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A5 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A7 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A9 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A11 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A13 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A15 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A17 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A19 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A23 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A29 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A31 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A33 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A35 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A37 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A39 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A41 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A43 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
-        float A45 = attackedIED / (20f * yearsToAttack * substationMeasuresPerYear.getIedList().size());
+        int iedCount = substationMeasuresPerYear.getIedList().size();
+        int connectionsCount = 26;
 
-        float DD1 = (1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1());
+        float A1 = (float) Math.pow(attackedIED / 20d, (1d / connectionsCount));
+        float A3 = attackedIED / 20f;
+        float A5 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A7 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A9 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A11 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A13 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A15 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A17 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A19 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A23 = attackedIED / 20f;
+        float A29 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A31 = attackedIED / 20f;
+        float A33 = attackedIED / 20f;
+        float A35 = attackedIED / 20f;
+        float A37 = (float) Math.pow(attackedIED / 20d, (1d / iedCount));
+        float A39 = (float) Math.pow(attackedIED / 20d, (1d / connectionsCount));
+        float A41 = attackedIED / 20f;
+        float A43 = attackedIED / 20f;
+        float A45 = attackedIED / 20f;
+
+        float DD1 = (float) Math.pow(1 - D1 * substationMeasuresPerYear.getOrganizationalMeasures().getD1(), 1d / iedCount);
         float DD2 = (1 - D2 * substationMeasuresPerYear.getIedList().get(iedIndex).getD2());
-        float DD3 = (1 - D3 * substationMeasuresPerYear.getImprosedMeasures().getD3());
+        float DD3 = (float) Math.pow(1 - D3 * substationMeasuresPerYear.getImprosedMeasures().getD3(), 1d / iedCount);
         float DD4 = (1 - D4 * substationMeasuresPerYear.getIedList().get(iedIndex).getD4());
         float DD5 = (1 - D5 * substationMeasuresPerYear.getIedList().get(iedIndex).getD5());
-        float DD6 = (1 - D6 * substationMeasuresPerYear.getOrganizationalMeasures().getD6());
-        float DD7 = (1 - D7 * substationMeasuresPerYear.getImprosedMeasures().getD7());
+        float DD6 = (float) Math.pow(1 - D6 * substationMeasuresPerYear.getOrganizationalMeasures().getD6(), 1d / iedCount);
+        float DD7 = (float) Math.pow(1 - D7 * substationMeasuresPerYear.getImprosedMeasures().getD7(), 1d / iedCount);
         float DD8 = (1 - D8 * substationMeasuresPerYear.getIedList().get(iedIndex).getD8());
         float DD9 = (1 - D9 * substationMeasuresPerYear.getIedList().get(iedIndex).getD9());
-        float DD10 = (1 - D10 * substationMeasuresPerYear.getOrganizationalMeasures().getD10());
-        float DD11 = (1 - D11 * substationMeasuresPerYear.getImprosedMeasures().getD11());
-        float DD12 = (1 - D12 * substationMeasuresPerYear.getOrganizationalMeasures().getD12());
+        float DD10 = (float) Math.pow(1 - D10 * substationMeasuresPerYear.getOrganizationalMeasures().getD10(), 1d / iedCount);
+        float DD11 = (float) Math.pow(1 - D11 * substationMeasuresPerYear.getImprosedMeasures().getD11(), 1d / iedCount);
+        float DD12 = (float) Math.pow(1 - D12 * substationMeasuresPerYear.getOrganizationalMeasures().getD12(), 1d / iedCount);
         float DD13 = (1 - D13 * substationMeasuresPerYear.getIedList().get(iedIndex).getD13());
         float DD14 = (1 - D14 * substationMeasuresPerYear.getIedList().get(iedIndex).getD14());
         float DD15 = (1 - D15 * substationMeasuresPerYear.getIedList().get(iedIndex).getD15());
-        float DD16 = (1 - D16 * substationMeasuresPerYear.getOrganizationalMeasures().getD16());
+        float DD16 = (float) Math.pow(1 - D16 * substationMeasuresPerYear.getOrganizationalMeasures().getD16(), 1d / iedCount);
         float DD17 = (1 - D17 * substationMeasuresPerYear.getIedList().get(iedIndex).getD17());
         float DD18 = (1 - D18 * substationMeasuresPerYear.getIedList().get(iedIndex).getD18());
-        float DD19 = (1 - D19 * substationMeasuresPerYear.getImprosedMeasures().getD19());
-        float DD20 = (1 - D20 * substationMeasuresPerYear.getImprosedMeasures().getD20());
-        float DD21 = (1 - D21 * substationMeasuresPerYear.getImprosedMeasures().getD21());
-        float DD22 = (1 - D22 * substationMeasuresPerYear.getOrganizationalMeasures().getD22());
+        float DD19 = (float) Math.pow(1 - D19 * substationMeasuresPerYear.getImprosedMeasures().getD19(), 1d / iedCount);
+        float DD20 = (float) Math.pow(1 - D20 * substationMeasuresPerYear.getImprosedMeasures().getD20(), 1d / iedCount);
+        float DD21 = (float) Math.pow(1 - D21 * substationMeasuresPerYear.getImprosedMeasures().getD21(), 1d / iedCount);
+        float DD22 = (float) Math.pow(1 - D22 * substationMeasuresPerYear.getOrganizationalMeasures().getD22(), 1d / iedCount);
         float DD23 = (1 - D23 * substationMeasuresPerYear.getIedList().get(iedIndex).getD23());
-        float DD24 = (1 - D24 * substationMeasuresPerYear.getImprosedMeasures().getD24());
+        float DD24 = (float) Math.pow(1 - D24 * substationMeasuresPerYear.getImprosedMeasures().getD24(), 1d / iedCount);
 
         if (substationMeasuresPerYear.getArchitectureType() == 2) {
             A1 = 0f;
@@ -82,7 +85,7 @@ public class FailureTriggeringTransformer {
         float Psoft = A13 * A14 * DD9 * DD12 * DD13 * DD14 + A15 * A16 * DD9 * DD12 * DD13 * DD14 + A17 * A18 * DD9 *
                 DD12 * DD13 * DD15 + A19 * A20 * DD9 * DD12 * DD13 * DD14 * DD15;
 
-        float Pfull = Psv + PotkIED + PotkPds + Pust + Potkkom + Psoft;
+        float Pfull = (Psv + PotkIED + PotkPds + Pust + Potkkom + Psoft) / yearsToAttack;
 
         return (Pne * Pfull * Pkz + Pne * (1 - Pfull) * Pkz + (1 - Pne) * Pfull * PkzKa);
     }
