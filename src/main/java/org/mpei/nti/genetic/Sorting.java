@@ -1,6 +1,7 @@
 package org.mpei.nti.genetic;
 
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
+import org.mpei.nti.utils.SingleCriteria;
 
 import java.util.List;
 
@@ -24,20 +25,20 @@ public class Sorting {
         }
     }
 
-    public static void quickSort(List<SubstationMeasures> population, int low, int high, boolean multicriterial) {
+    public static void quickSort(List<SubstationMeasures> population, int low, int high, SingleCriteria singleCriteria) {
         if (low < high) {
-            int pi = partition(population, low, high, multicriterial);
-            quickSort(population, low, pi - 1, multicriterial);
-            quickSort(population, pi + 1, high, multicriterial);
+            int pi = partition(population, low, high, singleCriteria);
+            quickSort(population, low, pi - 1, singleCriteria);
+            quickSort(population, pi + 1, high, singleCriteria);
         }
     }
 
 
-    private static int partition(List<SubstationMeasures> population, int low, int high, boolean multicriterial) {
+    private static int partition(List<SubstationMeasures> population, int low, int high, SingleCriteria singleCriteria) {
         int middle = low + (high - low) / 2;
         float pivot;
-        float opex = population.get(middle).getOpexPrice();
-        if (multicriterial) {
+        float economic = population.get(middle).getOpexPrice() + population.get(middle).getCapexPrice();
+        if (singleCriteria == SingleCriteria.MAIN_CRITERIA || singleCriteria == SingleCriteria.TARGET_PROGRAMMING) {
             pivot = population.get(middle).getTotalPrice() - population.get(middle).getCapexPrice() -
                     population.get(middle).getOpexPrice();
         } else {
@@ -49,10 +50,20 @@ public class Sorting {
 
         int i = (low - 1);
         for (int j = low; j < high; j++) {
-            if (multicriterial) {
+            if (singleCriteria == SingleCriteria.MAIN_CRITERIA) {
                 float economicDamage = population.get(j).getTotalPrice() - population.get(j).getCapexPrice() -
                         population.get(j).getOpexPrice();
-                if ((economicDamage < pivot) || ((economicDamage == pivot) && (population.get(j).getOpexPrice() < opex))) {
+                if (economicDamage < pivot) {
+                    i++;
+                    temp = population.get(i);
+                    population.set(i, population.get(j));
+                    population.set(j, temp);
+                }
+            } else if (singleCriteria == SingleCriteria.TARGET_PROGRAMMING) {
+                float economicDamage = population.get(j).getTotalPrice() - population.get(j).getCapexPrice() -
+                        population.get(j).getOpexPrice();
+                if ((economicDamage < pivot) || ((economicDamage == pivot) && ((population.get(j).getOpexPrice() +
+                        population.get(j).getOpexPrice()) < economic))) {
                     i++;
                     temp = population.get(i);
                     population.set(i, population.get(j));
