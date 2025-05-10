@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 public class ProbabilityUnion {
     private static final int MAX_PARAMS = 25;
     private static final float PRECISION_THRESHOLD = 1e-9f;
-    private static final int MAX_CACHE_SIZE = 1000;
+    private static final int MAX_CACHE_SIZE = 1024;
     private static final int PARALLEL_THRESHOLD = 16;
 
     // Потокобезопасный LRU-кэш на основе LinkedHashMap
