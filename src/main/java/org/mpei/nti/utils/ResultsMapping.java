@@ -1,5 +1,6 @@
 package org.mpei.nti.utils;
 
+import org.apache.poi.ss.usermodel.*;
 import org.mpei.nti.Main;
 import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationStructures.IED;
@@ -8,7 +9,9 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,7 +20,7 @@ public class ResultsMapping {
     public static void resultsMapping(List<SubstationMeasures> population, List<SubstationMeasures> bestIndividuals) throws IOException {
         PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
                 "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
-        writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
+                writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
         writer.println("Экономический ущерб от ненадежности " + String.format("%f", population.get(0).getTotalPrice() -
                 population.get(0).getCapexPrice() - population.get(0).getOpexPrice()));
         writer.println("CAPEX затраты за 25 лет " + String.format("%f", population.get(0).getCapexPrice()));
@@ -110,6 +113,8 @@ public class ResultsMapping {
         }
         writer.close();
 
+        ExcelWriter.writeToExcel(population);
+
 //        PrintWriter writer2 = new PrintWriter("src" + File.separator + "main" + File.separator +
 //                "resources" + File.separator + "GenResults.csv", StandardCharsets.UTF_8);
 //        int iteration = 1;
@@ -118,7 +123,7 @@ public class ResultsMapping {
 //            writer2.println(iteration + "," + (bestIndividual.getTotalPrice() - bestIndividual.getCapexPrice() -
 //                    bestIndividual.getOpexPrice()) + "," + bestIndividual.getCapexPrice() + "," +
 //                    bestIndividual.getOpexPrice());
-//            if (insideIteration == 20) {
+//            if (insideIteration == 10) {
 //                iteration++;
 //                insideIteration = 1;
 //            }
