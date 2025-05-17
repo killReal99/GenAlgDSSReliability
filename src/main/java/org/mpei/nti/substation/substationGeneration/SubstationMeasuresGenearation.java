@@ -13,9 +13,10 @@ public class SubstationMeasuresGenearation {
     ) {
         SubstationMeasures substationMeasures = new SubstationMeasures();
         substationMeasures.setId(UUID.randomUUID());
-        substationMeasures.setTotalPrice(0.0f);
-        substationMeasures.setOpexPrice(0.0f);
-        substationMeasures.setCapexPrice(0.0f);
+        substationMeasures.setTotalPrice(0f);
+        substationMeasures.setDamage(0f);
+        substationMeasures.setOpexPrice(0f);
+        substationMeasures.setCapexPrice(0f);
         substationMeasures.setLanRosseti(lanRosseti);
         substationMeasures.setIedRosseti(iedRosseti);
         substationMeasures.setFstec(fstec);

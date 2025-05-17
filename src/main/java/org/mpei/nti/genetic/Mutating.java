@@ -8,9 +8,8 @@ import java.util.List;
 
 public class Mutating {
 
-    public static void mutatePopulation(List<SubstationMeasures> population, int minArch, int maxArch,
+    public static void mutatePopulation(List<SubstationMeasures> population, float mutationProbability, int minArch, int maxArch,
                                         boolean lanRosseti, boolean iedRosseti, int fstec) {
-        float mutationProbability = 0.80f;
         for (SubstationMeasures substationMeasures : population) {
             if (Math.random() < mutationProbability) {
                 int randomYear = (int) (Math.random() * (25 - 1) + 1);

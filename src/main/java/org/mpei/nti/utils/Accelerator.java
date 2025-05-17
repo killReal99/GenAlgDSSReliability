@@ -28,13 +28,14 @@ public class Accelerator {
         File file = new File(path);
         ObjectMapper objectMapper = new ObjectMapper();
         SubstationMeasures substationMeasures = objectMapper.readValue(file, SubstationMeasures.class);
-        substationMeasures.setTotalPrice(0.0f);
-        substationMeasures.setCapexPrice(0.0f);
-        substationMeasures.setOpexPrice(0.0f);
+        substationMeasures.setTotalPrice(0f);
+        substationMeasures.setDamage(0f);
+        substationMeasures.setCapexPrice(0f);
+        substationMeasures.setOpexPrice(0f);
         for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasures.getSubstationMeasuresPerYear()) {
-            substationMeasuresPerYear.setTotalPrice(0.0f);
-            substationMeasuresPerYear.setCapexPrice(0.0f);
-            substationMeasuresPerYear.setOpexPrice(0.0f);
+            substationMeasuresPerYear.setTotalPrice(0f);
+            substationMeasuresPerYear.setCapexPrice(0f);
+            substationMeasuresPerYear.setOpexPrice(0f);
             SubstationMeasuresPerYearGeneration.economicPerYearCalculation(substationMeasuresPerYear);
         }
         population.add(substationMeasures);

@@ -25,11 +25,11 @@ public class ReliabilityCalculation {
                 for (SubstationMeasuresPerYear substationMeasuresPerYear : substationMeasure.getSubstationMeasuresPerYear()) {
                     substationMeasure.setCapexPrice(substationMeasure.getCapexPrice() + substationMeasuresPerYear.getCapexPrice());
                     substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
-
-                    substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() +
-                            MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear, breakersMap,
-                                    iedImpactList, schemaStatusList) + substationMeasuresPerYear.getCapexPrice() +
-                            substationMeasuresPerYear.getOpexPrice());
+                    float damage = MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear,
+                            breakersMap, iedImpactList, schemaStatusList);
+                    substationMeasure.setDamage(damage);
+                    substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() + damage +
+                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
                 }
             }
         }

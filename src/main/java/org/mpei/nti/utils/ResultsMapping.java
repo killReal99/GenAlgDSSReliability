@@ -21,8 +21,7 @@ public class ResultsMapping {
         PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
                 "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
                 writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
-        writer.println("Экономический ущерб от ненадежности " + String.format("%f", population.get(0).getTotalPrice() -
-                population.get(0).getCapexPrice() - population.get(0).getOpexPrice()));
+        writer.println("Экономический ущерб от ненадежности " + String.format("%f", population.get(0).getDamage()));
         writer.println("CAPEX затраты за 25 лет " + String.format("%f", population.get(0).getCapexPrice()));
         writer.println("OPEX затраты за 25 лет " + String.format("%f", population.get(0).getOpexPrice()));
         writer.println(" ");

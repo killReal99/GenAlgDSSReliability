@@ -23,6 +23,9 @@ public class SubstationMeasures {
     @Column(name = "total_price")
     private float totalPrice;
 
+    @Column(name = "damage")
+    private float damage;
+
     @Column(name = "opex_price")
     private float opexPrice;
 

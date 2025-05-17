@@ -3,45 +3,64 @@ package org.mpei.nti.calculation.modesCalculation;
 import org.mpei.nti.calculation.modelCalculation.Bus.FailureTriggeringBus;
 import org.mpei.nti.calculation.modelCalculation.Bus.FalsePositiveBus;
 import org.mpei.nti.calculation.modelCalculation.Bus.OverTriggeringBus;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.CoefficientsCalculation.FailureCoefficients;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.CoefficientsCalculation.FalseCoefficients;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.CoefficientsCalculation.OverCoefficients;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.Over;
 import org.mpei.nti.calculation.modelCalculation.Line.FailureTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.Line.FalsePositiveLine;
 import org.mpei.nti.calculation.modelCalculation.Line.OverTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.Transformer.FailureTriggeringTransformer;
 import org.mpei.nti.calculation.modelCalculation.Transformer.FalsePositiveTransformer;
 import org.mpei.nti.calculation.modelCalculation.Transformer.OverTriggeringTransformer;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.Failure;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.FalseCoeff;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.Probability;
 
 import java.util.*;
 
-import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
+import static org.mpei.nti.calculation.modelCalculation.Coefficients.GeneralCoefficients.*;
 
 public class MockUndersupplyCalculation {
 
     public static float undersupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, HashMap<Breaker,
             Probability> breakersMap, List<IEDImpact> iedImpactList, List<SchemaStatus> schemaStatusList) {
         int iedIndex = 0;
+        Failure failure = FailureCoefficients.failureCalculation(substationMeasuresPerYear);
+        FalseCoeff falseCoeff = FalseCoefficients.falseCalculation(substationMeasuresPerYear);
+        Over over = OverCoefficients.overCalculation(substationMeasuresPerYear);
+
         for (IED ied : substationMeasuresPerYear.getIedList()) {
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
-                ied.setFailureTriggering(FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear, iedIndex));
+                ied.setFailureTriggering(FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear,
+                        iedIndex, failure));
                 for (Protection protection : ied.getProtections()) {
-                    protection.setOverTriggering(OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
-                    protection.setFalsePositive(FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
+                    protection.setOverTriggering(OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear,
+                            iedIndex, over));
+                    protection.setFalsePositive(FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear,
+                            iedIndex, falseCoeff));
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.BUS) {
-                ied.setFailureTriggering(FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear, iedIndex));
+                ied.setFailureTriggering(FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear,
+                        iedIndex, failure));
                 for (Protection protection : ied.getProtections()) {
-                    protection.setOverTriggering(OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
-                    protection.setFalsePositive(FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
+                    protection.setOverTriggering(OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear,
+                            iedIndex, over));
+                    protection.setFalsePositive(FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear,
+                            iedIndex, falseCoeff));
                 }
             }
             if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
-                ied.setFailureTriggering(FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear, iedIndex));
+                ied.setFailureTriggering(FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear,
+                        iedIndex, failure));
                 for (Protection protection : ied.getProtections()) {
-                    protection.setOverTriggering(OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, iedIndex));
-                    protection.setFalsePositive(FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, iedIndex));
+                    protection.setOverTriggering(OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear,
+                            iedIndex, over));
+                    protection.setFalsePositive(FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear,
+                            iedIndex, falseCoeff));
                 }
             }
             iedIndex++;
