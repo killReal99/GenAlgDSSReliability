@@ -1,4 +1,4 @@
-package org.mpei.nti.utils;
+package org.mpei.nti.utils.enums;
 
 public enum SingleCriteria {
     MAIN_CRITERIA,

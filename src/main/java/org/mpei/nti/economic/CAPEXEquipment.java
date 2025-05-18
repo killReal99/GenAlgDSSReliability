@@ -13,7 +13,7 @@ public class CAPEXEquipment {
     public static float fromThirdToSecondRebuild = 1350000f;
 
     public static float D2 = 1083.33f;
-    public static float D3 = 20000.0f;
+    public static float D3 = 5000000.0f;
     public static float D4 = 1083.33f;
     public static float D5 = 1083.33f;
     public static float D7 = 1083.33f;
