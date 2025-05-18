@@ -15,7 +15,7 @@ public class Crossing {
                                                               boolean iedRosseti, int fstec) {
         List<SubstationMeasures> newSubstationMeasuresList = new ArrayList<>();
         float fullPopulationWeight = 0.0f;
-        float crossingProbability = 0.95f;
+        float crossingProbability = 0.9f;
         for (SubstationMeasures individual : population) {
             fullPopulationWeight += individual.getTotalPrice();
         }
@@ -302,9 +302,9 @@ public class Crossing {
             }
             substationMeasuresPerYearList.get(swapYear - 1).setIedList(childIedList);
         }
-        substationMeasuresPerYearList.get(swapYear - 1).setCapexPrice(0.0f);
-        substationMeasuresPerYearList.get(swapYear - 1).setOpexPrice(0.0f);
-        substationMeasuresPerYearList.get(swapYear - 1).setTotalPrice(0.0f);
+        substationMeasuresPerYearList.get(swapYear - 1).setCapexPrice(0f);
+        substationMeasuresPerYearList.get(swapYear - 1).setOpexPrice(0f);
+        substationMeasuresPerYearList.get(swapYear - 1).setTotalPrice(0f);
         substationMeasuresPerYearList.set(swapYear - 1, SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
                 substationMeasuresPerYearList.get(swapYear - 1).getArchitectureType(), swapYear,
                 substationMeasuresPerYearList.get(swapYear - 1).getOrganizationalMeasures(),

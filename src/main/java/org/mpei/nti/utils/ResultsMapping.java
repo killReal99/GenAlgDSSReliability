@@ -112,23 +112,22 @@ public class ResultsMapping {
         }
         writer.close();
 
-        ExcelWriter.writeToExcel(population);
+//        ExcelWriter.writeToExcel(population);
 
-//        PrintWriter writer2 = new PrintWriter("src" + File.separator + "main" + File.separator +
-//                "resources" + File.separator + "GenResults.csv", StandardCharsets.UTF_8);
-//        int iteration = 1;
+        PrintWriter writer2 = new PrintWriter("src" + File.separator + "main" + File.separator +
+                "resources" + File.separator + "GenResults.csv", StandardCharsets.UTF_8);
+        int iteration = 1;
 //        int insideIteration = 1;
-//        for (SubstationMeasures bestIndividual : bestIndividuals) {
-//            writer2.println(iteration + "," + (bestIndividual.getTotalPrice() - bestIndividual.getCapexPrice() -
-//                    bestIndividual.getOpexPrice()) + "," + bestIndividual.getCapexPrice() + "," +
-//                    bestIndividual.getOpexPrice());
+        for (SubstationMeasures bestIndividual : bestIndividuals) {
+            writer2.println(iteration + "," + bestIndividual.getDamage() + "," + bestIndividual.getCapexPrice() + "," +
+                    bestIndividual.getOpexPrice());
 //            if (insideIteration == 10) {
-//                iteration++;
+                iteration++;
 //                insideIteration = 1;
 //            }
 //            insideIteration++;
-//        }
-//        writer2.close();
+        }
+        writer2.close();
 
         String optimize = new ObjectMapper().writeValueAsString(population.get(0));
         String lan = "";

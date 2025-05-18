@@ -31,33 +31,55 @@ public class ExcelWriter {
             cellIndex = 9;
         }
 
+        CellStyle cellStyleGreen = sheet.getWorkbook().createCellStyle();
+        cellStyleGreen.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+        cellStyleGreen.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        CellStyle cellStyleRed = sheet.getWorkbook().createCellStyle();
+        cellStyleRed.setFillForegroundColor(IndexedColors.RED.getIndex());
+        cellStyleRed.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+
         for (SubstationMeasuresPerYear substationMeasuresPerYear : population.get(0).getSubstationMeasuresPerYear()) {
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getOrganizationalMeasures().getD1() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getOrganizationalMeasures().getD6() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getOrganizationalMeasures().getD10() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getOrganizationalMeasures().getD12() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getOrganizationalMeasures().getD16() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getOrganizationalMeasures().getD22() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getImprosedMeasures().getD3() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getImprosedMeasures().getD7() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getImprosedMeasures().getD11() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getImprosedMeasures().getD19() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getImprosedMeasures().getD20() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getImprosedMeasures().getD21() == 1);
-            rowIndex = setCellStyle(sheet, rowIndex, cellIndex, substationMeasuresPerYear.getImprosedMeasures().getD21() == 1);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getOrganizationalMeasures().getD1() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getOrganizationalMeasures().getD6() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getOrganizationalMeasures().getD10() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getOrganizationalMeasures().getD12() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getOrganizationalMeasures().getD16() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getOrganizationalMeasures().getD22() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getImprosedMeasures().getD3() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getImprosedMeasures().getD7() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getImprosedMeasures().getD11() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getImprosedMeasures().getD19() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getImprosedMeasures().getD20() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getImprosedMeasures().getD21() == 1, cellStyleGreen, cellStyleRed);
+            rowIndex = setCellStyle(sheet, rowIndex, cellIndex,
+                    substationMeasuresPerYear.getImprosedMeasures().getD21() == 1, cellStyleGreen, cellStyleRed);
 
             for (IED ied : substationMeasuresPerYear.getIedList()) {
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD2() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD4() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD5() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD8() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD9() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD13() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD14() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD15() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD17() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD18() == 1);
-                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD23() == 1);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD2() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD4() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD5() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD8() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD9() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD13() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD14() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD15() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD17() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD18() == 1, cellStyleGreen, cellStyleRed);
+                rowIndex = setCellStyle(sheet, rowIndex, cellIndex, ied.getD23() == 1, cellStyleGreen, cellStyleRed);
             }
         }
 
@@ -67,18 +89,15 @@ public class ExcelWriter {
         workbook.close();
     }
 
-    public static int setCellStyle(Sheet sheet, int rowIndex, int cellIndex, boolean colorIndex) {
+    public static int setCellStyle(Sheet sheet, int rowIndex, int cellIndex, boolean colorIndex, CellStyle cellStyleGreen,
+                                   CellStyle cellStyleRed) {
         Row row = sheet.getRow(rowIndex);
         Cell cell = row.getCell(cellIndex);
-        CellStyle cellStyleGreen = cell.getSheet().getWorkbook().createCellStyle();
-
         if (colorIndex) {
-            cellStyleGreen.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+            cell.setCellStyle(cellStyleGreen);
         } else {
-            cellStyleGreen.setFillForegroundColor(IndexedColors.RED.getIndex());
+            cell.setCellStyle(cellStyleRed);
         }
-        cellStyleGreen.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        cell.setCellStyle(cellStyleGreen);
         rowIndex++;
         return rowIndex;
     }
