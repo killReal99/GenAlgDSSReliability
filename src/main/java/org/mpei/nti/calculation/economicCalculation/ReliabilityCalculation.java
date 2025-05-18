@@ -5,6 +5,8 @@ import org.mpei.nti.economic.CAPEXEquipment;
 import org.mpei.nti.economic.CAPEXSalary;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.utils.Probability;
+import org.mpei.nti.utils.WeightCoeff;
+import org.mpei.nti.utils.enums.WeightScenario;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +16,28 @@ public class ReliabilityCalculation {
 
     public static void goalFunctionCalculation(List<SubstationMeasures> substationMeasuresList,
                                                HashMap<Breaker, Probability> breakersMap, List<IEDImpact> iedImpactList,
-                                               List<SchemaStatus> schemaStatusList) {
+                                               List<SchemaStatus> schemaStatusList, WeightScenario weightScenario,
+                                               WeightCoeff weightCoeff) {
+        float damageCoeff = 0f;
+        float capexCoeff = 0f;
+        float opexCoeff = 0f;
+
+        if (weightScenario == WeightScenario.Equal) {
+            damageCoeff = (float) 1 / 3;
+            capexCoeff = (float) 1 / 3;
+            opexCoeff = (float) 1 / 3;
+        } else if (weightScenario == WeightScenario.Direct) {
+            float sumOfCoeffs = weightCoeff.getMaxDamage() + weightCoeff.getMaxCAPEX() + weightCoeff.getMaxOPEX();
+            damageCoeff = weightCoeff.getMaxDamage() / sumOfCoeffs;
+            capexCoeff = weightCoeff.getMaxCAPEX() / sumOfCoeffs;
+            opexCoeff = weightCoeff.getMaxOPEX() / sumOfCoeffs;
+        } else {
+            float sumOfCoeffs = 1 / weightCoeff.getMaxDamage() + 1 / weightCoeff.getMaxCAPEX() + 1 / weightCoeff.getMaxOPEX();
+            damageCoeff = (1 / weightCoeff.getMaxDamage()) / sumOfCoeffs;
+            capexCoeff = (1 / weightCoeff.getMaxCAPEX()) / sumOfCoeffs;
+            opexCoeff = (1 / weightCoeff.getMaxOPEX()) / sumOfCoeffs;
+        }
+
         for (SubstationMeasures substationMeasure : substationMeasuresList) {
             if (substationMeasure.getTotalPrice() == 0f) {
                 idsCheck(substationMeasure);
@@ -27,9 +50,10 @@ public class ReliabilityCalculation {
                     substationMeasure.setOpexPrice(substationMeasure.getOpexPrice() + substationMeasuresPerYear.getOpexPrice());
                     float damage = MockUndersupplyCalculation.undersupplyCalculation(substationMeasuresPerYear,
                             breakersMap, iedImpactList, schemaStatusList);
-                    substationMeasure.setDamage(damage);
-                    substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() + damage +
-                            substationMeasuresPerYear.getCapexPrice() + substationMeasuresPerYear.getOpexPrice());
+                    substationMeasure.setDamage(substationMeasure.getDamage() + damage);
+                    substationMeasure.setTotalPrice(substationMeasure.getTotalPrice() + damageCoeff * damage +
+                            capexCoeff * substationMeasuresPerYear.getCapexPrice() +
+                            opexCoeff * substationMeasuresPerYear.getOpexPrice());
                 }
             }
         }

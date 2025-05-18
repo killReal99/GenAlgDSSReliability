@@ -1,7 +1,7 @@
 package org.mpei.nti.genetic;
 
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
-import org.mpei.nti.utils.SingleCriteria;
+import org.mpei.nti.utils.enums.SingleCriteria;
 
 import java.util.List;
 
@@ -39,8 +39,7 @@ public class Sorting {
         float pivot;
         float economic = population.get(middle).getOpexPrice() + population.get(middle).getCapexPrice();
         if (singleCriteria == SingleCriteria.MAIN_CRITERIA || singleCriteria == SingleCriteria.TARGET_PROGRAMMING) {
-            pivot = population.get(middle).getTotalPrice() - population.get(middle).getCapexPrice() -
-                    population.get(middle).getOpexPrice();
+            pivot = population.get(middle).getDamage();
         } else {
             pivot = population.get(middle).getTotalPrice();
         }
@@ -51,8 +50,7 @@ public class Sorting {
         int i = (low - 1);
         for (int j = low; j < high; j++) {
             if (singleCriteria == SingleCriteria.MAIN_CRITERIA) {
-                float economicDamage = population.get(j).getTotalPrice() - population.get(j).getCapexPrice() -
-                        population.get(j).getOpexPrice();
+                float economicDamage = population.get(j).getDamage();
                 if (economicDamage < pivot) {
                     i++;
                     temp = population.get(i);
@@ -60,8 +58,7 @@ public class Sorting {
                     population.set(j, temp);
                 }
             } else if (singleCriteria == SingleCriteria.TARGET_PROGRAMMING) {
-                float economicDamage = population.get(j).getTotalPrice() - population.get(j).getCapexPrice() -
-                        population.get(j).getOpexPrice();
+                float economicDamage = population.get(j).getDamage();
                 if ((economicDamage < pivot) || ((economicDamage == pivot) && ((population.get(j).getOpexPrice() +
                         population.get(j).getOpexPrice()) < economic))) {
                     i++;

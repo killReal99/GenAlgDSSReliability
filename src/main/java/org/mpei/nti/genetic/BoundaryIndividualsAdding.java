@@ -5,6 +5,7 @@ import org.mpei.nti.substation.substationGeneration.SubstationMeasuresGenearatio
 import org.mpei.nti.substation.substationGeneration.SubstationMeasuresPerYearGeneration;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
+import org.mpei.nti.utils.WeightCoeff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class BoundaryIndividualsAdding {
                             D6, D10, D12, D16, D22);
 
                     substationMeasuresPerYearList.add(SubstationMeasuresPerYearGeneration.substationMeasuresGeneration(
-                            (i + 1), year, organizationalMeasures, improsedMeasures, IEDGenerator(j, (i + 1), iedRosseti)));
+                            (3 - i), year, organizationalMeasures, improsedMeasures, IEDGenerator(j, (i + 1), iedRosseti)));
                 }
                 population.add(SubstationMeasuresGenearation.substationMeasuresGeneration(substationMeasuresPerYearList,
                         lanRosseti, iedRosseti, fstec));
