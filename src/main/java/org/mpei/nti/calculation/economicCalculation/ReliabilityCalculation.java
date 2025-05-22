@@ -33,9 +33,9 @@ public class ReliabilityCalculation {
             opexCoeff = weightCoeff.getMaxOPEX() / sumOfCoeffs;
         } else {
             float sumOfCoeffs = 1 / weightCoeff.getMaxDamage() + 1 / weightCoeff.getMaxCAPEX() + 1 / weightCoeff.getMaxOPEX();
-            damageCoeff = (1 / weightCoeff.getMaxDamage()) / sumOfCoeffs;
-            capexCoeff = (1 / weightCoeff.getMaxCAPEX()) / sumOfCoeffs;
-            opexCoeff = (1 / weightCoeff.getMaxOPEX()) / sumOfCoeffs;
+            damageCoeff = (16f / weightCoeff.getMaxDamage()) / sumOfCoeffs;
+            capexCoeff = (0.25f / weightCoeff.getMaxCAPEX()) / sumOfCoeffs;
+            opexCoeff = (0.25f / weightCoeff.getMaxOPEX()) / sumOfCoeffs;
         }
 
         for (SubstationMeasures substationMeasure : substationMeasuresList) {

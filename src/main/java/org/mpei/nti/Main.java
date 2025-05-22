@@ -18,12 +18,12 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         final long startTime = System.currentTimeMillis();
-        int minArch = 3;
+        int minArch = 1;
         int maxArch = 3;
         SingleCriteria singleCriteria = SingleCriteria.CONVOLUTION_METHOD;
-        WeightScenario weightScenario = WeightScenario.Direct;
-        boolean lanRosseti = true;
-        boolean iedRosseti = true;
+        WeightScenario weightScenario = WeightScenario.Equal;
+        boolean lanRosseti = false;
+        boolean iedRosseti = false;
         int fstec = 0;
         int populationSize = 100;
         int numberOfIterations = 5000;
@@ -40,7 +40,7 @@ public class Main {
         for (int i = 0; i < populationSize; i++) {
             population.add(PopulationGeneration.generatePopulation(minArch, maxArch, lanRosseti, iedRosseti, fstec));
         }
-//        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
+        Accelerator.quickStart(population, lanRosseti, iedRosseti, fstec);
         OptimizeGenotype.genotypeOptimization(population);
         ReliabilityCalculation.goalFunctionCalculation(population, breakersMap, iedImpactList, schemaStatusList,
                 weightScenario, weightCoeff);
@@ -72,7 +72,7 @@ public class Main {
                 Sorting.quickSort(population, 0, population.size() - 1, singleCriteria);
                 Deletion.deletePartOfPopulation(population, populationSize);
 
-                bestIndividuals.add(population.get(0));
+//                bestIndividuals.add(population.get(0));
 //                for (int a = 0; a < 10; a++) {
 //                    if (a < population.size()) {
 //                        bestIndividuals.add(population.get(a));

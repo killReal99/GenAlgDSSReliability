@@ -13,11 +13,7 @@ public class Selection {
         for (SubstationMeasures substationMeasures : population) {
             SubstationMeasures substationMeasureForDeleting = new SubstationMeasures();
             boolean deletingChecker = false;
-            if (substationMeasures.getCapexPrice() >= 2250000000f) {
-                substationMeasureForDeleting = substationMeasures;
-                deletingChecker = true;
-            }
-            if (substationMeasures.getOpexPrice() >= 25500000f) {
+            if (substationMeasures.getCapexPrice() >= 225000000f || substationMeasures.getOpexPrice() >= 25500000f) {
                 substationMeasureForDeleting = substationMeasures;
                 deletingChecker = true;
             }
