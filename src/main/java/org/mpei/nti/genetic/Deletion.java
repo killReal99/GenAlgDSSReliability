@@ -4,11 +4,9 @@ import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 
 import java.util.List;
 
-import static org.mpei.nti.Main.populationSize;
-
 public class Deletion {
 
-    public static void deletePartOfPopulation(List<SubstationMeasures> population) {
+    public static void deletePartOfPopulation(List<SubstationMeasures> population, int populationSize) {
         if (population.size() > populationSize) {
             int countDeleting = population.size() - populationSize;
             for (int j = 0; j < countDeleting; j++) {

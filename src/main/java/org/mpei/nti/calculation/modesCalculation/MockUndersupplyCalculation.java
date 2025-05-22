@@ -3,240 +3,448 @@ package org.mpei.nti.calculation.modesCalculation;
 import org.mpei.nti.calculation.modelCalculation.Bus.FailureTriggeringBus;
 import org.mpei.nti.calculation.modelCalculation.Bus.FalsePositiveBus;
 import org.mpei.nti.calculation.modelCalculation.Bus.OverTriggeringBus;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.CoefficientsCalculation.FailureCoefficients;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.CoefficientsCalculation.FalseCoefficients;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.CoefficientsCalculation.OverCoefficients;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.Over;
 import org.mpei.nti.calculation.modelCalculation.Line.FailureTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.Line.FalsePositiveLine;
 import org.mpei.nti.calculation.modelCalculation.Line.OverTriggeringLine;
 import org.mpei.nti.calculation.modelCalculation.Transformer.FailureTriggeringTransformer;
 import org.mpei.nti.calculation.modelCalculation.Transformer.FalsePositiveTransformer;
 import org.mpei.nti.calculation.modelCalculation.Transformer.OverTriggeringTransformer;
-import org.mpei.nti.substation.substationStructures.IED;
-import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.Failure;
+import org.mpei.nti.calculation.modelCalculation.Coefficients.FalseCoeff;
+import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
 import org.mpei.nti.utils.Probability;
 
-import static org.mpei.nti.calculation.modelCalculation.GeneralCoefficients.*;
+import java.util.*;
+
+import static org.mpei.nti.calculation.modelCalculation.Coefficients.GeneralCoefficients.*;
 
 public class MockUndersupplyCalculation {
 
-    public static float undersupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear) {
-        Probability w1Probability = new Probability(0.0f, 0.0f, 1.0f);
-        Probability w2Probability = new Probability(0.0f, 0.0f, 1.0f);
-        Probability w3Probability = new Probability(0.0f, 0.0f, 1.0f);
-        Probability w4Probability = new Probability(0.0f, 0.0f, 1.0f);
-        Probability k1Probability = new Probability(0.0f, 0.0f, 1.0f);
-        Probability k2Probability = new Probability(0.0f, 0.0f, 1.0f);
-        Probability t1Probability = new Probability(0.0f, 0.0f, 1.0f);
-        Probability t2Probability = new Probability(0.0f, 0.0f, 1.0f);
+    public static float undersupplyCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, HashMap<Breaker,
+            Probability> breakersMap, List<IEDImpact> iedImpactList, List<SchemaStatus> schemaStatusList) {
         int iedIndex = 0;
+        Failure failure = FailureCoefficients.failureCalculation(substationMeasuresPerYear);
+        FalseCoeff falseCoeff = FalseCoefficients.falseCalculation(substationMeasuresPerYear);
+        Over over = OverCoefficients.overCalculation(substationMeasuresPerYear);
+
         for (IED ied : substationMeasuresPerYear.getIedList()) {
-            String[] parse = ied.getNameOfIED().split("_");
             if (ied.getEquipmentTypeName() == EquipmentType.LINE) {
-                if (parse[0].equals("W1")) {
-                    lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w1Probability);
-                } else if (parse[0].equals("W2")) {
-                    lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w2Probability);
-                } else if (parse[0].equals("W3")) {
-                    lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w3Probability);
-                } else if (parse[0].equals("W4")) {
-                    lineProbabilityCalculation(substationMeasuresPerYear, iedIndex, w4Probability);
+                ied.setFailureTriggering(FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear,
+                        iedIndex, failure));
+                for (Protection protection : ied.getProtections()) {
+                    protection.setOverTriggering(OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear,
+                            iedIndex, over));
+                    protection.setFalsePositive(FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear,
+                            iedIndex, falseCoeff));
                 }
             }
-            if (ied.getEquipmentTypeName() == EquipmentType.BUS){
-                if (parse[0].equals("B1")){
-                    busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k1Probability);
-                } else if (parse[0].equals("B2")) {
-                    busProbabilityCalculation(substationMeasuresPerYear, iedIndex, k2Probability);
+            if (ied.getEquipmentTypeName() == EquipmentType.BUS) {
+                ied.setFailureTriggering(FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear,
+                        iedIndex, failure));
+                for (Protection protection : ied.getProtections()) {
+                    protection.setOverTriggering(OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear,
+                            iedIndex, over));
+                    protection.setFalsePositive(FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear,
+                            iedIndex, falseCoeff));
                 }
             }
-            if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER){
-                if (parse[0].equals("T1")){
-                    transformerProbabilityCalculation(substationMeasuresPerYear, iedIndex, t1Probability);
-                } else if (parse[0].equals("T2")) {
-                    transformerProbabilityCalculation(substationMeasuresPerYear, iedIndex, t2Probability);
+            if (ied.getEquipmentTypeName() == EquipmentType.TRANSFORMER) {
+                ied.setFailureTriggering(FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear,
+                        iedIndex, failure));
+                for (Protection protection : ied.getProtections()) {
+                    protection.setOverTriggering(OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear,
+                            iedIndex, over));
+                    protection.setFalsePositive(FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear,
+                            iedIndex, falseCoeff));
                 }
             }
             iedIndex++;
         }
 
-        float lineUnderSupplyW1 = (undersupplyCalculation(w1Probability.getOverTriggerProbability(), 1) +
-            undersupplyCalculation(w1Probability.getFalsePositiveProbability(), 2) +
-            undersupplyCalculation(w1Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
-        float lineUnderSupplyW2 = (undersupplyCalculation(w2Probability.getOverTriggerProbability(), 1) +
-            undersupplyCalculation(w2Probability.getFalsePositiveProbability(), 2) +
-            undersupplyCalculation(w2Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
-        float lineUnderSupplyW3 = (undersupplyCalculation(w3Probability.getOverTriggerProbability(), 1) +
-            undersupplyCalculation(w3Probability.getFalsePositiveProbability(), 2) +
-            undersupplyCalculation(w3Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
-        float lineUnderSupplyW4 = (undersupplyCalculation(w4Probability.getOverTriggerProbability(), 1) +
-            undersupplyCalculation(w4Probability.getFalsePositiveProbability(), 2) +
-            undersupplyCalculation(w4Probability.getFailureTriggerProbablility(), 2)) * 99 * 1000;
+        HashMap<Breaker, Probability> newBreakersMap = probabilityCalculation(breakersMap, iedImpactList, substationMeasuresPerYear.getIedList());
 
-        return lineUnderSupplyW1 + lineUnderSupplyW2 + lineUnderSupplyW3 + lineUnderSupplyW4;
-    }
-
-    public static void lineProbabilityCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int index,
-                                                  Probability elementProbability) {
-        float dzlOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float mtzOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float tznpOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float dzOverTriggerProbability = OverTriggeringLine.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float oldOverTrigger = elementProbability.getOverTriggerProbability();
-        float newOverTrigger = mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability) +
-            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability);
-        elementProbability.setOverTriggerProbability(oldOverTrigger * newOverTrigger + (1 - oldOverTrigger) * newOverTrigger +
-            oldOverTrigger * (1 - newOverTrigger));
-
-        float dzlFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float mtzFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float tznpFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float dzFalsePositiveProbability = FalsePositiveLine.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float oldFalsePositive = elementProbability.getFalsePositiveProbability();
-        float newFalsePositive = mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability) +
-            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability);
-        elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
-            oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
-
-        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
-        float newFailureTrigger = FailureTriggeringLine.failureTriggeringCalculation(substationMeasuresPerYear, index);
-        elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
-    }
-
-    public static void transformerProbabilityCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int index,
-                                                  Probability elementProbability) {
-        float dzlOverTriggerProbability = OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float mtzOverTriggerProbability = OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float tznpOverTriggerProbability = OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float dzOverTriggerProbability = OverTriggeringTransformer.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float oldOverTrigger = elementProbability.getOverTriggerProbability();
-        float newOverTrigger = mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability) +
-            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-            (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-            mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability);
-        elementProbability.setOverTriggerProbability(oldOverTrigger * newOverTrigger + (1 - oldOverTrigger) * newOverTrigger +
-            oldOverTrigger * (1 - newOverTrigger));
-
-        float dzlFalsePositiveProbability = FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float mtzFalsePositiveProbability = FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float tznpFalsePositiveProbability = FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float dzFalsePositiveProbability = FalsePositiveTransformer.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float oldFalsePositive = elementProbability.getFalsePositiveProbability();
-        float newFalsePositive = mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability) +
-            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-            (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-            mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability);
-        elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
-            oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
-
-        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
-        float newFailureTrigger = FailureTriggeringTransformer.failureTriggeringCalculation(substationMeasuresPerYear, index);
-        elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
-    }
-
-    public static void busProbabilityCalculation(SubstationMeasuresPerYear substationMeasuresPerYear, int index,
-                                                         Probability elementProbability) {
-        float dzlOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float mtzOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float tznpOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float dzOverTriggerProbability = OverTriggeringBus.overTriggeringCalculation(substationMeasuresPerYear, index);
-        float oldOverTrigger = elementProbability.getOverTriggerProbability();
-        float newOverTrigger = mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * dzlOverTriggerProbability * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                mtzOverTriggerProbability * dzlOverTriggerProbability * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability) +
-                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * tznpOverTriggerProbability +
-                (1 - mtzOverTriggerProbability) * (1 - dzlOverTriggerProbability) * dzOverTriggerProbability * (1 - tznpOverTriggerProbability) +
-                mtzOverTriggerProbability * (1 - dzlOverTriggerProbability) * (1 - dzOverTriggerProbability) * (1 - tznpOverTriggerProbability);
-        elementProbability.setOverTriggerProbability(oldOverTrigger * newOverTrigger + (1 - oldOverTrigger) * newOverTrigger +
-                oldOverTrigger * (1 - newOverTrigger));
-
-        float dzlFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float mtzFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float tznpFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float dzFalsePositiveProbability = FalsePositiveBus.falsePositiveCalculation(substationMeasuresPerYear, index);
-        float oldFalsePositive = elementProbability.getFalsePositiveProbability();
-        float newFalsePositive = mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * dzlFalsePositiveProbability * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                mtzFalsePositiveProbability * dzlFalsePositiveProbability * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability) +
-                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * tznpFalsePositiveProbability +
-                (1 - mtzFalsePositiveProbability) * (1 - dzlFalsePositiveProbability) * dzFalsePositiveProbability * (1 - tznpFalsePositiveProbability) +
-                mtzFalsePositiveProbability * (1 - dzlFalsePositiveProbability) * (1 - dzFalsePositiveProbability) * (1 - tznpFalsePositiveProbability);
-        elementProbability.setFalsePositiveProbability(oldFalsePositive * newFalsePositive +
-                oldFalsePositive * (1 - newFalsePositive) + (1 - oldFalsePositive) * newFalsePositive);
-
-        float oldFailureTrigger = elementProbability.getFalsePositiveProbability();
-        float newFailureTrigger = FailureTriggeringBus.failureTriggeringCalculation(substationMeasuresPerYear, index);
-        elementProbability.setFailureTriggerProbablility(oldFailureTrigger * newFailureTrigger);
-    }
-
-    public static float undersupplyCalculation(float probablility, int calculationType) {
-        float q = ((float) -Math.log(1 - probablility) / 1.0f);
-        float W = Pper * Tvosst;
-        float undersupply = 0.0f;
-        if (calculationType == 1) {
-            undersupply = W * q * qapv;
-        } else {
-            undersupply = W * q;
+        float undersupplyOverTrigger = 0f;
+        float undersupplyFalsePositive = 0f;
+        float undersupplyFailureTrigger = 0f;
+        for (SchemaStatus schemaStatus : schemaStatusList) {
+            float overTriggeredBreaker = 1f;
+            float falsePositivedBreaker = 1f;
+            float failureTriggeredBreaker = 1f;
+            for (Breaker breaker : schemaStatus.getBreakers()) {
+                if (breaker.getPosition() == 0) {
+                    for (Map.Entry<Breaker, Probability> breakerProbability : newBreakersMap.entrySet()) {
+                        if (breakerProbability.getKey().getBreakerName().equals(breaker.getBreakerName())) {
+                            overTriggeredBreaker *= breakerProbability.getValue().getOverTriggerProbability();
+                            falsePositivedBreaker *= breakerProbability.getValue().getFalsePositiveProbability();
+                            failureTriggeredBreaker *= breakerProbability.getValue().getFailureTriggerProbablility();
+                            break;
+                        }
+                    }
+                }
+            }
+            undersupplyOverTrigger += (float) -Math.log(1 - overTriggeredBreaker) * schemaStatus.getUndersupply() * qapv * Tvosst * 99 * 1000;
+            undersupplyFalsePositive += (float) -Math.log(1 - falsePositivedBreaker) * schemaStatus.getUndersupply() * Tvosst * 99 * 1000;
+            undersupplyFailureTrigger += (float) -Math.log(1 - failureTriggeredBreaker) * schemaStatus.getUndersupply() * Tvosst * 99 * 1000;
         }
-        return undersupply;
+        return undersupplyOverTrigger + undersupplyFalsePositive + undersupplyFailureTrigger;
     }
 
+    public static HashMap<Breaker, Probability> probabilityCalculation(HashMap<Breaker, Probability> breakersMap,
+                                                                       List<IEDImpact> iedImpactList,
+                                                                       List<IED> iedList) {
+        HashMap<Breaker, Probability> newBreakersMap = new HashMap<>();
+        for (Map.Entry<Breaker, Probability> breakerProbabilityEntry : breakersMap.entrySet()) {
+            IED rpaCurrentMain = new IED();
+            IED rpaCurrentReserve = new IED();
+            IED rpaNeighborsMain = new IED();
+            IED rpaNeighborsReserve = new IED();
+            int iedQuantity = 0;
+            newBreakersMap.put(new Breaker(breakerProbabilityEntry.getKey().getBreakerName(), breakerProbabilityEntry.getKey().getPosition()),
+                    new Probability(breakerProbabilityEntry.getValue().getOverTriggerProbability(), breakerProbabilityEntry.getValue().getFalsePositiveProbability(),
+                            breakerProbabilityEntry.getValue().getFailureTriggerProbablility()));
+            for (IEDImpact iedImpact : iedImpactList) {
+                if (breakerProbabilityEntry.getKey().equals(iedImpact.getBreaker())) { // Допущение о том, что если 2 ИЭУ в мапе, то оба относятся к текущему оборудованию (не влияет на число в ответе)
+                    for (IED ied : iedList) {
+                        if (iedImpact.getIedList().get(0).equals(ied.getNameOfIED())) {
+                            rpaCurrentMain = ied;
+                            iedQuantity++;
+                        }
+                        if (iedImpact.getIedList().size() >= 2 && iedImpact.getIedList().get(1).equals(ied.getNameOfIED())) {
+                            rpaCurrentReserve = ied;
+                            iedQuantity++;
+                        }
+                        if (iedImpact.getIedList().size() >= 3 && iedImpact.getIedList().get(2).equals(ied.getNameOfIED())) {
+                            rpaNeighborsMain = ied;
+                            iedQuantity++;
+                        }
+                        if (iedImpact.getIedList().size() == 4 && iedImpact.getIedList().get(3).equals(ied.getNameOfIED())) {
+                            rpaNeighborsReserve = ied;
+                            iedQuantity++;
+                        }
+                    }
+                }
+            }
+            failureProbabilityCalculation(newBreakersMap, breakerProbabilityEntry, rpaCurrentMain, rpaCurrentReserve, rpaNeighborsMain,
+                    rpaNeighborsReserve, iedQuantity);
+            overTriggerAndFalsePositiveProbabilityCalculation(newBreakersMap, breakerProbabilityEntry, rpaCurrentMain, rpaCurrentReserve, rpaNeighborsMain,
+                    rpaNeighborsReserve);
+        }
+        return newBreakersMap;
+    }
+
+    public static void failureProbabilityCalculation(HashMap<Breaker, Probability> newBreakersMap,
+                                                     Map.Entry<Breaker, Probability> breakersMapEntry,
+                                                     IED rpaCurrentMain, IED rpaCurrentReserve, IED rpaNeighborsMain,
+                                                     IED rpaNeighborsReserve, int iedQuantity) {
+        for (Map.Entry<Breaker, Probability> breakerProbabilityEntry : newBreakersMap.entrySet()) {
+            if (breakerProbabilityEntry.getKey().getBreakerName().equals(breakersMapEntry.getKey().getBreakerName())) {
+                if (iedQuantity == 1) {
+                    breakerProbabilityEntry.getValue().setFailureTriggerProbablility(rpaCurrentMain.getFailureTriggering());
+                } else if (iedQuantity == 2) {
+                    breakerProbabilityEntry.getValue().setFailureTriggerProbablility(rpaCurrentMain.getFailureTriggering() *
+                            rpaCurrentReserve.getFailureTriggering());
+                } else if (iedQuantity == 3) {
+                    breakerProbabilityEntry.getValue().setFailureTriggerProbablility(rpaCurrentMain.getFailureTriggering() *
+                            rpaCurrentReserve.getFailureTriggering() * rpaNeighborsMain.getFailureTriggering());
+                } else {
+                    breakerProbabilityEntry.getValue().setFailureTriggerProbablility(rpaCurrentMain.getFailureTriggering() *
+                            rpaCurrentReserve.getFailureTriggering() * rpaNeighborsMain.getFailureTriggering() *
+                            rpaNeighborsReserve.getFailureTriggering());
+                }
+            }
+        }
+    }
+
+    public static void overTriggerAndFalsePositiveProbabilityCalculation(HashMap<Breaker, Probability> newBreakersMap,
+                                                                         Map.Entry<Breaker, Probability> breakersMapEntry,
+                                                                         IED rpaCurrentMain, IED rpaCurrentReserve,
+                                                                         IED rpaNeighborsMain, IED rpaNeighborsReserve) {
+        List<Protection> protectionList = new ArrayList<>();
+        if (rpaCurrentMain.getProtections() != null) {
+            protectionList.addAll(rpaCurrentMain.getProtections());
+        }
+        if (rpaCurrentReserve.getProtections() != null) {
+            protectionList.addAll(rpaCurrentReserve.getProtections());
+        }
+        if (rpaNeighborsMain.getProtections() != null) {
+            protectionList.addAll(rpaNeighborsMain.getProtections());
+        }
+        if (rpaNeighborsReserve.getProtections() != null) {
+            protectionList.addAll(rpaNeighborsReserve.getProtections());
+        }
+
+        for (Map.Entry<Breaker, Probability> breakerProbability : newBreakersMap.entrySet()) {
+            if (breakerProbability.getKey().getBreakerName().equals(breakersMapEntry.getKey().getBreakerName())) {
+                if (protectionList.size() == 1) {
+                    breakerProbability.getValue().setFalsePositiveProbability(protectionList.get(0).getFalsePositive());
+                    breakerProbability.getValue().setOverTriggerProbability(protectionList.get(0).getOverTriggering());
+                } else if (protectionList.size() == 2) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering()));
+                } else if (protectionList.size() == 3) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering()));
+                } else if (protectionList.size() == 4) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getFalsePositive()));
+                } else if (protectionList.size() == 5) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering()));
+                } else if (protectionList.size() == 6) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering()));
+                } else if (protectionList.size() == 7) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering()));
+                } else if (protectionList.size() == 8) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering()));
+                } else if (protectionList.size() == 9) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering(), protectionList.get(8).getOverTriggering()));
+                } else if (protectionList.size() == 10) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering(), protectionList.get(8).getOverTriggering(),
+                            protectionList.get(9).getOverTriggering()));
+                } else if (protectionList.size() == 11) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering(), protectionList.get(8).getOverTriggering(),
+                            protectionList.get(9).getOverTriggering(), protectionList.get(10).getOverTriggering()));
+                } else if (protectionList.size() == 12) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering(), protectionList.get(8).getOverTriggering(),
+                            protectionList.get(9).getOverTriggering(), protectionList.get(10).getOverTriggering(),
+                            protectionList.get(11).getOverTriggering()));
+                } else if (protectionList.size() == 13) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering(), protectionList.get(8).getOverTriggering(),
+                            protectionList.get(9).getOverTriggering(), protectionList.get(10).getOverTriggering(),
+                            protectionList.get(11).getOverTriggering(), protectionList.get(12).getOverTriggering()));
+                } else if (protectionList.size() == 14) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering(), protectionList.get(8).getOverTriggering(),
+                            protectionList.get(9).getOverTriggering(), protectionList.get(10).getOverTriggering(),
+                            protectionList.get(11).getOverTriggering(), protectionList.get(12).getOverTriggering(),
+                            protectionList.get(13).getOverTriggering()));
+                } else if (protectionList.size() == 15) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getOverTriggering(),
+                            protectionList.get(1).getOverTriggering(), protectionList.get(2).getOverTriggering(),
+                            protectionList.get(3).getOverTriggering(), protectionList.get(4).getOverTriggering(),
+                            protectionList.get(5).getOverTriggering(), protectionList.get(6).getOverTriggering(),
+                            protectionList.get(7).getOverTriggering(), protectionList.get(8).getOverTriggering(),
+                            protectionList.get(9).getOverTriggering(), protectionList.get(10).getOverTriggering(),
+                            protectionList.get(11).getOverTriggering(), protectionList.get(12).getOverTriggering(),
+                            protectionList.get(13).getOverTriggering(), protectionList.get(14).getOverTriggering()));
+                } else if (protectionList.size() == 16) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive()));
+                } else if (protectionList.size() == 17) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive()));
+                } else if (protectionList.size() == 18) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive(),
+                            protectionList.get(17).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive(),
+                            protectionList.get(17).getFalsePositive()));
+                } else if (protectionList.size() == 19) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive(),
+                            protectionList.get(17).getFalsePositive(), protectionList.get(18).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive(),
+                            protectionList.get(17).getFalsePositive(), protectionList.get(18).getFalsePositive()));
+                } else if (protectionList.size() == 20) {
+                    breakerProbability.getValue().setFalsePositiveProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive(),
+                            protectionList.get(17).getFalsePositive(), protectionList.get(18).getFalsePositive(),
+                            protectionList.get(19).getFalsePositive()));
+                    breakerProbability.getValue().setOverTriggerProbability(ProbabilityUnion.calculateProbability(protectionList.get(0).getFalsePositive(),
+                            protectionList.get(1).getFalsePositive(), protectionList.get(2).getFalsePositive(),
+                            protectionList.get(3).getFalsePositive(), protectionList.get(4).getFalsePositive(),
+                            protectionList.get(5).getFalsePositive(), protectionList.get(6).getFalsePositive(),
+                            protectionList.get(7).getFalsePositive(), protectionList.get(8).getFalsePositive(),
+                            protectionList.get(9).getFalsePositive(), protectionList.get(10).getFalsePositive(),
+                            protectionList.get(11).getFalsePositive(), protectionList.get(12).getFalsePositive(),
+                            protectionList.get(13).getFalsePositive(), protectionList.get(14).getFalsePositive(),
+                            protectionList.get(15).getFalsePositive(), protectionList.get(16).getFalsePositive(),
+                            protectionList.get(17).getFalsePositive(), protectionList.get(18).getFalsePositive(),
+                            protectionList.get(19).getFalsePositive()));
+                } else {
+                    System.out.println("A lot of protections : " + protectionList.size());
+                }
+                break;
+            }
+        }
+    }
 }

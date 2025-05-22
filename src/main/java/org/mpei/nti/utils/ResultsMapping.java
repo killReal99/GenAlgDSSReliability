@@ -1,19 +1,27 @@
 package org.mpei.nti.utils;
 
+import org.apache.poi.ss.usermodel.*;
+import org.mpei.nti.Main;
+import org.mpei.nti.calculation.economicCalculation.CostsCalculation;
 import org.mpei.nti.substation.substationStructures.IED;
 import org.mpei.nti.substation.substationStructures.SubstationMeasures;
 import org.mpei.nti.substation.substationStructures.SubstationMeasuresPerYear;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ResultsMapping {
 
-    public static void resultsMapping(List<SubstationMeasures> population) throws IOException {
+    public static void resultsMapping(List<SubstationMeasures> population, List<SubstationMeasures> bestIndividuals) throws IOException {
         PrintWriter writer = new PrintWriter("src" + File.separator + "main" + File.separator +
                 "resources" + File.separator + "results.txt", StandardCharsets.UTF_8);
-        writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
+                writer.println("Значение целевой функции " + String.format("%f", population.get(0).getTotalPrice()));
+        writer.println("Экономический ущерб от ненадежности " + String.format("%f", population.get(0).getDamage()));
         writer.println("CAPEX затраты за 25 лет " + String.format("%f", population.get(0).getCapexPrice()));
         writer.println("OPEX затраты за 25 лет " + String.format("%f", population.get(0).getOpexPrice()));
         writer.println(" ");
@@ -79,7 +87,7 @@ public class ResultsMapping {
                     writer.println("Криптографическая защита протокола MMS с использованием TLS");
                 }
                 if (ied.getD9() == 1) {
-                    writer.println("Механизм удаленной аутентификации к ИЭУ");
+                    writer.println("Механизм удаленной аутентификации ИЭУ");
                 }
                 if (ied.getD13() == 1) {
                     writer.println("Механизм доверенного обновления");
@@ -103,6 +111,44 @@ public class ResultsMapping {
             writer.println(" ");
         }
         writer.close();
+
+        ExcelWriter.writeToExcel(population);
+
+//        PrintWriter writer2 = new PrintWriter("src" + File.separator + "main" + File.separator +
+//                "resources" + File.separator + "GenResults.csv", StandardCharsets.UTF_8);
+//        int iteration = 1;
+//        int insideIteration = 1;
+//        for (SubstationMeasures bestIndividual : bestIndividuals) {
+//            writer2.println(iteration + "," + bestIndividual.getDamage() + "," + bestIndividual.getCapexPrice() + "," +
+//                    bestIndividual.getOpexPrice());
+//            if (insideIteration == 10) {
+//                iteration++;
+//                insideIteration = 1;
+//            }
+//            insideIteration++;
+//        }
+//        writer2.close();
+
+        String optimize = new ObjectMapper().writeValueAsString(population.get(0));
+        String lan = "";
+        String ied = "";
+        int fstec = 0;
+        if (population.get(0).isLanRosseti()) {
+            lan = "LAN_";
+        }
+        if (population.get(0).isIedRosseti()) {
+            ied = "IED_";
+        }
+        fstec = switch (population.get(0).getFstec()) {
+            case 1 -> 1;
+            case 2 -> 2;
+            case 3 -> 3;
+            default -> fstec;
+        };
+        PrintWriter jsonObj = new PrintWriter("src" + File.separator + "main" + File.separator +
+                "resources" + File.separator + "optimize_" + lan + ied + fstec + ".json", StandardCharsets.UTF_8);
+        jsonObj.println(optimize);
+        jsonObj.close();
     }
 
 }
