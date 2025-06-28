@@ -50,13 +50,18 @@ public class GeneralCoefficients {
     public static float D22 = 0.396853f;
     public static float D23 = 0.612193f;
     public static float D24 = 0.701892f;
+    public static float PneOver = 0.09877f;
 
-    public static float Pne = 0.099f;
+    public static float PneFalse = 0.00598204f;
+    public static float PneFailure = 0.01193f;
     public static float Pkz = 0.93279f;
-    public static float PkzKa = 0.0003082f;
-    public static float qapv = 0.05f;
+    public static float Pkz_vnutr = 0.91371f;
 
-    public static float yearsToAttack = 1f;
+    public static double yearsToAttack = 25f;
+
+    public static float PkzKa = (float) (1 - Math.exp(- 2.7 * 24 / (8760 * yearsToAttack)));
+    public static float PkzKa_vnutr = (float) (1 - Math.exp(- 2.7 * 24 / (8760 * yearsToAttack)));
+    public static float qapv = 0.05f;
 
     public static int attackedIED = 1;
     public static float Tvosst = 9.4f;

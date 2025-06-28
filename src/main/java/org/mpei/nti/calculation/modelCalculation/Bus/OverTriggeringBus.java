@@ -42,9 +42,9 @@ public class OverTriggeringBus {
         float Psoft = over.getA13() * A14 * DD9 * DD12 * DD13 * DD14 + over.getA15() * A16 * DD9 * DD12 * DD13 * DD14 +
                 over.getA17() * A18 * DD9 * DD12 * DD13 * DD15 + over.getA19() * A20 * DD9 * DD12 * DD13 * DD14 * DD15;
 
-        float Pfull = (Psv + Pust + Psoft) / yearsToAttack;
+        float Pfull = (Psv + Pust + Psoft);
 
-        return Pne * Pfull * Pkz + Pne * (1 - Pfull) * Pkz + (1 - Pne) * Pfull * PkzKa;
+        return PneOver * Pfull * Pkz + PneOver * (1 - Pfull) * Pkz + (1 - PneOver) * Pfull * PkzKa;
     }
 
 }

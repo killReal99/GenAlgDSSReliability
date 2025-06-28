@@ -12,22 +12,24 @@ public class CAPEXEquipment {
     public static float fromThirdToFirstRebuild = 1650000f;
     public static float fromThirdToSecondRebuild = 1350000f;
 
-    public static float D2 = 1083.33f;
+    public static float D2 = 8375f;
     public static float D3 = 5000000.0f;
-    public static float D4 = 1083.33f;
-    public static float D5 = 1083.33f;
-    public static float D7 = 1083.33f;
-    public static float D8 = 1083.33f;
-    public static float D9 = 1083.33f;
-    public static float D13 = 1083.33f;
-    public static float D14 = 1083.33f;
-    public static float D15 = 1083.33f;
-    public static float D17 = 1083.33f;
-    public static float D18 = 1083.33f;
-    public static float D19 = 65000.0f;
-    public static float D20 = 750000.0f;
-    public static float D21 = 3250000.0f;
-    public static float D23 = 1083.33f;
-    public static float D24 = 150000.0f;
-
+    public static float D4 = 8375f;
+    public static float D5 = 8375f;
+    public static float D7 = 8375f;
+    public static float D8 = 8375f;
+    public static float D9 = 8375f;
+    public static float D13 = 8375f;
+    public static float D14 = 8375f;
+    public static float D15 = 8375f;
+    public static float D17 = 8375f;
+    public static float D18 = 8375f;
+    public static float D19 = 260000f;
+    public static float D19Update = 55000f;
+    public static float D20 = 1300000f;
+    public static float D20Update = 500000f;
+    public static float D21 = 1475000f;
+    public static float D21Update = 520000f;
+    public static float D23 = 8375f;
+    public static float D24 = 300000f;
 }

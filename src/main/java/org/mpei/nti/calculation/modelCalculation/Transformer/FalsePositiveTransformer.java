@@ -58,9 +58,9 @@ public class FalsePositiveTransformer {
                 DD13 * DD14 + falseCoeff.getA17() * A18 * DD9 * DD12 * DD13 * DD15 + falseCoeff.getA19() * A20 * DD9 *
                 DD12 * DD13 * DD14 * DD15;
 
-        float Pfull = (Psv + Pust + Pupravl + Psoft) / yearsToAttack;
+        float Pfull = (Psv + Pust + Pupravl + Psoft);
 
-        return Pne * Pfull + Pne * (1 - Pfull) + (1 - Pne) * Pfull;
+        return PneFalse * Pfull + PneFalse * (1 - Pfull) + (1 - PneFalse) * Pfull;
     }
 
 }

@@ -27,15 +27,15 @@ public class ReliabilityCalculation {
             capexCoeff = (float) 1 / 3;
             opexCoeff = (float) 1 / 3;
         } else if (weightScenario == WeightScenario.Direct) {
-            float sumOfCoeffs = weightCoeff.getMaxDamage() + weightCoeff.getMaxCAPEX() + weightCoeff.getMaxOPEX();
-            damageCoeff = weightCoeff.getMaxDamage() / sumOfCoeffs;
+            float sumOfCoeffs = weightCoeff.getMaxDamage() * 0.1f + weightCoeff.getMaxCAPEX() + weightCoeff.getMaxOPEX();
+            damageCoeff = 0.1f * weightCoeff.getMaxDamage() / sumOfCoeffs;
             capexCoeff = weightCoeff.getMaxCAPEX() / sumOfCoeffs;
             opexCoeff = weightCoeff.getMaxOPEX() / sumOfCoeffs;
         } else {
-            float sumOfCoeffs = 1 / weightCoeff.getMaxDamage() + 1 / weightCoeff.getMaxCAPEX() + 1 / weightCoeff.getMaxOPEX();
-            damageCoeff = (16f / weightCoeff.getMaxDamage()) / sumOfCoeffs;
-            capexCoeff = (0.25f / weightCoeff.getMaxCAPEX()) / sumOfCoeffs;
-            opexCoeff = (0.25f / weightCoeff.getMaxOPEX()) / sumOfCoeffs;
+            float sumOfCoeffs = 1 / weightCoeff.getMaxDamage() + 0.1f / weightCoeff.getMaxCAPEX() + 0.1f / weightCoeff.getMaxOPEX();
+            damageCoeff = (1 / weightCoeff.getMaxDamage()) / sumOfCoeffs;
+            capexCoeff = (0.1f / weightCoeff.getMaxCAPEX()) / sumOfCoeffs;
+            opexCoeff = (0.1f / weightCoeff.getMaxOPEX()) / sumOfCoeffs;
         }
 
         for (SubstationMeasures substationMeasure : substationMeasuresList) {
@@ -72,7 +72,7 @@ public class ReliabilityCalculation {
                 }
                 if (idsCheck == 10) {
                     substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice() +
-                            CAPEXEquipment.D21 + CAPEXSalary.D21);
+                            CAPEXEquipment.D21Update + CAPEXSalary.D21);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
                             substationMeasuresPerYear.getCapexPrice());
                     idsCheck = 1;
@@ -96,7 +96,7 @@ public class ReliabilityCalculation {
                 }
                 if (firewallCheck == 10) {
                     substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
-                            + CAPEXEquipment.D20 + CAPEXSalary.D20);
+                            + CAPEXEquipment.D20Update + CAPEXSalary.D20);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
                             substationMeasuresPerYear.getCapexPrice());
                     firewallCheck = 1;
@@ -118,9 +118,9 @@ public class ReliabilityCalculation {
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
                             substationMeasuresPerYear.getCapexPrice());
                 }
-                if (antivirusCheck == 5) {
+                if (antivirusCheck == 2) {
                     substationMeasuresPerYear.setCapexPrice(substationMeasuresPerYear.getCapexPrice()
-                            + CAPEXEquipment.D19 + CAPEXSalary.D19);
+                            + CAPEXEquipment.D19Update + CAPEXSalary.D19);
                     substationMeasuresPerYear.setTotalPrice(substationMeasuresPerYear.getTotalPrice() +
                             substationMeasuresPerYear.getCapexPrice());
                     antivirusCheck = 1;

@@ -65,9 +65,9 @@ public class FailureTriggeringBus {
                 DD14 + failure.getA17() * A18 * DD9 * DD12 * DD13 * DD15 + failure.getA19() * A20 * DD9 * DD12 * DD13 *
                 DD14 * DD15;
 
-        float Pfull = (Psv + PotkIED + PotkPds + Pust + Potkkom + Psoft) / yearsToAttack;
+        float Pfull = (Psv + PotkIED + PotkPds + Pust + Potkkom + Psoft);
 
-        return (Pne * Pfull * Pkz + Pne * (1 - Pfull) * Pkz + (1 - Pne) * Pfull * PkzKa);
+        return (PneFailure * Pfull * Pkz_vnutr + PneFailure * (1 - Pfull) * Pkz_vnutr + (1 - PneFailure) * Pfull * PkzKa_vnutr);
     }
 
 }
