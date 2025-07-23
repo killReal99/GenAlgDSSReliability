@@ -71,6 +71,7 @@ public class MockUndersupplyCalculation {
         float undersupplyOverTrigger = 0f;
         float undersupplyFalsePositive = 0f;
         float undersupplyFailureTrigger = 0f;
+        float transformerFailure = 0f;
         for (SchemaStatus schemaStatus : schemaStatusList) {
             float overTriggeredBreaker = 1f;
             float falsePositivedBreaker = 1f;
@@ -87,11 +88,13 @@ public class MockUndersupplyCalculation {
                     }
                 }
             }
-            undersupplyOverTrigger += (float) -Math.log(1 - overTriggeredBreaker) * schemaStatus.getUndersupply() * qapv * Tvosst * 99 * 1000;
-            undersupplyFalsePositive += (float) -Math.log(1 - falsePositivedBreaker) * schemaStatus.getUndersupply() * Tvosst * 99 * 1000;
-            undersupplyFailureTrigger += (float) -Math.log(1 - failureTriggeredBreaker) * schemaStatus.getUndersupply() * Tvosst * 99 * 1000;
+            transformerFailure += (float) (-Math.log(1 - substationMeasuresPerYear.getIedList().get(28).getFailureTriggering()) / yearsToAttack * Pkz_vnutr * Crem +
+                                -Math.log(1 - substationMeasuresPerYear.getIedList().get(29).getFailureTriggering()) / yearsToAttack * Pkz_vnutr * Crem);
+            undersupplyOverTrigger += (float) (-Math.log(1 - overTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * qapv * Tvosst * 99 * 1000);
+            undersupplyFalsePositive += (float) (-Math.log(1 - falsePositivedBreaker) / yearsToAttack * schemaStatus.getUndersupply() * Tvosst * 99 * 1000);
+            undersupplyFailureTrigger += (float) (-Math.log(1 - failureTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * Tvosst * 99 * 1000);
         }
-        return undersupplyOverTrigger + undersupplyFalsePositive + undersupplyFailureTrigger;
+        return undersupplyOverTrigger + undersupplyFalsePositive + undersupplyFailureTrigger + transformerFailure;
     }
 
     public static HashMap<Breaker, Probability> probabilityCalculation(HashMap<Breaker, Probability> breakersMap,

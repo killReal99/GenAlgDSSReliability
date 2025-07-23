@@ -65,4 +65,6 @@ public class GeneralCoefficients {
 
     public static int attackedIED = 1;
     public static float Tvosst = 9.4f;
+
+    public static float Crem = 9000000f;
 }
