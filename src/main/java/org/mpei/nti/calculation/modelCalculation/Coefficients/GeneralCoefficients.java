@@ -60,11 +60,9 @@ public class GeneralCoefficients {
     public static double yearsToAttack = 25f;
 
     public static float PkzKa = (float) (1 - Math.exp(- 2.7 * 24 / (8760 * yearsToAttack)));
-    public static float PkzKa_vnutr = (float) (1 - Math.exp(- 2.7 * 24 / (8760 * yearsToAttack)));
+    public static float PkzKa_vnutr = (float) (1 - Math.exp(- 2.45 * 24 / (8760 * yearsToAttack)));
     public static float qapv = 0.05f;
 
     public static int attackedIED = 1;
-    public static float Tvosst = 9.4f;
-
-    public static float Crem = 9000000f;
+    public static float Crem = 10000000f;
 }

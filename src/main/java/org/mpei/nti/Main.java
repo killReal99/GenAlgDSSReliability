@@ -26,7 +26,7 @@ public class Main {
         boolean iedRosseti = false;
         int fstec = 0;
         int populationSize = 100;
-        int numberOfIterations = 5000;
+        int numberOfIterations = 100;
         List<SubstationMeasures> bestIndividuals = new ArrayList<>();
         WeightCoeff weightCoeff = new WeightCoeff();
 

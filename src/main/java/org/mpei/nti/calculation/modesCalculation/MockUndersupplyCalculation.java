@@ -88,11 +88,12 @@ public class MockUndersupplyCalculation {
                     }
                 }
             }
+            float recoveryTime = recoveryTimeCalculation(schemaStatus.getBreakers());
             transformerFailure += (float) (-Math.log(1 - substationMeasuresPerYear.getIedList().get(28).getFailureTriggering()) / yearsToAttack * Pkz_vnutr * Crem +
-                                -Math.log(1 - substationMeasuresPerYear.getIedList().get(29).getFailureTriggering()) / yearsToAttack * Pkz_vnutr * Crem);
-            undersupplyOverTrigger += (float) (-Math.log(1 - overTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * qapv * Tvosst * 99 * 1000);
-            undersupplyFalsePositive += (float) (-Math.log(1 - falsePositivedBreaker) / yearsToAttack * schemaStatus.getUndersupply() * Tvosst * 99 * 1000);
-            undersupplyFailureTrigger += (float) (-Math.log(1 - failureTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * Tvosst * 99 * 1000);
+                    -Math.log(1 - substationMeasuresPerYear.getIedList().get(29).getFailureTriggering()) / yearsToAttack * Pkz_vnutr * Crem);
+            undersupplyOverTrigger += (float) (2f * (-Math.log(1 - overTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * qapv * recoveryTime * 99 * 1000));
+            undersupplyFalsePositive += (float) (2f * (-Math.log(1 - falsePositivedBreaker) / yearsToAttack * schemaStatus.getUndersupply() * recoveryTime * 99 * 1000));
+            undersupplyFailureTrigger += (float) (2f * (-Math.log(1 - failureTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * recoveryTime * 99 * 1000));
         }
         return undersupplyOverTrigger + undersupplyFalsePositive + undersupplyFailureTrigger + transformerFailure;
     }
@@ -449,5 +450,80 @@ public class MockUndersupplyCalculation {
                 break;
             }
         }
+    }
+
+    public static float recoveryTimeCalculation(List<Breaker> breakers) {
+        float recoveryTime = 0f;
+        if (breakers.get(0).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(1).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(2).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(3).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(9).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(10).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(12).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(13).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(16).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(17).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(18).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(19).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(20).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(21).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(22).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+        if (breakers.get(23).getPosition() == 0) {
+            recoveryTime += 9.4f;
+        }
+
+        if (breakers.get(4).getPosition() == 0 && breakers.get(7).getPosition() == 0 && breakers.get(14).getPosition() == 0){
+            recoveryTime += 70f;
+        }
+        if (breakers.get(5).getPosition() == 0 && breakers.get(8).getPosition() == 0 && breakers.get(15).getPosition() == 0){
+            recoveryTime += 70f;
+        }
+
+        if (breakers.get(4).getPosition() == 0 && breakers.get(6).getPosition() == 0){
+            recoveryTime += 18.8f;
+        }
+        if (breakers.get(5).getPosition() == 0 && breakers.get(6).getPosition() == 0){
+            recoveryTime += 18.8f;
+        }
+
+        if (breakers.get(7).getPosition() == 0 && breakers.get(11).getPosition() == 0){
+            recoveryTime += 18.8f;
+        }
+        if (breakers.get(8).getPosition() == 0 && breakers.get(11).getPosition() == 0){
+            recoveryTime += 18.8f;
+        }
+
+        return recoveryTime;
     }
 }

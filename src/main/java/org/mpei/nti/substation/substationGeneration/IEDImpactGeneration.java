@@ -76,8 +76,8 @@ public class IEDImpactGeneration {
                 iedImpact.setBreaker(breakerIterator.getKey());
             }
             else if (Objects.equals(breakerIterator.getKey().getBreakerName(), "Q9")) {
-                iedList.add("T1_1");
-                iedList.add("B4_1");
+                iedList.add("T2_1");
+                iedList.add("B3_1");
                 iedImpact.setIedList(iedList);
                 iedImpact.setBreaker(breakerIterator.getKey());
             }
