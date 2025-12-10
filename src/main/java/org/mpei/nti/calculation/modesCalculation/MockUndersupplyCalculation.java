@@ -91,9 +91,9 @@ public class MockUndersupplyCalculation {
             float recoveryTime = recoveryTimeCalculation(schemaStatus.getBreakers());
             transformerFailure += (float) (-Math.log(1 - substationMeasuresPerYear.getIedList().get(28).getFailureTriggering()) / yearsToAttack * Pkz_vnutr * Crem +
                     -Math.log(1 - substationMeasuresPerYear.getIedList().get(29).getFailureTriggering()) / yearsToAttack * Pkz_vnutr * Crem);
-            undersupplyOverTrigger += (float) (2f * (-Math.log(1 - overTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * qapv * recoveryTime * 99 * 1000));
-            undersupplyFalsePositive += (float) (2f * (-Math.log(1 - falsePositivedBreaker) / yearsToAttack * schemaStatus.getUndersupply() * recoveryTime * 99 * 1000));
-            undersupplyFailureTrigger += (float) (2f * (-Math.log(1 - failureTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * recoveryTime * 99 * 1000));
+            undersupplyOverTrigger += (float) (4f * (-Math.log(1 - overTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * qapv * recoveryTime * 99 * 1000));
+            undersupplyFalsePositive += (float) (4f * (-Math.log(1 - falsePositivedBreaker) / yearsToAttack * schemaStatus.getUndersupply() * recoveryTime * 99 * 1000));
+            undersupplyFailureTrigger += (float) (4f * (-Math.log(1 - failureTriggeredBreaker) / yearsToAttack * schemaStatus.getUndersupply() * recoveryTime * 99 * 1000));
         }
         return undersupplyOverTrigger + undersupplyFalsePositive + undersupplyFailureTrigger + transformerFailure;
     }

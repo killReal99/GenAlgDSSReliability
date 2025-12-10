@@ -53,17 +53,11 @@ public class CostsCalculation {
         }
         float improsedMeasuresPrice = substationMeasuresPerYear.getImprosedMeasures().getD3() * CAPEXSalary.D3 +
                 substationMeasuresPerYear.getImprosedMeasures().getD7() * CAPEXSalary.D7 +
-                substationMeasuresPerYear.getImprosedMeasures().getD11() * CAPEXSalary.D11 +
                 substationMeasuresPerYear.getImprosedMeasures().getD19() * CAPEXSalary.D19 +
                 substationMeasuresPerYear.getImprosedMeasures().getD20() * CAPEXSalary.D20 +
                 substationMeasuresPerYear.getImprosedMeasures().getD21() * CAPEXSalary.D21 +
                 substationMeasuresPerYear.getImprosedMeasures().getD24() * CAPEXSalary.D24;
-        float organizationalMeasuresPrice = substationMeasuresPerYear.getOrganizationalMeasures().getD6() * CAPEXSalary.D6 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD10() * CAPEXSalary.D10 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD12() * CAPEXSalary.D12 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD16() * CAPEXSalary.D16 +
-                substationMeasuresPerYear.getOrganizationalMeasures().getD22() * CAPEXSalary.D22;
-        return capexSalary + embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice;
+        return capexSalary + embeddedMeasuresPrice + improsedMeasuresPrice;
     }
 
     public static Float opex(SubstationMeasuresPerYear substationMeasuresPerYear) {
@@ -95,6 +89,26 @@ public class CostsCalculation {
                 substationMeasuresPerYear.getOrganizationalMeasures().getD12() * OPEX.D12 +
                 substationMeasuresPerYear.getOrganizationalMeasures().getD16() * OPEX.D16 +
                 substationMeasuresPerYear.getOrganizationalMeasures().getD22() * OPEX.D22;
-        return opexBased + embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice;
+
+        float embeddedAmortization = 0f;
+        for (IED ied : substationMeasuresPerYear.getIedList()) {
+            embeddedAmortization += (ied.getD2() * CAPEXEquipment.D2 / 25f + ied.getD4() * CAPEXEquipment.D4 / 25f +
+                    ied.getD5() * CAPEXEquipment.D5 / 25f + ied.getD8() * CAPEXEquipment.D8 / 25f + ied.getD9() *
+                    CAPEXEquipment.D9 / 25f + ied.getD13() * CAPEXEquipment.D13 / 25f + ied.getD14() *
+                    CAPEXEquipment.D14 / 25f + ied.getD15() * CAPEXEquipment.D15 / 25f + ied.getD17() *
+                    CAPEXEquipment.D17 / 25f + ied.getD18() * CAPEXEquipment.D18 / 25f + ied.getD23() *
+                    CAPEXEquipment.D23 / 25f);
+        }
+        float improsedMeasuresAmortization = substationMeasuresPerYear.getImprosedMeasures().getD3() * CAPEXEquipment.D3 / 25f +
+                substationMeasuresPerYear.getImprosedMeasures().getD7() * CAPEXEquipment.D7 / 25f +
+                substationMeasuresPerYear.getImprosedMeasures().getD19() * CAPEXEquipment.D19 / 25f +
+                substationMeasuresPerYear.getImprosedMeasures().getD20() * CAPEXEquipment.D20 / 25f +
+                substationMeasuresPerYear.getImprosedMeasures().getD21() * CAPEXEquipment.D21 / 25f +
+                substationMeasuresPerYear.getImprosedMeasures().getD24() * CAPEXEquipment.D24 / 25f;
+
+        float amortization = embeddedAmortization + improsedMeasuresAmortization;
+
+
+        return opexBased + embeddedMeasuresPrice + improsedMeasuresPrice + organizationalMeasuresPrice + amortization;
     }
 }
