@@ -12,7 +12,7 @@ public class Mutating {
                                         boolean lanRosseti, boolean iedRosseti, int fstec) {
         for (SubstationMeasures substationMeasures : population) {
             if (Math.random() < mutationProbability) {
-                int randomYear = (int) (Math.random() * (25 - 1) + 1);
+                int randomYear = (int) (Math.random() * (25 - 1) + 1.1);
                 double mutationAlgorithm = Math.random();
                 if (mutationAlgorithm < 0.9) {
                     onePointMutation(substationMeasures, randomYear, minArch, maxArch, lanRosseti, iedRosseti, fstec);

@@ -5,7 +5,6 @@ import org.mpei.nti.substation.substationGeneration.SubstationMeasuresGenearatio
 import org.mpei.nti.substation.substationGeneration.SubstationMeasuresPerYearGeneration;
 import org.mpei.nti.substation.substationStructures.*;
 import org.mpei.nti.substation.substationStructures.Enums.EquipmentType;
-import org.mpei.nti.utils.WeightCoeff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,8 @@ import java.util.UUID;
 
 public class BoundaryIndividualsAdding {
 
-    public static void addBoundaryAdding(List<SubstationMeasures> population, int minArch, int maxArch,
-                                         boolean lanRosseti, boolean iedRosseti, int fstec) {
+    public static void addBoundary(List<SubstationMeasures> population, int minArch, int maxArch, boolean lanRosseti,
+                                   boolean iedRosseti, int fstec) {
         int archQuantity = maxArch - minArch + 1;
         for (int i = 0; i < archQuantity; i++) {
             for (int j = 0; j < 2; j++) {

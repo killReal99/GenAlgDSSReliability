@@ -13,9 +13,7 @@ public class ReadSchemStatus {
     public static List<SchemaStatus> readSchem() throws IOException {
         File file = new File("src/main/resources/schemaStatus.json");
         ObjectMapper objectMapper = new ObjectMapper();
-        List<SchemaStatus> schemaStatus = objectMapper.readValue(file, new TypeReference<List<SchemaStatus>>() {
-        });
-        return schemaStatus;
+        return objectMapper.readValue(file, new TypeReference<List<SchemaStatus>>() {});
     }
 
 }

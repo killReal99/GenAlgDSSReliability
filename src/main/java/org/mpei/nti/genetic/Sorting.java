@@ -59,7 +59,7 @@ public class Sorting {
                 }
             } else if (singleCriteria == SingleCriteria.TARGET_PROGRAMMING) {
                 float economicDamage = population.get(j).getDamage();
-                if ((economicDamage < pivot) || ((economicDamage == pivot) && ((population.get(j).getOpexPrice() +
+                if ((economicDamage < pivot) || ((economicDamage == pivot) && ((population.get(j).getCapexPrice() +
                         population.get(j).getOpexPrice()) < economic))) {
                     i++;
                     temp = population.get(i);
